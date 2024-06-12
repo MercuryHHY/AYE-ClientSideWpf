@@ -19,8 +19,21 @@
     <DefineConstants>TRACE;Core</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\login.png" />
+    <None Remove="Images\user.jpg" />
+    <None Remove="Images\wind.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="HandyControls" Version="3.5.3" />
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AYE-Server\AYE-Server.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\login.png" />
+    <Resource Include="Images\user.jpg" />
+    <Resource Include="Images\wind.png" />
   </ItemGroup>
 </Project>
