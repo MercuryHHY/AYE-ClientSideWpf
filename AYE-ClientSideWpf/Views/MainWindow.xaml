@@ -7,7 +7,7 @@
            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-           xmlns:prism="http://prismlibrary.com/"
+           xmlns:prism="http://prismlibrary.com/" 
            Title="{Binding Title}"
            Width="800"
            Height="450"
@@ -176,7 +176,6 @@
                     <materialDesign:Snackbar x:Name="Snackbar" Panel.ZIndex="1" MessageQueue="{materialDesign:MessageQueue}" />
                     <materialDesign:ColorZone x:Name="ColorZone"
                                               Padding="16"
-                                             
                                               DockPanel.Dock="Top"
                                               Mode="PrimaryMid">
                         <DockPanel LastChildFill="True">

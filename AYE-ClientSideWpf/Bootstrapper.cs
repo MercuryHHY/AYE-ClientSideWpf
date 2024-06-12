@@ -1,4 +1,6 @@
-﻿using AYE_ClientSideWpf.Views;
+﻿using AYE_ClientSideWpf.ViewModels;
+using AYE_ClientSideWpf.Views;
+using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -22,7 +24,8 @@ namespace AYE_ClientSideWpf
         {
             //在这里 添加依赖注入 添加其他 用户控件
             //containerRegistry.RegisterForNavigation<UserControlDemoA>();
-            //containerRegistry.RegisterForNavigation<FloatingBlockDemoCtl1>();
+
+            containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

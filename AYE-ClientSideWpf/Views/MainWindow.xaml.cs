@@ -53,6 +53,12 @@ namespace AYE_ClientSideWpf.Views
             };
 
             this.dialogHostService = dialogHostService;
+
+
+            var service = App.Current.MainWindow.DataContext as IConfigureService;
+            if (service != null)
+                service.Configure();
+
         }
 
         #region Change Theme
