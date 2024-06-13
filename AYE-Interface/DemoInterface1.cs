@@ -7,7 +7,7 @@ using static AYE_BaseShare._1_CodeFirst;
 
 namespace AYE_Interface
 {
-    public interface DemoInterface1
+    public interface IDemoInterface1
     {
         //测试接口 以及 依赖注入逻辑
         Task<UserInfo001> Test();

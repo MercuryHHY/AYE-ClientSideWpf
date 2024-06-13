@@ -6,6 +6,7 @@ using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
+using AYE_Interface;
 
 namespace AYE_ClientSideWpf.ViewModels
 {
@@ -27,8 +28,9 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
         public DelegateCommand LoginOutCommand { get; private set; }
+        //public IDemoInterface1 _demoInterface1;
 
-        public  MainWindowViewModel(IContainerProvider containerProvider,
+        public MainWindowViewModel(IContainerProvider containerProvider,
             IRegionManager regionManager)
         {
             MenuBars = new ObservableCollection<MenuBar>();
@@ -51,9 +53,6 @@ namespace AYE_ClientSideWpf.ViewModels
             });
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
-
-
-
             
         }
 
@@ -96,11 +95,12 @@ namespace AYE_ClientSideWpf.ViewModels
         /// <summary>
         /// 配置首页初始化参数
         /// </summary>
-        public void Configure()
+        public  void Configure()
         {
             //这行代码似乎没有起作用
             //UserName = AppSession.UserName;
-
+            //var v1 = await _demoInterface1.Test();
+            //UserName=v1.UserName;
             CreateMenuBar();
 
             //暂时注释

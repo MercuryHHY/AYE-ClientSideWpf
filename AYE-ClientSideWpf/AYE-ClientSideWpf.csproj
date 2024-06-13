@@ -30,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AYE-BaseShare\AYE-BaseShare.csproj" />
+    <ProjectReference Include="..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
     <ProjectReference Include="..\AYE-Server\AYE-Server.csproj" />
   </ItemGroup>
   <ItemGroup>

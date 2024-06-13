@@ -9,7 +9,7 @@ using static AYE_BaseShare._1_CodeFirst;
 
 namespace AYE_Server
 {
-    public class DemoService : DemoInterface1
+    public class DemoService : IDemoInterface1
     {
         private readonly IRepository<UserInfo001> _repository;
 
@@ -18,9 +18,10 @@ namespace AYE_Server
             _repository = repository;
         }
 
-        public Task<UserInfo001> Test()
+        public async Task<UserInfo001> Test()
         {
-           return _repository.GetFirstAsync(it => it.UserName == "admin");
+            var v1= await _repository.GetFirstAsync(it => it.UserName == "admin");
+            return v1;
         }
     }
 }
