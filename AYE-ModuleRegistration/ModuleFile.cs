@@ -19,7 +19,7 @@ namespace AYE_ModuleRegistration
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterScoped<IDemoInterface1, DemoService>();
+            //containerRegistry.RegisterScoped<IDemoInterface1, DemoService>();
         }
     }
 }

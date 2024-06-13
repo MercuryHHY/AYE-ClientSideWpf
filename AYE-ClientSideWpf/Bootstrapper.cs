@@ -1,6 +1,9 @@
 ﻿using AYE_BaseShare;
+using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
+using AYE_Interface;
+using AYE_Server;
 using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -27,13 +30,15 @@ namespace AYE_ClientSideWpf
             //containerRegistry.RegisterForNavigation<UserControlDemoA>();
 
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
+            containerRegistry.RegisterScoped<IDemoInterface12, DemoService1>();
+
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             // 这里是添加其他 类库的模块注册类中 注册行为
             //moduleCatalog.AddModule<ModuleAProfile>();
-            moduleCatalog.AddModule<ModuleFile>();
+            //moduleCatalog.AddModule<ModuleFile>();
             base.ConfigureModuleCatalog(moduleCatalog);
         }
 
