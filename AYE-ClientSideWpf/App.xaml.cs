@@ -1,4 +1,5 @@
-﻿using HandyControl.Themes;
+﻿using AYE_BaseShare;
+using HandyControl.Themes;
 using System.Windows;
 using System.Windows.Media;
 
@@ -8,6 +9,10 @@ namespace AYE_ClientSideWpf
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            //启动之前 DB连接等初始化操作
+            _1_CodeFirst.Init();
+
+
             base.OnStartup(e);
             var boot = new Bootstrapper();
             boot.Run();

@@ -29,6 +29,7 @@
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AYE-BaseShare\AYE-BaseShare.csproj" />
     <ProjectReference Include="..\AYE-Server\AYE-Server.csproj" />
   </ItemGroup>
   <ItemGroup>
