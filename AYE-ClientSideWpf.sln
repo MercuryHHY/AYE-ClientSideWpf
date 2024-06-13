@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Server", "AYE-Server\AY
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Job", "AYE-Job\AYE-Job.csproj", "{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-BaseShare", "AYE-BaseShare\AYE-BaseShare.csproj", "{D5E5C28A-3F70-466C-9ED6-644D9C37088B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-BaseShare", "AYE-BaseShare\AYE-BaseShare.csproj", "{D5E5C28A-3F70-466C-9ED6-644D9C37088B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoModuleA", "DemoModuleA", "{5617BE72-D22C-48C1-AE8E-15158AEF6A1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-ModuleRegistration", "AYE-ModuleRegistration\AYE-ModuleRegistration.csproj", "{1C447106-BF46-4F13-81B1-25CC467B9A8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

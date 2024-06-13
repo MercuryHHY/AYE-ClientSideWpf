@@ -22,11 +22,15 @@ public interface IEntity
 
 
 
-public interface IRepository<TEntity> : ISimpleClient<TEntity> where TEntity : class, IEntity, new()
+//public interface IRepository<TEntity> : ISimpleClient<TEntity> where TEntity : class, IEntity, new()
+//{
+
+//}
+
+public interface IRepository<TEntity> : ISimpleClient<TEntity> where TEntity : class, new()
 {
 
 }
-
 
 
 

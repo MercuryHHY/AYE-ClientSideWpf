@@ -54,7 +54,7 @@ namespace AYE_BaseShare
 
             //Delete
             //删除
-            db.Deleteable(userInfo).ExecuteCommand();
+            //db.Deleteable(userInfo).ExecuteCommand();
         }
 
         /// <summary>
