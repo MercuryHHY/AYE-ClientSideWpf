@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>AYE_Job</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>AYE_BaseShare</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AYE-Interface\AYE-Interface.csproj" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.158" />
   </ItemGroup>
 
 </Project>

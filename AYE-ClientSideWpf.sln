@@ -5,15 +5,19 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-ClientSideWpf", "AYE-ClientSideWpf\AYE-ClientSideWpf.csproj", "{211ED350-32F7-43D6-8951-22FE99FD0EE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-Commom", "AYE-Commom\AYE-Commom.csproj", "{2BA551CA-8643-43B2-B1A3-F0F81B36FEA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Commom", "AYE-Commom\AYE-Commom.csproj", "{2BA551CA-8643-43B2-B1A3-F0F81B36FEA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-Interface", "AYE-Interface\AYE-Interface.csproj", "{2F45ACD9-71F9-422F-AC79-3B5D51D04D8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Interface", "AYE-Interface\AYE-Interface.csproj", "{2F45ACD9-71F9-422F-AC79-3B5D51D04D8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-Entity", "AYE-Entity\AYE-Entity.csproj", "{90BAFA10-A998-437D-B30F-439037C51DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Entity", "AYE-Entity\AYE-Entity.csproj", "{90BAFA10-A998-437D-B30F-439037C51DAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-Server", "AYE-Server\AYE-Server.csproj", "{6947C76B-4755-4345-91EE-52F1D6AEB4F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Server", "AYE-Server\AYE-Server.csproj", "{6947C76B-4755-4345-91EE-52F1D6AEB4F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-Job", "AYE-Job\AYE-Job.csproj", "{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Job", "AYE-Job\AYE-Job.csproj", "{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-BaseShare", "AYE-BaseShare\AYE-BaseShare.csproj", "{D5E5C28A-3F70-466C-9ED6-644D9C37088B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoModuleA", "DemoModuleA", "{5617BE72-D22C-48C1-AE8E-15158AEF6A1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
