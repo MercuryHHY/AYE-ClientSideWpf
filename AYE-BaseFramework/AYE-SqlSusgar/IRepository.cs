@@ -37,16 +37,14 @@ public interface IRepository<T> : ISimpleClient<T> where T : class, new()
 /// <typeparam name="T"></typeparam>
 public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
 {
-    private readonly ISqlSugarClient _sqlSugarClient;
-    public Repository(ISqlSugarClient context) : base(context)//注意这里要有默认值等于null
+
+    // 在SimpleClient 内部 IOC找到并注入了，所以这里不用再重复 注入实例
+    //private readonly ISqlSugarClient _sqlSugarClient;
+    public Repository(ISqlSugarClient context) : base(context)//注意这里要有默认值  不能等于null
     {
-        _sqlSugarClient = context;
+        //_sqlSugarClient = context;
     }
 
-    //public Repository(ISqlSugarClient context) 
-    //{
-    //    _sqlSugarClient = context;
-    //}
 
 
     public ISqlSugarClient _Db { get { return base.Context; } set { } }

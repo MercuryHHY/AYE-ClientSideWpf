@@ -11,7 +11,6 @@ using Prism.Ioc;
 using Prism.Modularity;
 using SqlSugar;
 using System.Windows;
-using static AYE_BaseShare._1_CodeFirst;
 
 namespace AYE_ClientSideWpf
 {
@@ -40,7 +39,6 @@ namespace AYE_ClientSideWpf
             var connectionString = configurationService.Configuration.GetConnectionString("DefaultConnection");
 
             // 注册 SqlSugar 服务
-            //containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
             containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new  ConnectionConfig()
             {
                 ConnectionString = connectionString,
@@ -49,10 +47,9 @@ namespace AYE_ClientSideWpf
                 InitKeyType = InitKeyType.Attribute
             }));
 
-
-
-            //containerRegistry.RegisterSingleton(typeof(ISimpleClient<>), typeof(SimpleClient<>));
-            containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
+            //注册仓储  （确定要用单例吗，最好是瞬态）没关系 VM层在注册的时候也是瞬态的，所以这里也可以用瞬态
+            //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
+            containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             
 

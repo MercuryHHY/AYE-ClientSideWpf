@@ -37,17 +37,15 @@ namespace AYE_ClientSideWpf.ViewModels
         public DelegateCommand LoginOutCommand { get; private set; }
 
 
-
-
-        //private readonly ISqlSugarService _sqlSugarService;
         private readonly IConfigurationService _configurationService;
-        //private readonly IRepository<UserInfo001> _repository;
+        private readonly IRepository<UserInfo001> _repository;
         private readonly ISqlSugarClient _sqlSugarClient;
 
         public MainWindowViewModel(IContainerProvider containerProvider,
             IRegionManager regionManager,
             IConfigurationService configurationService,
-            ISqlSugarClient sqlSugarClient)
+            ISqlSugarClient sqlSugarClient,
+            IRepository<UserInfo001> repository)
         {
             MenuBars = new ObservableCollection<MenuBar>();
             //CreateMenuBar();//放在这里也可以
@@ -72,6 +70,7 @@ namespace AYE_ClientSideWpf.ViewModels
             //_sqlSugarService = sqlSugarService;
             _configurationService = configurationService;
             _sqlSugarClient = sqlSugarClient;
+            _repository = repository;
         }
 
         private void Navigate(MenuBar obj)
@@ -137,9 +136,11 @@ namespace AYE_ClientSideWpf.ViewModels
 
             //var v2= db.GetSimpleClient<UserInfo001>().GetFirst(x => x.UserName == "admin");
 
-            //var v3= _repository.GetFirst(x => x.UserName == "admin");
+            var v3= _repository.GetFirst(x => x.UserName == "admin");
 
             var v4= _sqlSugarClient.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
+
+            var v5= _repository._Db.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
 
         }
 

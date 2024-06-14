@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace AYE_BaseShare;
 
+/// <summary>
+/// 此文件作废，仅供参考
+/// </summary>
+
 
 public interface ISqlSugarService
 {
