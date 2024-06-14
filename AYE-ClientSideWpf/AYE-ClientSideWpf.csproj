@@ -26,9 +26,11 @@
   <ItemGroup>
     <PackageReference Include="HandyControls" Version="3.5.3" />
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AYE-BaseFramework\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
     <ProjectReference Include="..\AYE-BaseShare\AYE-BaseShare.csproj" />
     <ProjectReference Include="..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
     <ProjectReference Include="..\AYE-Server\AYE-Service.csproj" />
@@ -37,5 +39,10 @@
     <Resource Include="Images\login.png" />
     <Resource Include="Images\user.jpg" />
     <Resource Include="Images\wind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

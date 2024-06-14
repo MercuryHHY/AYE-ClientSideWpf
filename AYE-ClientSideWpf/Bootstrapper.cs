@@ -1,8 +1,10 @@
-﻿using AYE_BaseShare;
+﻿using AYE.BaseFramework.SqlSusgarCore;
+using AYE_BaseShare;
 using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
 using AYE_ModuleRegistration;
+using Microsoft.Extensions.Configuration;
 using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -29,14 +31,30 @@ namespace AYE_ClientSideWpf
             //在这里 添加依赖注入 添加其他 用户控件
             //containerRegistry.RegisterForNavigation<UserControlDemoA>();
 
-            var connectionString= "server=127.0.0.1;Database=aye-hhy;Uid=root;Pwd=root;sslMode=None";
+
+            // 注册配置服务
+            containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();
+
+            // 读取连接字符串
+            var configurationService = new ConfigurationService();
+            var connectionString = configurationService.Configuration.GetConnectionString("DefaultConnection");
 
             // 注册 SqlSugar 服务
-            containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
-            containerRegistry.RegisterSingleton(typeof(ISimpleClient<>), typeof(SimpleClient<>));
+            //containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
+            containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new  ConnectionConfig()
+            {
+                ConnectionString = connectionString,
+                DbType = DbType.MySql,
+                IsAutoCloseConnection = true,
+                InitKeyType = InitKeyType.Attribute
+            }));
+
+
+
+            //containerRegistry.RegisterSingleton(typeof(ISimpleClient<>), typeof(SimpleClient<>));
+            containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             
-            //containerRegistry.RegisterScoped<IDemoInterface12, DemoService1>();
 
 
         }

@@ -10,7 +10,7 @@ namespace AYE_BaseShare;
 
 public interface ISqlSugarService
 {
-    //ISqlSugarClient sqlSugarClient { get; set; }
+    
 
     //ISqlSugarClient GetSqlSugarClient();
     SqlSugarClient GetClient();
@@ -25,7 +25,12 @@ public interface ISqlSugarService
 public class SqlSugarService : ISqlSugarService
 {
     private readonly string _connectionString;
-    //public ISqlSugarClient sqlSugarClient { get; set; }
+    public ISqlSugarClient sqlSugarClient;
+
+    public SqlSugarService(ISqlSugarClient sqlSugarClient)
+    {
+        this.sqlSugarClient = sqlSugarClient;
+    }
 
     public SqlSugarService(string connectionString)
     {
@@ -45,8 +50,5 @@ public class SqlSugarService : ISqlSugarService
         });
     }
 
-    //public Task<ISqlSugarClient> GetSimpleClient()
-    //{
-    //    GetSimpleClient
-    //}
+    
 }
