@@ -1,5 +1,4 @@
-﻿using AYE_Service;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;

@@ -3,7 +3,6 @@ using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
 using AYE_ModuleRegistration;
-using AYE_Service;
 using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;

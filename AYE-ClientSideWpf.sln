@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoModuleA", "DemoModuleA"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-ModuleRegistration", "AYE-ModuleRegistration\AYE-ModuleRegistration.csproj", "{1C447106-BF46-4F13-81B1-25CC467B9A8A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoModuleB", "DemoModuleB", "{5CCE13D1-9348-4D9B-85ED-36C07002E28B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoModuleA", "DemoModuleA\DemoModuleA\DemoModuleA.csproj", "{76FC1D03-F364-457B-B7EB-A6216841F6B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,9 +63,16 @@ Global
 		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76FC1D03-F364-457B-B7EB-A6216841F6B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FC1D03-F364-457B-B7EB-A6216841F6B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FC1D03-F364-457B-B7EB-A6216841F6B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FC1D03-F364-457B-B7EB-A6216841F6B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76FC1D03-F364-457B-B7EB-A6216841F6B6} = {5617BE72-D22C-48C1-AE8E-15158AEF6A1B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29E6135D-FB8F-45DE-A314-0F4DBF479643}
