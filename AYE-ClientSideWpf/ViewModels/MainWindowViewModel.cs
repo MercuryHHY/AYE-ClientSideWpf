@@ -34,7 +34,6 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
         public DelegateCommand LoginOutCommand { get; private set; }
-        //public IDemoInterface12 _demoInterface1;
         //private readonly ISimpleClient<UserInfo001> _repository;
         private readonly ISqlSugarService _sqlSugarService;
 
@@ -64,8 +63,7 @@ namespace AYE_ClientSideWpf.ViewModels
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
             _sqlSugarService = sqlSugarService;
-            //_repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            //_demoInterface1 = demoInterface1;
+            
         }
 
         private void Navigate(MenuBar obj)
@@ -109,9 +107,7 @@ namespace AYE_ClientSideWpf.ViewModels
         /// </summary>
         public  void Configure()
         {
-            //var v1 = _repository.GetFirst(it => it.UserName == "admin");
-            //UserName = v1.UserName;
-
+           
             ConfigureSqlSugar();
 
             CreateMenuBar();

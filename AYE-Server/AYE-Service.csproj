@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>AYE_Server</RootNamespace>
+    <RootNamespace>AYE_Service</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
