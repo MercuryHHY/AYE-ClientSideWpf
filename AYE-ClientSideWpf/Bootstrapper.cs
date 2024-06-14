@@ -2,7 +2,8 @@
 using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
-
+using AYE_ModuleRegistration;
+using AYE_Service;
 using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -19,12 +20,11 @@ namespace AYE_ClientSideWpf
     /// </summary>
     public class Bootstrapper : PrismBootstrapper
     {
-        protected override DependencyObject CreateShell()
-        {
-            // 通过容器去 拿到这个 启动类
-            return Container.Resolve<MainWindow>();
-        }
-
+       
+        /// <summary>
+        /// 1,先执行注册
+        /// </summary>
+        /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //在这里 添加依赖注入 添加其他 用户控件
@@ -34,21 +34,35 @@ namespace AYE_ClientSideWpf
 
             // 注册 SqlSugar 服务
             containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
-
-
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             containerRegistry.RegisterSingleton(typeof(ISimpleClient<>), typeof(SimpleClient<>));
-            containerRegistry.RegisterScoped<IDemoInterface12, DemoService1>();
+            //containerRegistry.RegisterScoped<IDemoInterface12, DemoService1>();
 
 
         }
 
+
+        /// <summary>
+        /// 2，预加载模块,但是模块中的注册没有执行
+        /// </summary>
+        /// <param name="moduleCatalog"></param>
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             // 这里是添加其他 类库的模块注册类中 注册行为
             //moduleCatalog.AddModule<ModuleAProfile>();
-            //moduleCatalog.AddModule<ModuleFile>();
+            moduleCatalog.AddModule<ModuleFile>();
             base.ConfigureModuleCatalog(moduleCatalog);
+        }
+
+
+        /// <summary>
+        /// 3，创建启动类
+        /// </summary>
+        /// <returns></returns>
+        protected override DependencyObject CreateShell()
+        {
+            // 通过容器去 拿到这个 启动类
+            return Container.Resolve<MainWindow>();
         }
 
     }

@@ -13,6 +13,7 @@ using static AYE_BaseShare._1_CodeFirst;
 using SqlSugar;
 using System;
 using System.Linq.Expressions;
+using AYE_Service;
 
 namespace AYE_ClientSideWpf.ViewModels
 {

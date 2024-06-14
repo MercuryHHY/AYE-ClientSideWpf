@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYE_ClientSideWpf.Service
+namespace AYE_Service
 {
 
     public interface ISqlSugarService
