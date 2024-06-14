@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AYE_Server;
-using AYE_Interface;
+
 
 namespace AYE_ModuleRegistration
 {

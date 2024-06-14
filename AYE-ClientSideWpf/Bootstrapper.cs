@@ -2,13 +2,14 @@
 using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
-using AYE_Interface;
-using AYE_Server;
+
 using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
+using SqlSugar;
 using System.Windows;
+using static AYE_BaseShare._1_CodeFirst;
 
 namespace AYE_ClientSideWpf
 {
@@ -29,8 +30,16 @@ namespace AYE_ClientSideWpf
             //在这里 添加依赖注入 添加其他 用户控件
             //containerRegistry.RegisterForNavigation<UserControlDemoA>();
 
+            var connectionString= "server=127.0.0.1;Database=aye-hhy;Uid=root;Pwd=root;sslMode=None";
+
+            // 注册 SqlSugar 服务
+            containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
+
+
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
+            containerRegistry.RegisterSingleton(typeof(ISimpleClient<>), typeof(SimpleClient<>));
             containerRegistry.RegisterScoped<IDemoInterface12, DemoService1>();
+
 
         }
 

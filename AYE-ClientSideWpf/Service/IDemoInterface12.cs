@@ -10,6 +10,6 @@ namespace AYE_ClientSideWpf.Service
     public interface IDemoInterface12
     {
         //测试接口 以及 依赖注入逻辑
-        Task<UserInfo001> Test();
+        UserInfo001 Test();
     }
 }

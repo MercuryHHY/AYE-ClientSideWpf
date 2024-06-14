@@ -1,5 +1,4 @@
 ﻿using AYE_BaseShare;
-using AYE_Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +17,9 @@ namespace AYE_ClientSideWpf.Service
             _repository = repository;
         }
 
-        public async Task<UserInfo001> Test()
+        public UserInfo001 Test()
         {
-            var v1 = await _repository.GetFirstAsync(it => it.UserName == "admin");
+            var v1 =  _repository.GetFirst(it => it.UserName == "admin");
             return v1;
         }
     }

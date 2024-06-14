@@ -6,7 +6,13 @@ using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
-using AYE_Interface;
+
+using AYE_ClientSideWpf.Service;
+using AYE_BaseShare;
+using static AYE_BaseShare._1_CodeFirst;
+using SqlSugar;
+using System;
+using System.Linq.Expressions;
 
 namespace AYE_ClientSideWpf.ViewModels
 {
@@ -28,10 +34,14 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
         public DelegateCommand LoginOutCommand { get; private set; }
-        //public IDemoInterface1 _demoInterface1;
+        //public IDemoInterface12 _demoInterface1;
+        //private readonly ISimpleClient<UserInfo001> _repository;
+        private readonly ISqlSugarService _sqlSugarService;
+
 
         public MainWindowViewModel(IContainerProvider containerProvider,
-            IRegionManager regionManager)
+            IRegionManager regionManager,
+            ISqlSugarService sqlSugarService)
         {
             MenuBars = new ObservableCollection<MenuBar>();
             //CreateMenuBar();//放在这里也可以
@@ -53,7 +63,9 @@ namespace AYE_ClientSideWpf.ViewModels
             });
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
-            
+            _sqlSugarService = sqlSugarService;
+            //_repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            //_demoInterface1 = demoInterface1;
         }
 
         private void Navigate(MenuBar obj)
@@ -97,14 +109,27 @@ namespace AYE_ClientSideWpf.ViewModels
         /// </summary>
         public  void Configure()
         {
-            //这行代码似乎没有起作用
-            //UserName = AppSession.UserName;
-            //var v1 = await _demoInterface1.Test();
-            //UserName=v1.UserName;
+            //var v1 = _repository.GetFirst(it => it.UserName == "admin");
+            //UserName = v1.UserName;
+
+            ConfigureSqlSugar();
+
             CreateMenuBar();
 
             //暂时注释
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
+        }
+
+
+
+
+
+        private void ConfigureSqlSugar()
+        {
+            var db = _sqlSugarService.GetClient();
+            // 进行数据库操作
+            var result = db.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
+            // 其他配置和操作
         }
     }
 }
