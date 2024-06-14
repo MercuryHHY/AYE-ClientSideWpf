@@ -33,8 +33,9 @@ namespace AYE_ClientSideWpf
 
             // 注册 SqlSugar 服务
             containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
-            containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             containerRegistry.RegisterSingleton(typeof(ISimpleClient<>), typeof(SimpleClient<>));
+            containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
+            
             //containerRegistry.RegisterScoped<IDemoInterface12, DemoService1>();
 
 

@@ -36,11 +36,13 @@ namespace AYE_ClientSideWpf.ViewModels
         public DelegateCommand LoginOutCommand { get; private set; }
         //private readonly ISimpleClient<UserInfo001> _repository;
         private readonly ISqlSugarService _sqlSugarService;
+        private readonly ISimpleClient<UserInfo001> _simpleClient;
 
 
         public MainWindowViewModel(IContainerProvider containerProvider,
             IRegionManager regionManager,
-            ISqlSugarService sqlSugarService)
+            ISqlSugarService sqlSugarService,
+            ISimpleClient<UserInfo001> simpleClient)
         {
             MenuBars = new ObservableCollection<MenuBar>();
             //CreateMenuBar();//放在这里也可以
@@ -63,7 +65,7 @@ namespace AYE_ClientSideWpf.ViewModels
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
             _sqlSugarService = sqlSugarService;
-            
+            _simpleClient = simpleClient;
         }
 
         private void Navigate(MenuBar obj)
@@ -126,6 +128,9 @@ namespace AYE_ClientSideWpf.ViewModels
             // 进行数据库操作
             var result = db.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
             // 其他配置和操作
+
+            var v2= db.GetSimpleClient<UserInfo001>().GetFirst(x => x.UserName == "admin");
+
         }
     }
 }
