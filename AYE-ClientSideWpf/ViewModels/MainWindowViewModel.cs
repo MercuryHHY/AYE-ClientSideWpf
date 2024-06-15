@@ -8,8 +8,6 @@ using Prism.Regions;
 using System.Collections.ObjectModel;
 
 using AYE_ClientSideWpf.Service;
-using AYE_BaseShare;
-using static AYE_BaseShare._1_CodeFirst;
 using SqlSugar;
 using System;
 using System.Linq.Expressions;
@@ -38,17 +36,12 @@ namespace AYE_ClientSideWpf.ViewModels
 
 
         private readonly IConfigurationService _configurationService;
-        private readonly IRepository<UserInfo001> _repository;
-        private readonly ISqlSugarClient _sqlSugarClient;
 
         public MainWindowViewModel(IContainerProvider containerProvider,
             IRegionManager regionManager,
-            IConfigurationService configurationService,
-            ISqlSugarClient sqlSugarClient,
-            IRepository<UserInfo001> repository)
+            IConfigurationService configurationService)
         {
             MenuBars = new ObservableCollection<MenuBar>();
-            //CreateMenuBar();//放在这里也可以
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             GoBackCommand = new DelegateCommand(() =>
             {
@@ -67,10 +60,7 @@ namespace AYE_ClientSideWpf.ViewModels
             });
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
-            //_sqlSugarService = sqlSugarService;
             _configurationService = configurationService;
-            _sqlSugarClient = sqlSugarClient;
-            _repository = repository;
         }
 
         private void Navigate(MenuBar obj)
@@ -107,6 +97,7 @@ namespace AYE_ClientSideWpf.ViewModels
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "ToDoView" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块A", NameSpace = "UserControlA" });
         }
 
         /// <summary>
@@ -115,33 +106,11 @@ namespace AYE_ClientSideWpf.ViewModels
         public  void Configure()
         {
            
-            ConfigureSqlSugar();
             LoadSettings();
             CreateMenuBar();
 
             //暂时注释
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
-        }
-
-
-
-
-
-        private void ConfigureSqlSugar()
-        {
-            //var db = _sqlSugarService.GetClient();
-            //// 进行数据库操作
-            //var result = db.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
-            //// 其他配置和操作
-
-            //var v2= db.GetSimpleClient<UserInfo001>().GetFirst(x => x.UserName == "admin");
-
-            var v3= _repository.GetFirst(x => x.UserName == "admin");
-
-            var v4= _sqlSugarClient.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
-
-            var v5= _repository._Db.Queryable<UserInfo001>().Where(x => x.UserName == "admin").First();
-
         }
 
 

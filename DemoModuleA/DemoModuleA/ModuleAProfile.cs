@@ -1,4 +1,5 @@
-﻿using DemoModuleA.Views;
+﻿using DemoModuleA.ViewModels;
+using DemoModuleA.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using System;
@@ -19,7 +20,7 @@ namespace DemoModuleA
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<UserControlA>();
+            containerRegistry.RegisterForNavigation<UserControlA, UserControlAViewModel>();
         }
 
         

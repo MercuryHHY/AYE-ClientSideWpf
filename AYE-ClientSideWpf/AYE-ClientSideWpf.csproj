@@ -31,9 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AYE-BaseFramework\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
-    <ProjectReference Include="..\AYE-BaseShare\AYE-BaseShare.csproj" />
     <ProjectReference Include="..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
     <ProjectReference Include="..\AYE-Server\AYE-Service.csproj" />
+    <ProjectReference Include="..\DemoModuleA\DemoModuleA\DemoModuleA.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\login.png" />

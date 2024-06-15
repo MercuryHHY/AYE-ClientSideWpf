@@ -1,9 +1,9 @@
 ﻿using AYE.BaseFramework.SqlSusgarCore;
-using AYE_BaseShare;
 using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
 using AYE_ModuleRegistration;
+using DemoModuleA;
 using Microsoft.Extensions.Configuration;
 using MyToDo.Common;
 using Prism.DryIoc;
@@ -66,6 +66,7 @@ namespace AYE_ClientSideWpf
             // 这里是添加其他 类库的模块注册类中 注册行为
             //moduleCatalog.AddModule<ModuleAProfile>();
             moduleCatalog.AddModule<ModuleFile>();
+            moduleCatalog.AddModule<ModuleAProfile>();
             base.ConfigureModuleCatalog(moduleCatalog);
         }
 
