@@ -5,7 +5,6 @@ using AYE_ClientSideWpf.Views;
 using AYE_ModuleRegistration;
 using DemoModuleA;
 using Microsoft.Extensions.Configuration;
-using MyToDo.Common;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -17,6 +16,7 @@ namespace AYE_ClientSideWpf
     /// <summary>
     /// 原本类似 痕迹 的操作 一样  直接去操作APP启动项文件就可以聊聊
     /// 但是这个包也提供了如下这种操作，个人也偏向项目模版自带的这种
+    /// 很久很久以前，在嵌入式开发中有一种启动项设置 她也叫boot
     /// </summary>
     public class Bootstrapper : PrismBootstrapper
     {
@@ -47,7 +47,7 @@ namespace AYE_ClientSideWpf
                 InitKeyType = InitKeyType.Attribute
             }));
 
-            //注册仓储  （确定要用单例吗，最好是瞬态）没关系 VM层在注册的时候也是瞬态的，所以这里也可以用瞬态
+            //注册仓储  （确定要用单例吗，最好是用瞬态）没关系 VM层在注册的时候也是瞬态的，所以这里也可以用瞬态
             //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
