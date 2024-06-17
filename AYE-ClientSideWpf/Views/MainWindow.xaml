@@ -127,7 +127,7 @@
                                            VerticalAlignment="Center"
                                            AutomationProperties.Name="Material Design In XAML Toolkit"
                                            FontSize="22"
-                                           Text="笔记本" />
+                                           Text="海上升明月" />
 
                                 <TextBlock Margin="16,0"
                                            HorizontalAlignment="Center"

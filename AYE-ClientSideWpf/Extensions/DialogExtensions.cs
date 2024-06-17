@@ -21,8 +21,7 @@ namespace AYE_ClientSideWpf.Extensions
         /// <param name="dialogHostName">会话主机名称(唯一)</param>
         /// <returns></returns>
         public static async Task<IDialogResult> Question(this IDialogHostService dialogHost,
-            string title, string content, string dialogHostName = "Root"
-            )
+            string title, string content, string dialogHostName = "Root")
         {
             DialogParameters param = new DialogParameters();
             param.Add("Title", title);
