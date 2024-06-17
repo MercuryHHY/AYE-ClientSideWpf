@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
+using Quartz.Impl;
+using Quartz;
 using SqlSugar;
 using System.Windows;
 
@@ -80,7 +82,12 @@ namespace AYE_ClientSideWpf
             //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
-            
+
+
+
+
+            containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
+
 
 
         }

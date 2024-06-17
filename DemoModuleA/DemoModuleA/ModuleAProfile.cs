@@ -1,7 +1,10 @@
 ﻿using DemoModuleA.ViewModels;
 using DemoModuleA.Views;
+using Microsoft.Win32;
 using Prism.Ioc;
 using Prism.Modularity;
+using Quartz;
+using Quartz.Impl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +23,7 @@ namespace DemoModuleA
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            
             containerRegistry.RegisterForNavigation<UserControlA, UserControlAViewModel>();
         }
 
