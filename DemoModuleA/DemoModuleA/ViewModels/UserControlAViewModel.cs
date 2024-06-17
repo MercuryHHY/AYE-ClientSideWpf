@@ -1,4 +1,6 @@
-﻿using AYE_Job;
+﻿using AYE.BaseFramework.QuartzCore;
+using AYE_Job;
+using AYE_Service;
 using Quartz;
 using Quartz.Impl;
 using System;
@@ -11,12 +13,13 @@ namespace DemoModuleA.ViewModels
 {
     public class UserControlAViewModel
     {
-      
-        public UserControlAViewModel()
+        private  ITaskService _taskService;
+        public UserControlAViewModel(ITaskService taskService)
         {
-            InitializeSchedulerAsync();
+            _taskService = taskService;
+            //InitializeSchedulerAsync();
 
-
+            JobManager jobManager = new JobManager(_taskService);
 
         }
 

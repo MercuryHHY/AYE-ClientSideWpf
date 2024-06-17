@@ -18,10 +18,10 @@ namespace AYE.BaseFramework.QuartzCore;
 public class TaskService : ITaskService
 {
     private readonly ISchedulerFactory _schedulerFactory;
-    private readonly IClock _clock;
-    public TaskService(ISchedulerFactory schedulerFactory, IClock clock)
+    ///private readonly IClock _clock;
+    public TaskService(ISchedulerFactory schedulerFactory)
     {
-        _clock = clock;
+        //_clock = clock;
         _schedulerFactory = schedulerFactory;
     }
 
@@ -50,8 +50,10 @@ public class TaskService : ITaskService
             Properties = JsonConvert.SerializeObject(jobDetail.JobDataMap),
             Concurrent = !jobDetail.ConcurrentExecutionDisallowed,
             Description = jobDetail.Description,
-            LastRunTime = _clock.Normalize(trigger.GetPreviousFireTimeUtc()?.DateTime ?? DateTime.MinValue),
-            NextRunTime = _clock.Normalize(trigger.GetNextFireTimeUtc()?.DateTime ?? DateTime.MinValue),
+            //LastRunTime = _clock.Normalize(trigger.GetPreviousFireTimeUtc()?.DateTime ?? DateTime.MinValue),
+            LastRunTime = (trigger.GetPreviousFireTimeUtc()?.DateTime ?? DateTime.MinValue),
+            //NextRunTime = _clock.Normalize(trigger.GetNextFireTimeUtc()?.DateTime ?? DateTime.MinValue),
+            NextRunTime = (trigger.GetNextFireTimeUtc()?.DateTime ?? DateTime.MinValue),
             AssemblyName = jobDetail.JobType.Assembly.GetName().Name,
             Status = state.ToString()
         };

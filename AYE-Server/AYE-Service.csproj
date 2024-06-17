@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AYE-Interface\AYE-Interface.csproj" />
+    <ProjectReference Include="..\AYE-Job\AYE-Job.csproj" />
   </ItemGroup>
 
 </Project>

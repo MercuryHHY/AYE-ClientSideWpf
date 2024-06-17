@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AYE.BaseFramework.QuartzCore;
+using AYE_Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,11 @@ namespace DemoModuleA.Views
     /// </summary>
     public partial class UserControlA : UserControl
     {
+       
         public UserControlA()
         {
             InitializeComponent();
+           
         }
     }
 }

@@ -11,7 +11,7 @@ public class TaskCreateInput
 {
     public string AssemblyName { get; set; }
 
-    public string JobType { get; set; }
+    public string? JobType { get; set; }
 
     public string JobId { get; set; }
 

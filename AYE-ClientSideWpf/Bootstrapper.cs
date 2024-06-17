@@ -12,6 +12,8 @@ using Quartz.Impl;
 using Quartz;
 using SqlSugar;
 using System.Windows;
+using AYE.BaseFramework.QuartzCore;
+using Volo.Abp.Timing;
 
 namespace AYE_ClientSideWpf
 {
@@ -86,8 +88,11 @@ namespace AYE_ClientSideWpf
 
 
 
+            
+            //containerRegistry.Register<IClock, Clock>();
+            containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
-
+            containerRegistry.Register<ITaskService, TaskService>();
 
 
         }
