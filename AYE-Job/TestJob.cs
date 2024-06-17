@@ -27,6 +27,12 @@ namespace AYE_Job
         //    scheduler.ScheduleJob(JobDetail, Trigger);
         //    scheduler.Start();
         //}
+
+        //思考
+        //  Job的触发如何实现  ===>>  封装一层调度中心
+        // job的启动 又该放在哪里，放在 service 层，并且单独独立出来
+
+
         public override async Task Execute(IJobExecutionContext context)
         {
             //定时任务，非常简单

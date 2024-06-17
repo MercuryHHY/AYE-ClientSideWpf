@@ -11,8 +11,7 @@ namespace DemoModuleA.ViewModels
 {
     public class UserControlAViewModel
     {
-        //IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
-        
+      
         public UserControlAViewModel()
         {
             InitializeSchedulerAsync();
@@ -21,10 +20,17 @@ namespace DemoModuleA.ViewModels
 
         }
 
+
+        /// <summary>
+        /// TestJob 启动测试
+        /// </summary>
+        /// <returns></returns>
         private async Task InitializeSchedulerAsync()
         {
             StdSchedulerFactory factory = new StdSchedulerFactory();
             IScheduler scheduler = await factory.GetScheduler(); // 等待异步任务完成获取调度器
+
+
             IJobDetail jobDetail = JobBuilder.Create<TestJob>().WithIdentity(nameof(TestJob)).Build();
             ITrigger trigger = TriggerBuilder.Create().WithIdentity(nameof(TestJob)).StartNow()
                 .WithSimpleSchedule(x => x
@@ -33,6 +39,8 @@ namespace DemoModuleA.ViewModels
                 .Build();
 
             await scheduler.ScheduleJob(jobDetail, trigger); // 等待调度任务完成
+
+            //这个启动是只启动一个吗，还是调度中心中的所有
             await scheduler.Start(); // 启动调度器
         }
 

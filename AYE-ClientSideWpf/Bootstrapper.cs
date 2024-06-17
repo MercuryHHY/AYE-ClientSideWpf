@@ -100,7 +100,6 @@ namespace AYE_ClientSideWpf
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             // 这里是添加其他 类库的模块注册类中 注册行为
-            //moduleCatalog.AddModule<ModuleAProfile>();
             moduleCatalog.AddModule<ModuleFile>();
             moduleCatalog.AddModule<ModuleAProfile>();
             base.ConfigureModuleCatalog(moduleCatalog);

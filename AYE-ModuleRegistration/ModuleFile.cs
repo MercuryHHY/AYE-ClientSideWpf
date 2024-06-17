@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using AYE.BaseFramework.QuartzCore;
+using Prism.Ioc;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,9 @@ namespace AYE_ModuleRegistration
             //// 注册 SqlSugar 服务
             //containerRegistry.RegisterInstance<ISqlSugarService>(new SqlSugarService(connectionString));
 
-            
-            
+            containerRegistry.Register<ITaskService, TaskService>();
+
+
 
         }
     }
