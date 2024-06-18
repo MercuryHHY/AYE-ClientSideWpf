@@ -30,18 +30,8 @@ namespace AYE_ClientSideWpf
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
-            
+
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
-
-
-
-            
-
-            //containerRegistry.Register<IClock, Clock>();
-            //containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
-            containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
-            //containerRegistry.Register<ITaskService, TaskService>();
 
 
         }
