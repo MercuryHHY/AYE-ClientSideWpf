@@ -63,6 +63,25 @@ namespace AYE_Service
 
             // 启动作业
             await taskService.StartAsync("TestJob");
+            //await taskService.ResumeJobAsync("TestJob");
+
+
+
+            TaskCreateInput demoJob = new TaskCreateInput();
+            demoJob.AssemblyName = typeof(DemoJob).Assembly.GetName().Name!;
+            demoJob.JobId = "DemoJob";
+            demoJob.GroupName = "default";
+            demoJob.Concurrent = true;
+            demoJob.Type = JobTypeEnum.Millisecond;
+            demoJob.Millisecond = 2000;//毫秒
+            demoJob.JobType = nameof(DemoJob);
+            demoJob.Description = "A demoJob job";
+            await taskService.CreateAsync(demoJob);
+
+            // 启动作业
+            await taskService.StartAsync("DemoJob");
+            //await taskService.ResumeJobAsync("DemoJob");
+           
 
 
 

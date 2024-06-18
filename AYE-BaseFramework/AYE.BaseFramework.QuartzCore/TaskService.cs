@@ -152,15 +152,30 @@ public class TaskService : ITaskService
     }
 
     /// <summary>
-    /// 开始job
+    /// 开始job,默认开始所有Job
     /// </summary>
     /// <param name="jobId"></param>
     /// <returns></returns>
     public async Task StartAsync(string jobId)
     {
         var scheduler = await _schedulerFactory.GetScheduler();
-        await scheduler.ResumeJob(new JobKey(jobId));
+        //await scheduler.ResumeJob(new JobKey(jobId));
+        await scheduler.Start(); // 启动调度器
     }
+    
+    /// <summary>
+    /// job 还原
+    /// </summary>
+    /// <param name="jobId"></param>
+    /// <returns></returns>
+    public async Task ResumeJobAsync(string jobId)
+    {
+        var scheduler = await _schedulerFactory.GetScheduler();
+        await scheduler.ResumeJob(new JobKey(jobId));
+        
+    }
+
+
 
     /// <summary>
     /// 更新job

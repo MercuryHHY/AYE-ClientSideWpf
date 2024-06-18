@@ -19,6 +19,7 @@ namespace AYE.BaseFramework.QuartzCore
         Task PauseAsync(string jobId);
 
         Task StartAsync(string jobId);
+        Task ResumeJobAsync(string jobId);
 
         Task UpdateAsync(string id, TaskUpdateInput input);
 
