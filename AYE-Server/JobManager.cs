@@ -42,7 +42,7 @@ namespace AYE_Service
 
             await scheduler.ScheduleJob(jobDetail, trigger); // 等待调度任务完成
 
-            //这个启动是只启动一个吗，还是调度中心中的所有
+            //这个启动是调度中心中的所有
             await scheduler.Start(); // 启动调度器
         }
 
@@ -65,6 +65,17 @@ namespace AYE_Service
             await taskService.StartAsync("TestJob");
             //await taskService.ResumeJobAsync("TestJob");
 
+            taskCreateInput.JobId = "TestJob_2";
+            await taskService.CreateAsync(taskCreateInput);
+
+            // 启动作业
+            await taskService.StartAsync("TestJob_2");
+
+
+
+
+
+
 
 
             TaskCreateInput demoJob = new TaskCreateInput();
@@ -80,8 +91,8 @@ namespace AYE_Service
 
             // 启动作业
             await taskService.StartAsync("DemoJob");
-            //await taskService.ResumeJobAsync("DemoJob");
-           
+            await taskService.ResumeJobAsync("DemoJob");
+
 
 
 
