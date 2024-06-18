@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AYE-BaseFramework\AYE-BaseFramework.ConfigurationCore\AYE-BaseFramework.ConfigurationCore.csproj" />
     <ProjectReference Include="..\AYE-BaseFramework\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
     <ProjectReference Include="..\AYE-BaseFramework\AYE.BaseFramework.QuartzCore\AYE.BaseFramework.QuartzCore.csproj" />
   </ItemGroup>

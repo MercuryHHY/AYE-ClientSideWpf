@@ -7,11 +7,11 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
 
-using AYE_ClientSideWpf.Service;
 using SqlSugar;
 using System;
 using System.Linq.Expressions;
 using AYE.BaseFramework.SqlSusgarCore;
+using AYE_BaseFramework.ConfigurationCore;
 
 namespace AYE_ClientSideWpf.ViewModels
 {
@@ -35,11 +35,10 @@ namespace AYE_ClientSideWpf.ViewModels
         public DelegateCommand LoginOutCommand { get; private set; }
 
 
-        private readonly IConfigurationService _configurationService;
+        //private readonly IConfigurationService _configurationService;
 
         public MainWindowViewModel(IContainerProvider containerProvider,
-            IRegionManager regionManager,
-            IConfigurationService configurationService)
+            IRegionManager regionManager)
         {
             MenuBars = new ObservableCollection<MenuBar>();
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
@@ -60,7 +59,7 @@ namespace AYE_ClientSideWpf.ViewModels
             });
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
-            _configurationService = configurationService;
+            //_configurationService = configurationService;
         }
 
         private void Navigate(MenuBar obj)
@@ -106,7 +105,7 @@ namespace AYE_ClientSideWpf.ViewModels
         public  void Configure()
         {
            
-            LoadSettings();
+            //LoadSettings();
             CreateMenuBar();
 
             //暂时注释
@@ -114,12 +113,12 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
 
-        private void LoadSettings()
-        {
-            var setting1 = _configurationService.Configuration["AppSettings:Setting1"];
-            var setting2 = _configurationService.Configuration["AppSettings:Setting2"];
-            // 使用设置
-        }
+        //private void LoadSettings()
+        //{
+        //    var setting1 = _configurationService.Configuration["AppSettings:Setting1"];
+        //    var setting2 = _configurationService.Configuration["AppSettings:Setting2"];
+        //    // 使用设置
+        //}
 
 
     }

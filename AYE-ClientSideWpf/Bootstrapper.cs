@@ -1,5 +1,4 @@
 ﻿using AYE.BaseFramework.SqlSusgarCore;
-using AYE_ClientSideWpf.Service;
 using AYE_ClientSideWpf.ViewModels;
 using AYE_ClientSideWpf.Views;
 using AYE_ModuleRegistration;
@@ -31,54 +30,8 @@ namespace AYE_ClientSideWpf
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // 注册配置服务
-            containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();
-
-            // 读取连接字符串
-            var configurationService = new ConfigurationService();
-            var connectionString = configurationService.Configuration.GetConnectionString("DefaultConnection");
-            var dbType = configurationService.Configuration["DbType"];//暂时放这
-
-            // 注册 SqlSugar 服务
-            containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new  ConnectionConfig()
-            {
-                ConnectionString = connectionString,
-                DbType = DbType.MySql,
-                IsAutoCloseConnection = true,
-                InitKeyType = InitKeyType.Attribute
-            }));
-
-            #if false
-            #region 还没有想好同时支持多库如何处理
-            {
-                var mySqlConnectionString = configurationService.Configuration.GetConnectionString("MySqlConnection");
-                var sqliteConnectionString = configurationService.Configuration.GetConnectionString("SQLiteConnection");
-
-                // 注册 MySQL 的 SqlSugar 服务
-                containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                {
-                    ConnectionString = mySqlConnectionString,
-                    DbType = DbType.MySql,
-                    IsAutoCloseConnection = true,
-                    InitKeyType = InitKeyType.Attribute
-                }), "MySqlClient");
-
-                // 注册 SQLite 的 SqlSugar 服务
-                containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                {
-                    ConnectionString = sqliteConnectionString,
-                    DbType = DbType.Sqlite,
-                    IsAutoCloseConnection = true,
-                    InitKeyType = InitKeyType.Attribute
-                }), "SQLiteClient");
-
-            }
-            #endregion
-            #endif
-
-            //注册仓储  （确定要用单例吗，最好是用瞬态）没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态
-            //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
-            containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
+            
+            
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 
 
