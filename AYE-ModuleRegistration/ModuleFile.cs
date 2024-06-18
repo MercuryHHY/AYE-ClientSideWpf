@@ -4,8 +4,6 @@ using AYE_BaseFramework.ConfigurationCore;
 using Microsoft.Extensions.Configuration;
 using Prism.Ioc;
 using Prism.Modularity;
-using Quartz.Impl;
-using Quartz;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -82,10 +80,6 @@ namespace AYE_ModuleRegistration
             //注册仓储  （确定要用单例吗，最好是用瞬态）没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态
             //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
-            
-            //containerRegistry.Register<IClock, Clock>();
-            //containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
-            containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
             containerRegistry.Register<ITaskService, TaskService>();
 
 
