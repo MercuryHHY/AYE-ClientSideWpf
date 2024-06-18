@@ -31,10 +31,6 @@ namespace AYE_ClientSideWpf
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //在这里 添加依赖注入 添加其他 用户控件
-            //containerRegistry.RegisterForNavigation<UserControlDemoA>();
-
-
             // 注册配置服务
             containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();
 
@@ -87,12 +83,12 @@ namespace AYE_ClientSideWpf
 
 
 
-
             
+
             //containerRegistry.Register<IClock, Clock>();
             //containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
-            containerRegistry.Register<ITaskService, TaskService>();
+            //containerRegistry.Register<ITaskService, TaskService>();
 
 
         }
@@ -105,6 +101,7 @@ namespace AYE_ClientSideWpf
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             // 这里是添加其他 类库的模块注册类中 注册行为
+            // 特别注意 建议是 ModuleFile 最先添加，因为最先添加的最先注册
             moduleCatalog.AddModule<ModuleFile>();
             moduleCatalog.AddModule<ModuleAProfile>();
             base.ConfigureModuleCatalog(moduleCatalog);

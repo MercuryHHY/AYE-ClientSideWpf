@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AYE-Job\AYE-Job.csproj" />
-    <ProjectReference Include="..\..\AYE-Server\AYE-Service.csproj" />
+    <ProjectReference Include="..\..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
   </ItemGroup>
 
 </Project>

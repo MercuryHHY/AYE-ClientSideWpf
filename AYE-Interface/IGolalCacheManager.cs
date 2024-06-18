@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AYE_Interface
 {
-    internal interface IGolalCacheManager
+    public interface IGolalCacheManager
     {
     }
 }

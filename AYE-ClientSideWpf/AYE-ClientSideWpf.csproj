@@ -31,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
-    <ProjectReference Include="..\AYE-Server\AYE-Service.csproj" />
     <ProjectReference Include="..\DemoModuleA\DemoModuleA\DemoModuleA.csproj" />
   </ItemGroup>
   <ItemGroup>
