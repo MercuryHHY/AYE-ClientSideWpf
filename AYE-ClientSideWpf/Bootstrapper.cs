@@ -90,7 +90,7 @@ namespace AYE_ClientSideWpf
 
             
             //containerRegistry.Register<IClock, Clock>();
-            containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
+            //containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
             containerRegistry.Register<ITaskService, TaskService>();
 

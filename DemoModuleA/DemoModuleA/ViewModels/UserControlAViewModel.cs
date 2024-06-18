@@ -19,6 +19,7 @@ namespace DemoModuleA.ViewModels
             _taskService = taskService;
             //InitializeSchedulerAsync();
 
+            //这里直接手动new 先不要DI注入，先手动测试
             JobManager jobManager = new JobManager(_taskService);
 
         }
