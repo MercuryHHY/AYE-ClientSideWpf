@@ -7,24 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYE_ClientSideWpf.Service
+namespace AYE_ClientSideWpf.Service;
+
+
+
+/// <summary>
+/// 思考一下 这个配置相关的 代码以及文件怎么放才会是最合适
+/// </summary>
+public interface IConfigurationService
 {
-    public interface IConfigurationService
+    IConfiguration Configuration { get; }
+}
+
+public class ConfigurationService : IConfigurationService
+{
+    public IConfiguration Configuration { get; }
+
+    public ConfigurationService()
     {
-        IConfiguration Configuration { get; }
-    }
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-    public class ConfigurationService : IConfigurationService
-    {
-        public IConfiguration Configuration { get; }
-
-        public ConfigurationService()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            Configuration = builder.Build();
-        }
+        Configuration = builder.Build();
     }
 }
