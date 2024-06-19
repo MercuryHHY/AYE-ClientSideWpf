@@ -11,6 +11,13 @@ using System.Threading.Tasks;
 
 namespace AYE_Service;
 
+
+/// <summary>
+/// 我的初衷是在依赖注入时 给它参数以完成构造，
+/// 可是  我发现不管怎么写，始终都会注册失败
+/// 除非 封装工厂，或者直接用！！！！！！
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class SuperRepository<T> : SimpleClient<T>, ISuperRepository<T> where T : class, new()
 {
     // 在SimpleClient 内部 IOC找到并注入了，所以这里不用再重复 注入实例

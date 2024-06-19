@@ -24,7 +24,6 @@ namespace DemoModuleA
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.RegisterForNavigation<UserControlA, UserControlAViewModel>();
         }
 

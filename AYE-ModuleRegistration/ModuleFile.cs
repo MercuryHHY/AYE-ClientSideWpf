@@ -60,7 +60,9 @@ namespace AYE_ModuleRegistration
 #if true
             #region 还没有想好同时支持多库如何处理
             {
-              
+                //我想尽了一切可能，似乎没有没办法直接这么玩，可是如果分装一个工厂，又会违背我简化操作的初衷
+                // 那还不如就按下面所示 直接按 Key 注册出SqlSugarClient使用
+
                 // 注册 MySQL 的 SqlSugar 服务
                 containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
                 {
@@ -68,7 +70,7 @@ namespace AYE_ModuleRegistration
                     DbType = DbType.MySql,
                     IsAutoCloseConnection = true,
                     InitKeyType = InitKeyType.Attribute
-                }), "MySql");
+                }), DbType.MySql.ToString());
                 //containerRegistry.Register(typeof(ISuperRepository<>), c => new SuperRepository<object>(c.Resolve<IContainerProvider>(), "MySql"));
                 //containerRegistry.Register(typeof(ISuperRepository<>), c =>
                 //{
@@ -82,8 +84,8 @@ namespace AYE_ModuleRegistration
             #endregion
 #endif
 
-            //注册仓储  （确定要用单例吗，最好是用瞬态）没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态
-            //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
+            //注册仓储  （确定要用单例吗，最好是用瞬态）
+            //没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态,VM层可以直接注入仓储
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             
 

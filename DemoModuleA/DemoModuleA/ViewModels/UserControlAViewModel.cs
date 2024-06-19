@@ -14,19 +14,23 @@ using System.Threading.Tasks;
 
 namespace DemoModuleA.ViewModels
 {
+    /// <summary>
+    /// 模块测试
+    /// </summary>
     public class UserControlAViewModel
     {
-        private  ITaskService _taskService;
-        //private readonly IRepository<UserInfo001> _Userrepository;
-        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider)
+        private ITaskService _taskService;
+        private readonly IRepository<UserInfo001> _Userrepository;
+        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<UserInfo001> userrepository)
         {
             _taskService = taskService;
-            //_Userrepository = userrepository;
 
             //这里直接手动new 先不要DI注入，先手动测试
             JobManager jobManager = new JobManager(_taskService);
             GolalCacheManager golalCache = new GolalCacheManager(containerProvider);
-            
+            _Userrepository = userrepository;
+            _Userrepository._Db.DbMaintenance.CreateDatabase();
+
         }
 
 

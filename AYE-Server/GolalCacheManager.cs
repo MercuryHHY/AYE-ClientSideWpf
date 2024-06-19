@@ -16,17 +16,18 @@ namespace AYE_Service;
 /// </summary>
 public class GolalCacheManager : IGolalCacheManager
 {
-    //private readonly ISuperRepository<UserInfo001> _Userrepository;
-    private readonly IContainerProvider _containerProvider;
+    private readonly ISuperRepository<UserInfo001> _Userrepository;//仓储测试
     public GolalCacheManager(IContainerProvider containerProvider)
     {
-        _containerProvider = containerProvider;
-        //bool isRegistered = _containerProvider.IsRegistered<ISuperRepository<UserInfo001>>("MySql");
-        //_Userrepository = _containerProvider.Resolve<ISuperRepository<UserInfo001>>("MySql");
-        var db=containerProvider.Resolve<ISqlSugarClient>("MySql");
+        //方法1 
+        var db=containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
         var v1=db.GetSimpleClient<UserInfo001>().GetFirst(x=>true);
 
-        //_Userrepository._Db.DbMaintenance.CreateDatabase();
+
+        //方法2
+        _Userrepository = new SuperRepository<UserInfo001>(containerProvider, DbType.MySql.ToString());
+        var v2= _Userrepository.GetFirst(x=>true);
+
 
     }
 
