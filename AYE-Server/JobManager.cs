@@ -26,7 +26,10 @@ namespace AYE_Service
 
         }
 
-
+        /// <summary>
+        /// 初始版本使用方法Demo
+        /// </summary>
+        /// <returns></returns>
         private async Task InitializeSchedulerAsync()
         {
             StdSchedulerFactory factory = new StdSchedulerFactory();
@@ -47,6 +50,10 @@ namespace AYE_Service
         }
 
 
+        /// <summary>
+        /// 调度中心使用方法Demo
+        /// </summary>
+        /// <returns></returns>
         private async Task InitializeSchedulerAsyncTest()
         {
             TaskCreateInput taskCreateInput=new TaskCreateInput();

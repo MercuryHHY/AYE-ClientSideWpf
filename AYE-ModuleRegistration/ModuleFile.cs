@@ -48,7 +48,7 @@ namespace AYE_ModuleRegistration
             containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
             {
                 ConnectionString = connectionString,
-                DbType = DbType.Sqlite,
+                DbType = dbTypeEnum,
                 IsAutoCloseConnection = true,
                 InitKeyType = InitKeyType.Attribute
             }));
