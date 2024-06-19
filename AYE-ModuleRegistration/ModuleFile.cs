@@ -29,6 +29,7 @@ namespace AYE_ModuleRegistration
     /// 因为我不希望底层模块与 prism框架强耦合
     /// 但是到了现在，我发觉还不止如此，它应该还可以用于 减少高层模块与子模块的依赖包引用
     /// 于是乎，重心转移之后，这个类库就变的非常重要
+    /// 由于框架所需，重心再次转移 转移到Commom层
     /// </summary>
     public class ModuleFile : IModule
     {
