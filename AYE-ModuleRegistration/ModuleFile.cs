@@ -14,6 +14,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Microsoft.Data.Sqlite;
+using AYE_Service;
+using AYE_Interface;
+using Microsoft.Extensions.DependencyInjection;
+using DryIoc;
 
 
 namespace AYE_ModuleRegistration
@@ -53,31 +57,27 @@ namespace AYE_ModuleRegistration
                 InitKeyType = InitKeyType.Attribute
             }));
 
-#if false
+#if true
             #region 还没有想好同时支持多库如何处理
             {
-                //var mySqlConnectionString = configurationService.Configuration.GetConnectionString("MySqlConnection");
-                var sqliteConnectionString1 = configurationService.Configuration.GetConnectionString("SQLiteConnection");
-                var sqliteConnectionString2 = configurationService.Configuration["SqlLiteConnectionStrings:SqlLiteConnection"];
-               
+              
                 // 注册 MySQL 的 SqlSugar 服务
-                //containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                //{
-                //    ConnectionString = mySqlConnectionString,
-                //    DbType = DbType.MySql,
-                //    IsAutoCloseConnection = true,
-                //    InitKeyType = InitKeyType.Attribute
-                //}), "MySqlClient");
-
-                // 注册 SQLite 的 SqlSugar 服务
                 containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
                 {
-                    ConnectionString = sqliteConnectionString2,
-                    DbType = DbType.Sqlite,
+                    ConnectionString = "server=127.0.0.1;Database=aye-hhy;Uid=root;Pwd=root;sslMode=None",
+                    DbType = DbType.MySql,
                     IsAutoCloseConnection = true,
                     InitKeyType = InitKeyType.Attribute
-                }), "SQLiteClient");
-
+                }), "MySql");
+                //containerRegistry.Register(typeof(ISuperRepository<>), c => new SuperRepository<object>(c.Resolve<IContainerProvider>(), "MySql"));
+                //containerRegistry.Register(typeof(ISuperRepository<>), c =>
+                //{
+                //    var serviceType = c.GetType().GenericTypeArguments[0];
+                //    var genericType = typeof(SuperRepository<>).MakeGenericType(serviceType);
+                //    return Activator.CreateInstance(genericType, c.Resolve<IContainerProvider>(), "MySql");
+                //});
+                //containerRegistry.Register(typeof(ISuperRepository<>), typeof(SuperRepository<>));
+                //containerRegistry.RegisterInstance(typeof(ISuperRepository<>),new SuperRepository<>("MySql"),)
             }
             #endregion
 #endif
@@ -86,6 +86,7 @@ namespace AYE_ModuleRegistration
             //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             
+
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
             containerRegistry.Register<ITaskService, TaskService>();
 
@@ -96,6 +97,7 @@ namespace AYE_ModuleRegistration
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            
 
         }
 

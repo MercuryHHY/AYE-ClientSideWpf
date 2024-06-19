@@ -3,6 +3,7 @@ using AYE.BaseFramework.SqlSusgarCore;
 using AYE_Entity;
 using AYE_Job;
 using AYE_Service;
+using Prism.Ioc;
 using Quartz;
 using Quartz.Impl;
 using System;
@@ -16,17 +17,16 @@ namespace DemoModuleA.ViewModels
     public class UserControlAViewModel
     {
         private  ITaskService _taskService;
-        private readonly IRepository<UserInfo001> _Userrepository;
-        public UserControlAViewModel(ITaskService taskService, IRepository<UserInfo001> userrepository)
+        //private readonly IRepository<UserInfo001> _Userrepository;
+        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider)
         {
             _taskService = taskService;
-            _Userrepository = userrepository;
-            //InitializeSchedulerAsync();
+            //_Userrepository = userrepository;
 
             //这里直接手动new 先不要DI注入，先手动测试
             JobManager jobManager = new JobManager(_taskService);
-            GolalCacheManager golalCache = new GolalCacheManager(_Userrepository);
-
+            GolalCacheManager golalCache = new GolalCacheManager(containerProvider);
+            
         }
 
 

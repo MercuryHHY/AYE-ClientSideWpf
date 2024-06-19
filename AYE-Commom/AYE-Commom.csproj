@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HandyControls" Version="3.5.3" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AYE-BaseFramework\AYE-BaseFramework.ConfigurationCore\AYE-BaseFramework.ConfigurationCore.csproj" />
     <ProjectReference Include="..\AYE-BaseFramework\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
     <ProjectReference Include="..\AYE-BaseFramework\AYE.BaseFramework.QuartzCore\AYE.BaseFramework.QuartzCore.csproj" />
