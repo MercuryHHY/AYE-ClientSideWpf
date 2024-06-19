@@ -13,6 +13,8 @@ using SqlSugar;
 using System.Windows;
 using AYE.BaseFramework.QuartzCore;
 using Volo.Abp.Timing;
+using Microsoft.Extensions.Logging;
+using DryIoc;
 
 namespace AYE_ClientSideWpf
 {
@@ -23,13 +25,26 @@ namespace AYE_ClientSideWpf
     /// </summary>
     public class Bootstrapper : PrismBootstrapper
     {
-       
+        private readonly ILoggerFactory _loggerFactory;
+
+        public Bootstrapper(ILoggerFactory loggerFactory)
+        {
+            _loggerFactory = loggerFactory;
+        }
+
+
+
         /// <summary>
         /// 1,先执行注册
         /// </summary>
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // 注册ILoggerFactory和ILogger
+            containerRegistry.RegisterInstance(_loggerFactory);
+            //containerRegistry.Register(typeof(ILogger), typeof(Logger<>));
+            // 使用DryIoc的扩展方法注册开放泛型类型ILogger<T>
+            containerRegistry.GetContainer().Register(typeof(ILogger<>), typeof(Logger<>));
 
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 

@@ -3,6 +3,7 @@ using AYE.BaseFramework.SqlSusgarCore;
 using AYE_Entity;
 using AYE_Job;
 using AYE_Service;
+using Microsoft.Extensions.Logging;
 using Prism.Ioc;
 using Quartz;
 using Quartz.Impl;
@@ -21,7 +22,8 @@ namespace DemoModuleA.ViewModels
     {
         private ITaskService _taskService;
         private readonly IRepository<UserInfo001> _Userrepository;
-        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<UserInfo001> userrepository)
+        private readonly ILogger<UserControlAViewModel> _logger;
+        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<UserInfo001> userrepository, ILogger<UserControlAViewModel> logger)
         {
             _taskService = taskService;
 
@@ -30,6 +32,9 @@ namespace DemoModuleA.ViewModels
             GolalCacheManager golalCache = new GolalCacheManager(containerProvider);
             _Userrepository = userrepository;
             _Userrepository._Db.DbMaintenance.CreateDatabase();
+
+            _logger = logger;
+            _logger.LogDebug("我是Debug");
 
         }
 

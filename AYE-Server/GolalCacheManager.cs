@@ -2,6 +2,7 @@
 using AYE_Commom.Helper;
 using AYE_Entity;
 using AYE_Interface;
+using Microsoft.Extensions.Logging;
 using Prism.Ioc;
 using SqlSugar;
 using System;
@@ -19,17 +20,19 @@ namespace AYE_Service;
 public class GolalCacheManager : IGolalCacheManager
 {
     private readonly ISuperRepository<UserInfo001> _Userrepository;//仓储测试
+    //private readonly ILogger<GolalCacheManager> _logger;
     public GolalCacheManager(IContainerProvider containerProvider)
     {
-        
+        //_logger = logger;
+
         //方法1 
-        var db=containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
-        var v1=db.GetSimpleClient<UserInfo001>().GetFirst(x=>true);
+        var db = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
+        var v1 = db.GetSimpleClient<UserInfo001>().GetFirst(x => true);
 
 
         //方法2
         _Userrepository = new SuperRepository<UserInfo001>(containerProvider, DbType.MySql.ToString());
-        var v2= _Userrepository.GetFirst(x=>true);
+        var v2 = _Userrepository.GetFirst(x => true);
 
 
 
@@ -37,7 +40,7 @@ public class GolalCacheManager : IGolalCacheManager
         Trace.WriteLine("Trace");
         Console.WriteLine("Console");
 
-
+        //_logger.LogDebug("我是Debug");
         //ConsoleHelper.FreeConsole();
     }
 

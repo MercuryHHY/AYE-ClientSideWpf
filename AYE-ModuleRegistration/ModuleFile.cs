@@ -18,6 +18,9 @@ using AYE_Service;
 using AYE_Interface;
 using Microsoft.Extensions.DependencyInjection;
 using DryIoc;
+using NLog;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 
 namespace AYE_ModuleRegistration
@@ -100,9 +103,9 @@ namespace AYE_ModuleRegistration
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            
 
+           
         }
-
+        
     }
 }
