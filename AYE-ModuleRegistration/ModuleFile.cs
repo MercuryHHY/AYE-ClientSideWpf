@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Microsoft.Data.Sqlite;
 
 
 namespace AYE_ModuleRegistration
@@ -39,14 +40,15 @@ namespace AYE_ModuleRegistration
 
             // 读取连接字符串
             var configurationService = new ConfigurationService();
-            var connectionString = configurationService.Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configurationService.Configuration.GetConnectionString("DBConnection");
             var dbType = configurationService.Configuration["DbType"];//暂时放这
-
+            if (Enum.TryParse(dbType, out DbType dbTypeEnum) == false) throw new ArgumentException($"'{dbType}' is not a valid value for DbType enum.");
+            
             // 注册 SqlSugar 服务
             containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
             {
                 ConnectionString = connectionString,
-                DbType = DbType.MySql,
+                DbType = DbType.Sqlite,
                 IsAutoCloseConnection = true,
                 InitKeyType = InitKeyType.Attribute
             }));
@@ -54,22 +56,23 @@ namespace AYE_ModuleRegistration
 #if false
             #region 还没有想好同时支持多库如何处理
             {
-                var mySqlConnectionString = configurationService.Configuration.GetConnectionString("MySqlConnection");
-                var sqliteConnectionString = configurationService.Configuration.GetConnectionString("SQLiteConnection");
-
+                //var mySqlConnectionString = configurationService.Configuration.GetConnectionString("MySqlConnection");
+                var sqliteConnectionString1 = configurationService.Configuration.GetConnectionString("SQLiteConnection");
+                var sqliteConnectionString2 = configurationService.Configuration["SqlLiteConnectionStrings:SqlLiteConnection"];
+               
                 // 注册 MySQL 的 SqlSugar 服务
-                containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                {
-                    ConnectionString = mySqlConnectionString,
-                    DbType = DbType.MySql,
-                    IsAutoCloseConnection = true,
-                    InitKeyType = InitKeyType.Attribute
-                }), "MySqlClient");
+                //containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
+                //{
+                //    ConnectionString = mySqlConnectionString,
+                //    DbType = DbType.MySql,
+                //    IsAutoCloseConnection = true,
+                //    InitKeyType = InitKeyType.Attribute
+                //}), "MySqlClient");
 
                 // 注册 SQLite 的 SqlSugar 服务
                 containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
                 {
-                    ConnectionString = sqliteConnectionString,
+                    ConnectionString = sqliteConnectionString2,
                     DbType = DbType.Sqlite,
                     IsAutoCloseConnection = true,
                     InitKeyType = InitKeyType.Attribute
@@ -83,8 +86,6 @@ namespace AYE_ModuleRegistration
             //containerRegistry.RegisterSingleton(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             
-            //containerRegistry.Register<IClock, Clock>();
-            //containerRegistry.Register<ISchedulerFactory, StdSchedulerFactory>();
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
             containerRegistry.Register<ITaskService, TaskService>();
 

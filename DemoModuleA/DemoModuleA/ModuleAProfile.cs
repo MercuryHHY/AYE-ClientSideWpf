@@ -1,4 +1,5 @@
-﻿using DemoModuleA.ViewModels;
+﻿using AYE.BaseFramework.SqlSusgarCore;
+using DemoModuleA.ViewModels;
 using DemoModuleA.Views;
 using Microsoft.Win32;
 using Prism.Ioc;
@@ -23,7 +24,7 @@ namespace DemoModuleA
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            //containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
             containerRegistry.RegisterForNavigation<UserControlA, UserControlAViewModel>();
         }
 

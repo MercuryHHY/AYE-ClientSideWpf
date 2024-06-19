@@ -14,6 +14,6 @@ public class DemoJob : QuartzBackgroundWorkerBase
     {
        
         System.Diagnostics.Debug.WriteLine("我是Demo");
-       
+        return;
     }
 }
