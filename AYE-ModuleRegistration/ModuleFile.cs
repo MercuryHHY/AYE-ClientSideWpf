@@ -23,6 +23,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System.Reflection;
 using AYE_Entity;
+using Prism.DryIoc;
 
 
 namespace AYE_ModuleRegistration
@@ -51,7 +52,7 @@ namespace AYE_ModuleRegistration
             containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();
 
             // 读取连接字符串
-            var configurationService = new ConfigurationService();
+            var configurationService = containerRegistry.GetContainer().Resolve<IConfigurationService>();
             var connectionString = configurationService.Configuration.GetConnectionString("DBConnection");
             var dbType = configurationService.Configuration["DbType"];//暂时放这
             if (Enum.TryParse(dbType, out DbType dbTypeEnum) == false) throw new ArgumentException($"'{dbType}' is not a valid value for DbType enum.");

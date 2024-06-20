@@ -21,9 +21,9 @@ namespace DemoModuleA.ViewModels
     public class UserControlAViewModel
     {
         private ITaskService _taskService;
-        private readonly IRepository<UserInfo001> _Userrepository;
+        private readonly IRepository<UserInfo001Entity> _Userrepository;
         private readonly ILogger<UserControlAViewModel> _logger;
-        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<UserInfo001> userrepository, ILogger<UserControlAViewModel> logger)
+        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<UserInfo001Entity> userrepository, ILogger<UserControlAViewModel> logger)
         {
             _taskService = taskService;
 
