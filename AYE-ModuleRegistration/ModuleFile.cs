@@ -151,7 +151,6 @@ namespace AYE_ModuleRegistration
             //注册仓储  （确定要用单例吗，最好是用瞬态）
             //没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态,VM层可以直接注入仓储
             containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
-            
 
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
             containerRegistry.Register<ITaskService, TaskService>();
@@ -166,17 +165,21 @@ namespace AYE_ModuleRegistration
         /// <param name="containerProvider"></param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            //根据配置文件决定 是否开启Codefirst
+            var dataBaseOptions = containerProvider.Resolve<DataBaseOptions>();
+            if (dataBaseOptions.UseCodeFirst)
+            {
+                //建库：如果不存在创建数据库存在不会重复创建 createdb
+                containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).DbMaintenance.CreateDatabase();
+                containerProvider.Resolve<ISqlSugarClient>().DbMaintenance.CreateDatabase();
+                
+                Type[] types = typeof(UserInfo002Entity).Assembly.GetTypes()
+                                .Where(it => it.FullName != null && it.FullName.Contains("AYE_Entity") && it.Name.Contains("Entity"))//命名空间过滤，当然也可以写其他条件过滤
+                                .ToArray();
+                containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).CodeFirst.SetStringDefaultLength(200).InitTables(types);//根据types创建表
+                containerProvider.Resolve<ISqlSugarClient>().CodeFirst.SetStringDefaultLength(200).InitTables(types);//默认的sqllite
+            }
 
-            //建库：如果不存在创建数据库存在不会重复创建 createdb
-            containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).DbMaintenance.CreateDatabase();
-            containerProvider.Resolve<ISqlSugarClient>().DbMaintenance.CreateDatabase();
-            //在这里进行数据库的CodeFirst初始化
-            Type[] types = typeof(UserInfo002Entity).Assembly.GetTypes()
-                            .Where(it => it.FullName!=null&&it.FullName.Contains("AYE_Entity")&&it.Name.Contains("Entity"))//命名空间过滤，当然你也可以写其他条件过滤
-                            .ToArray();
-
-            containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).CodeFirst.SetStringDefaultLength(200).InitTables(types);//根据types创建表
-            containerProvider.Resolve<ISqlSugarClient>().CodeFirst.SetStringDefaultLength(200).InitTables(types);//默认的sqllite
         }
         
     }
