@@ -42,9 +42,10 @@ namespace AYE_ClientSideWpf
         {
             // 注册ILoggerFactory和ILogger
             containerRegistry.RegisterInstance(_loggerFactory);
-            //containerRegistry.Register(typeof(ILogger), typeof(Logger<>));
-            // 使用DryIoc的扩展方法注册开放泛型类型ILogger<T>
-            containerRegistry.GetContainer().Register(typeof(ILogger<>), typeof(Logger<>));
+            // 方法1 ：正常注册
+            containerRegistry.Register(typeof(ILogger<>), typeof(Logger<>));
+            // 方法2：使用DryIoc的扩展方法注册开放泛型类型ILogger<T>
+            //containerRegistry.GetContainer().Register(typeof(ILogger<>), typeof(Logger<>));
 
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 

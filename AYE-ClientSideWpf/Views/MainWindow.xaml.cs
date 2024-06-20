@@ -10,6 +10,11 @@ using System.Windows.Media;
 
 namespace AYE_ClientSideWpf.Views
 {
+    /// <summary>
+    /// 这里的代码爆红 是因为 我的XAML代码与内部CS代码在编译执行时才会合并在一起，
+    /// 我这里是通过编译执行时利用prism框架来合并这个类，并没有显示的给出数据上下文，
+    /// 所以VS时不时会显示找不到定义，但是运行起来是没有问题的
+    /// </summary>
     public partial class MainWindow
     {
         private readonly IDialogHostService dialogHostService;
