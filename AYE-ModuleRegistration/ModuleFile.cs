@@ -24,6 +24,9 @@ using NLog.Extensions.Logging;
 using System.Reflection;
 using AYE_Entity;
 using Prism.DryIoc;
+using System.Xml.Linq;
+using AYE_Commom.ConfigOptionModel;
+using System.Configuration;
 
 
 namespace AYE_ModuleRegistration
@@ -53,14 +56,24 @@ namespace AYE_ModuleRegistration
 
             // 读取连接字符串
             var configurationService = containerRegistry.GetContainer().Resolve<IConfigurationService>();
-            var connectionString = configurationService.Configuration.GetConnectionString("DBConnection");
-            var dbType = configurationService.Configuration["DbType"];//暂时放这
-            if (Enum.TryParse(dbType, out DbType dbTypeEnum) == false) throw new ArgumentException($"'{dbType}' is not a valid value for DbType enum.");
+            //var connectionString2 = configurationService.Configuration.GetConnectionString("DBConnection");
+            //var connectionString1 = configurationService.Configuration["ConnectionStrings:DBConnection"];
+            //var connectionString = configurationService.Configuration.GetSection("ConnectionStrings")["DBConnection"];
+            //var dbType = configurationService.Configuration["DbType"];//暂时放这
+
+            var dataBaseOptions = new DataBaseOptions();
+            configurationService.Configuration.GetSection("DataBaseOptions").Bind(dataBaseOptions);
+            containerRegistry.RegisterInstance(dataBaseOptions);
+
+            var appSettings = new AppSettings();
+            configurationService.Configuration.GetSection("AppSettings").Bind(appSettings);
+            containerRegistry.RegisterInstance(appSettings);
+            if (Enum.TryParse(dataBaseOptions.DbType2, out DbType dbTypeEnum) == false) throw new ArgumentException($"'{dataBaseOptions.DbType2}' is not a valid value for DbType enum.");
             
-            // 注册 SqlSugar 服务
+            // 注册 默认的 SqlSugar 服务
             containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
             {
-                ConnectionString = connectionString,
+                ConnectionString = dataBaseOptions.ConnectionStringsDbType2.DBConnection,
                 DbType = dbTypeEnum,
                 IsAutoCloseConnection = true,
                 InitKeyType = InitKeyType.Attribute,
@@ -83,7 +96,7 @@ namespace AYE_ModuleRegistration
             // 注册 MySQL 的 SqlSugar 服务
             containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
             {
-                ConnectionString = "server=127.0.0.1;Database=aye-hhy;Uid=root;Pwd=root;sslMode=None",
+                ConnectionString = dataBaseOptions.ConnectionStringsDbType1.DBConnection,
                 DbType = DbType.MySql,
                 IsAutoCloseConnection = true,
                 InitKeyType = InitKeyType.Attribute,
