@@ -31,7 +31,7 @@ namespace DemoModuleA.ViewModels
             JobManager jobManager = new JobManager(_taskService);
             GolalCacheManager golalCache = new GolalCacheManager(containerProvider);
             _Userrepository = userrepository;
-            _Userrepository._Db.DbMaintenance.CreateDatabase();
+            _Userrepository._Db.DbMaintenance.CreateDatabase();//存在则不创建
 
             _logger = logger;
             _logger.LogDebug("我是Debug");

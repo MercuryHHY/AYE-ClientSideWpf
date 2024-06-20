@@ -21,6 +21,7 @@ using DryIoc;
 using NLog;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
+using System.Reflection;
 
 
 namespace AYE_ModuleRegistration
@@ -58,10 +59,52 @@ namespace AYE_ModuleRegistration
                 ConnectionString = connectionString,
                 DbType = dbTypeEnum,
                 IsAutoCloseConnection = true,
-                InitKeyType = InitKeyType.Attribute
+                InitKeyType = InitKeyType.Attribute,
+                ConfigureExternalServices = new ConfigureExternalServices
+                {
+                    //注意:  这儿AOP设置不能少
+                    EntityService = (c, p) =>
+                    {
+                        /***高版C#写法***/
+                        //支持string?和string  
+                        if (p.IsPrimarykey == false && new NullabilityInfoContext()
+                         .Create(c).WriteState is NullabilityState.Nullable)
+                        {
+                            p.IsNullable = true;
+                        }
+                    }
+                }
             }));
 
-#if true
+            // 注册 MySQL 的 SqlSugar 服务
+            containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
+            {
+                ConnectionString = "server=127.0.0.1;Database=aye-hhy;Uid=root;Pwd=root;sslMode=None",
+                DbType = DbType.MySql,
+                IsAutoCloseConnection = true,
+                InitKeyType = InitKeyType.Attribute,
+                ConfigureExternalServices = new ConfigureExternalServices
+                {
+                    //注意:  这儿AOP设置不能少
+                    EntityService = (c, p) =>
+                    {
+                        /***高版C#写法***/
+                        //支持string?和string  
+                        if (p.IsPrimarykey == false && new NullabilityInfoContext()
+                         .Create(c).WriteState is NullabilityState.Nullable)
+                        {
+                            p.IsNullable = true;
+                        }
+                    }
+                }
+            }), DbType.MySql.ToString());
+
+
+
+
+
+
+#if false
             #region 还没有想好同时支持多库如何处理
             {
                 //我想尽了一切可能，似乎没有没办法直接这么玩，可是如果分装一个工厂，又会违背我简化操作的初衷
