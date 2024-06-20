@@ -22,6 +22,7 @@ using NLog;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System.Reflection;
+using AYE_Entity;
 
 
 namespace AYE_ModuleRegistration
@@ -34,6 +35,8 @@ namespace AYE_ModuleRegistration
     /// 但是到了现在，我发觉还不止如此，它应该还可以用于 减少高层模块与子模块的依赖包引用
     /// 于是乎，重心转移之后，这个类库就变的非常重要
     /// 由于框架所需，重心再次转移 转移到Commom层
+    /// 
+    /// Codefirst 只能先放这里
     /// </summary>
     public class ModuleFile : IModule
     {
@@ -143,11 +146,23 @@ namespace AYE_ModuleRegistration
         }
 
 
-
+        /// <summary>
+        /// 模块化注册结束，最后的在这里进行一系列的数据初始化操作
+        /// </summary>
+        /// <param name="containerProvider"></param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
 
-           
+            //建库：如果不存在创建数据库存在不会重复创建 createdb
+            containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).DbMaintenance.CreateDatabase();
+            containerProvider.Resolve<ISqlSugarClient>().DbMaintenance.CreateDatabase();
+            //在这里进行数据库的CodeFirst初始化
+            Type[] types = typeof(UserInfo002Entity).Assembly.GetTypes()
+                            .Where(it => it.FullName!=null&&it.FullName.Contains("AYE_Entity")&&it.Name.Contains("Entity"))//命名空间过滤，当然你也可以写其他条件过滤
+                            .ToArray();
+
+            containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).CodeFirst.SetStringDefaultLength(200).InitTables(types);//根据types创建表
+            containerProvider.Resolve<ISqlSugarClient>().CodeFirst.SetStringDefaultLength(200).InitTables(types);//默认的sqllite
         }
         
     }

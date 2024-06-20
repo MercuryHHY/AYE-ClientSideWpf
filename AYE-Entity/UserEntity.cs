@@ -12,8 +12,8 @@ namespace AYE_Entity;
 /// User information entity class
 /// 用户信息实体类
 /// </summary> 
-[SugarTable("UserInfoAAA01")]
-public class UserInfo002
+[SugarTable("UserInfo002")]
+public class UserInfo002Entity
 {
     /// <summary>
     /// User ID (Primary Key)
@@ -33,7 +33,7 @@ public class UserInfo002
 }
 
 
-public class UserInfo001
+public class UserInfo001Entity
 {
     /// <summary>
     /// User ID (Primary Key)
