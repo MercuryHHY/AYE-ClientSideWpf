@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyTool.Core" Version="2023.914.2" />
     <PackageReference Include="HandyControls" Version="3.5.3" />
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
     <PackageReference Include="MediatR" Version="12.3.0" />
@@ -20,6 +21,7 @@
     <ProjectReference Include="..\AYE-BaseFramework\AYE-BaseFramework.ConfigurationCore\AYE-BaseFramework.ConfigurationCore.csproj" />
     <ProjectReference Include="..\AYE-BaseFramework\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
     <ProjectReference Include="..\AYE-BaseFramework\AYE.BaseFramework.QuartzCore\AYE.BaseFramework.QuartzCore.csproj" />
+    <ProjectReference Include="..\AYE-BaseFramework\AYE.BaseFramework.RedisCore\AYE.BaseFramework.RedisCore.csproj" />
   </ItemGroup>
 
 </Project>
