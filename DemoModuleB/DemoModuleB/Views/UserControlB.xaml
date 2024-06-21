@@ -10,8 +10,8 @@
              Background="{DynamicResource RegionBrush}"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <!--<ResourceDictionary Source="/Resource/ResourceDictionary.xaml" />  -->
-        <!-- <ResourceDictionary Source="pack://application:,,,/AYE_Commom;/Resource/ResourceDictionary.xaml" />-->
+        <!--  要么像这里一样手动指定，显示的向下层模块去找，要么自动的去高层模块去找，一直找到APP.xaml  -->
+        <ResourceDictionary Source="pack://application:,,,/AYE-Commom;component/Resource/ResourceDictionary.xaml" />
 
     </UserControl.Resources>
 
