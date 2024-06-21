@@ -29,7 +29,7 @@ namespace DemoModuleA.ViewModels
 
             //这里直接手动new 先不要DI注入，先手动测试
             JobManager jobManager = new JobManager(_taskService);
-            GolalCacheManager golalCache = new GolalCacheManager(containerProvider);
+            //GolalCacheManager golalCache = new GolalCacheManager(containerProvider);
             _Userrepository = userrepository;
             _Userrepository._Db.DbMaintenance.CreateDatabase();//存在则不创建
 

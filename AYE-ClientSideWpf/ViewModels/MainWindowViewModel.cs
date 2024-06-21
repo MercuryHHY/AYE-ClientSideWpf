@@ -12,6 +12,7 @@ using System;
 using System.Linq.Expressions;
 using AYE.BaseFramework.SqlSusgarCore;
 using AYE_BaseFramework.ConfigurationCore;
+using System.Threading.Tasks;
 
 namespace AYE_ClientSideWpf.ViewModels
 {
@@ -102,10 +103,9 @@ namespace AYE_ClientSideWpf.ViewModels
         /// <summary>
         /// 配置首页初始化参数
         /// </summary>
-        public  void Configure()
+        public async Task Configure()
         {
-           
-            //LoadSettings();
+            await Task.Delay(5);
             CreateMenuBar();
 
             //暂时注释
@@ -113,12 +113,7 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
 
-        //private void LoadSettings()
-        //{
-        //    var setting1 = _configurationService.Configuration["AppSettings:Setting1"];
-        //    var setting2 = _configurationService.Configuration["AppSettings:Setting2"];
-        //    // 使用设置
-        //}
+      
 
 
     }

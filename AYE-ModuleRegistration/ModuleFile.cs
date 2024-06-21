@@ -135,11 +135,11 @@ namespace AYE_ModuleRegistration
                 containerRegistry.RegisterInstance(redisOptions);
 
                 // 配置Redis连接
-                var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Configuration);
-                containerRegistry.RegisterInstance(redisConnection);
+                //var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Configuration);
+                //containerRegistry.RegisterInstance(redisConnection);
 
                 // 注册Redis服务
-                containerRegistry.Register<IRedisService, RedisService>();
+                //containerRegistry.Register<IRedisService, RedisService>();
                 //或者把DB注册出来用
 
             }
@@ -179,7 +179,22 @@ namespace AYE_ModuleRegistration
             containerRegistry.Register<ITaskService, TaskService>();
             #endregion
 
+
+
+
+
+            ServiceRegisterTypes(containerRegistry);
         }
+
+
+        public void ServiceRegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterSingleton<IGolalCacheManager, GolalCacheManager>();
+
+
+        }
+
+
 
 
         /// <summary>
