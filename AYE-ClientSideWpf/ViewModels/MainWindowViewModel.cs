@@ -98,6 +98,7 @@ namespace AYE_ClientSideWpf.ViewModels
             MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块A", NameSpace = "UserControlA" });
+            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块B", NameSpace = "UserControlB" });
         }
 
         /// <summary>

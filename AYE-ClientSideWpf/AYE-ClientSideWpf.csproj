@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
     <ProjectReference Include="..\DemoModuleA\DemoModuleA\DemoModuleA.csproj" />
+    <ProjectReference Include="..\DemoModuleB\DemoModuleB\DemoModuleB.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\login.png" />

@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="DemoModuleB.Views.UserControlB"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:DemoModuleB.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Background="{DynamicResource RegionBrush}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--<ResourceDictionary Source="/Resource/ResourceDictionary.xaml" />  -->
+        <!-- <ResourceDictionary Source="pack://application:,,,/AYE_Commom;/Resource/ResourceDictionary.xaml" />-->
+
+    </UserControl.Resources>
+
+    <hc:TransitioningContentControl>
+        <StackPanel Margin="32" VerticalAlignment="Center">
+            <Button Width="180" hc:IconElement.Geometry="{StaticResource ThumbsUpGeometry}">
+                <hc:FloatingBlock.ContentTemplate>
+                    <DataTemplate>
+                        <Path Width="16"
+                              Height="16"
+                              Data="{StaticResource ThumbsUpGeometry}"
+                              Fill="{DynamicResource DangerBrush}"
+                              Stretch="Uniform" />
+                    </DataTemplate>
+                </hc:FloatingBlock.ContentTemplate>
+            </Button>
+            <Button Width="180"
+                    Margin="0,10,0,0"
+                    hc:FloatingBlock.Content="Good"
+                    Content="Good" />
+            <Button Width="180"
+                    Margin="0,10,0,0"
+                    hc:FloatingBlock.Duration="0:0:1"
+                    hc:FloatingBlock.ToX="50"
+                    hc:FloatingBlock.ToY="-80"
+                    hc:FloatingBlock.VerticalOffset="-20"
+                    hc:IconElement.Geometry="{StaticResource ThumbsUpGeometry}">
+                <hc:FloatingBlock.ContentTemplate>
+                    <DataTemplate>
+                        <Path Width="16"
+                              Height="16"
+                              Data="{StaticResource ThumbsUpGeometry}"
+                              Fill="{DynamicResource DangerBrush}"
+                              Stretch="Uniform" />
+                    </DataTemplate>
+                </hc:FloatingBlock.ContentTemplate>
+            </Button>
+        </StackPanel>
+    </hc:TransitioningContentControl>
+
+</UserControl>

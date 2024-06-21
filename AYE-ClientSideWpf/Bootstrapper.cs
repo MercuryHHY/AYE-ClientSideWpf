@@ -15,6 +15,7 @@ using AYE.BaseFramework.QuartzCore;
 using Volo.Abp.Timing;
 using Microsoft.Extensions.Logging;
 using DryIoc;
+using DemoModuleB;
 
 namespace AYE_ClientSideWpf
 {
@@ -63,6 +64,7 @@ namespace AYE_ClientSideWpf
             // 特别注意 建议是 ModuleFile 最先添加，因为最先添加的最先注册
             moduleCatalog.AddModule<ModuleFile>();
             moduleCatalog.AddModule<ModuleAProfile>();
+            moduleCatalog.AddModule<ModuleBProfile>();
             base.ConfigureModuleCatalog(moduleCatalog);
         }
 
