@@ -27,6 +27,8 @@ using Prism.DryIoc;
 using System.Xml.Linq;
 using AYE_Commom.ConfigOptionModel;
 using System.Configuration;
+using StackExchange.Redis;
+using AYE.BaseFramework.RedisCore;
 
 
 namespace AYE_ModuleRegistration
@@ -56,70 +58,92 @@ namespace AYE_ModuleRegistration
 
             // 读取连接字符串
             var configurationService = containerRegistry.GetContainer().Resolve<IConfigurationService>();
-            //var connectionString2 = configurationService.Configuration.GetConnectionString("DBConnection");
-            //var connectionString1 = configurationService.Configuration["ConnectionStrings:DBConnection"];
-            //var connectionString = configurationService.Configuration.GetSection("ConnectionStrings")["DBConnection"];
-            //var dbType = configurationService.Configuration["DbType"];//暂时放这
 
-            var dataBaseOptions = new DataBaseOptions();
-            configurationService.Configuration.GetSection("DataBaseOptions").Bind(dataBaseOptions);
-            containerRegistry.RegisterInstance(dataBaseOptions);
-
-            var appSettings = new AppSettings();
-            configurationService.Configuration.GetSection("AppSettings").Bind(appSettings);
-            containerRegistry.RegisterInstance(appSettings);
-            if (Enum.TryParse(dataBaseOptions.DbType2, out DbType dbTypeEnum) == false) throw new ArgumentException($"'{dataBaseOptions.DbType2}' is not a valid value for DbType enum.");
-            
-            // 注册 默认的 SqlSugar 服务
-            containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
+            #region 数据库注册
             {
-                ConnectionString = dataBaseOptions.ConnectionStringsDbType2.DBConnection,
-                DbType = dbTypeEnum,
-                IsAutoCloseConnection = true,
-                InitKeyType = InitKeyType.Attribute,
-                ConfigureExternalServices = new ConfigureExternalServices
+                //var connectionString2 = configurationService.Configuration.GetConnectionString("DBConnection");
+                //var connectionString1 = configurationService.Configuration["ConnectionStrings:DBConnection"];
+                //var connectionString = configurationService.Configuration.GetSection("ConnectionStrings")["DBConnection"];
+                //var dbType = configurationService.Configuration["DbType"];//暂时放这
+
+                var dataBaseOptions = new DataBaseOptions();
+                configurationService.Configuration.GetSection("DataBaseOptions").Bind(dataBaseOptions);
+                containerRegistry.RegisterInstance(dataBaseOptions);
+
+                var appSettings = new AppSettings();
+                configurationService.Configuration.GetSection("AppSettings").Bind(appSettings);
+                containerRegistry.RegisterInstance(appSettings);
+                if (Enum.TryParse(dataBaseOptions.DbType2, out DbType dbTypeEnum) == false) throw new ArgumentException($"'{dataBaseOptions.DbType2}' is not a valid value for DbType enum.");
+
+                // 注册 默认的 SqlSugar 服务
+                containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
                 {
-                    //注意:  这儿AOP设置不能少
-                    EntityService = (c, p) =>
+                    ConnectionString = dataBaseOptions.ConnectionStringsDbType2.DBConnection,
+                    DbType = dbTypeEnum,
+                    IsAutoCloseConnection = true,
+                    InitKeyType = InitKeyType.Attribute,
+                    ConfigureExternalServices = new ConfigureExternalServices
                     {
-                        /***高版C#写法***/
-                        //支持string?和string  
-                        if (p.IsPrimarykey == false && new NullabilityInfoContext()
-                         .Create(c).WriteState is NullabilityState.Nullable)
+                        //注意:  这儿AOP设置不能少
+                        EntityService = (c, p) =>
                         {
-                            p.IsNullable = true;
+                            /***高版C#写法***/
+                            //支持string?和string  
+                            if (p.IsPrimarykey == false && new NullabilityInfoContext()
+                             .Create(c).WriteState is NullabilityState.Nullable)
+                            {
+                                p.IsNullable = true;
+                            }
                         }
                     }
-                }
-            }));
+                }));
 
-            // 注册 MySQL 的 SqlSugar 服务
-            containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-            {
-                ConnectionString = dataBaseOptions.ConnectionStringsDbType1.DBConnection,
-                DbType = DbType.MySql,
-                IsAutoCloseConnection = true,
-                InitKeyType = InitKeyType.Attribute,
-                ConfigureExternalServices = new ConfigureExternalServices
+                // 注册 MySQL 的 SqlSugar 服务
+                containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
                 {
-                    //注意:  这儿AOP设置不能少
-                    EntityService = (c, p) =>
+                    ConnectionString = dataBaseOptions.ConnectionStringsDbType1.DBConnection,
+                    DbType = DbType.MySql,
+                    IsAutoCloseConnection = true,
+                    InitKeyType = InitKeyType.Attribute,
+                    ConfigureExternalServices = new ConfigureExternalServices
                     {
-                        /***高版C#写法***/
-                        //支持string?和string  
-                        if (p.IsPrimarykey == false && new NullabilityInfoContext()
-                         .Create(c).WriteState is NullabilityState.Nullable)
+                        //注意:  这儿AOP设置不能少
+                        EntityService = (c, p) =>
                         {
-                            p.IsNullable = true;
+                            /***高版C#写法***/
+                            //支持string?和string  
+                            if (p.IsPrimarykey == false && new NullabilityInfoContext()
+                             .Create(c).WriteState is NullabilityState.Nullable)
+                            {
+                                p.IsNullable = true;
+                            }
                         }
                     }
-                }
-            }), DbType.MySql.ToString());
+                }), DbType.MySql.ToString());
 
+                //注册仓储  （确定要用单例吗，最好是用瞬态）
+                //没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态,VM层可以直接注入仓储
+                containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
+            }
+            #endregion
 
+            #region Redis注册
+            {
+                // 读取和绑定配置
+                var redisOptions = new RedisOptions();
+                configurationService.Configuration.GetSection("RedisOptions").Bind(redisOptions);
+                containerRegistry.RegisterInstance(redisOptions);
 
+                // 配置Redis连接
+                var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Configuration);
+                containerRegistry.RegisterInstance(redisConnection);
 
+                // 注册Redis服务
+                containerRegistry.Register<IRedisService, RedisService>();
+                //或者把DB注册出来用
 
+            }
+            #endregion
 
 #if false
             #region 还没有想好同时支持多库如何处理
@@ -148,13 +172,12 @@ namespace AYE_ModuleRegistration
             #endregion
 #endif
 
-            //注册仓储  （确定要用单例吗，最好是用瞬态）
-            //没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态,VM层可以直接注入仓储
-            containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
 
+            #region Quartz定时任务注册
+            //这里没有给参，如需配置在这里给参
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
             containerRegistry.Register<ITaskService, TaskService>();
-
+            #endregion
 
         }
 
