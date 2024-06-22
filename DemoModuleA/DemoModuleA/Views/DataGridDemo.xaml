@@ -10,7 +10,7 @@
              mc:Ignorable="d">
     <hc:TransitioningContentControl>
         <TabControl Style="{StaticResource TabControlInLine}">
-            <TabItem Header="hhy">
+            <TabItem Header="字典表">
                 <DataGrid hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
                           AutoGenerateColumns="False"
                           HeadersVisibility="All"
@@ -42,11 +42,7 @@
                                                 Binding="{Binding IsSelected}"
                                                 CanUserResize="False"
                                                 Header="hhy3" />
-                        <DataGridComboBoxColumn Width="100"
-                                                CanUserResize="False"
-                                                Header="hhy4"
-                                                ItemsSource="1"
-                                                SelectedValueBinding="{Binding Type}" />
+
                         <DataGridTextColumn Binding="{Binding Remark}" Header="hhy5" />
                     </DataGrid.Columns>
                 </DataGrid>
