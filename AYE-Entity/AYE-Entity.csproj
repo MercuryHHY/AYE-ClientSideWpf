@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="jmvd2mdo.tdx~" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AYE-Commom\AYE-Commom.csproj" />
   </ItemGroup>
 

@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using AYE_Job;
 using AYE.BaseFramework.QuartzCore.Dtos;
 using AYE.BaseFramework.QuartzCore.Enums;
+using AYE_Interface;
 
 namespace AYE_Service
 {
-    public class JobManager
+    public class JobManager: IJobManager
     {
         private readonly ITaskService taskService;
 
@@ -54,7 +55,7 @@ namespace AYE_Service
         /// 调度中心使用方法Demo
         /// </summary>
         /// <returns></returns>
-        private async Task InitializeSchedulerAsyncTest()
+        public async Task InitializeSchedulerAsyncTest()
         {
             TaskCreateInput taskCreateInput=new TaskCreateInput();
             //taskCreateInput.AssemblyName = "AYE-Job";
@@ -105,6 +106,6 @@ namespace AYE_Service
 
         }
 
-
+        
     }
 }

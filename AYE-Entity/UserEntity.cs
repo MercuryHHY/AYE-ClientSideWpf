@@ -8,29 +8,6 @@ using System.Threading.Tasks;
 namespace AYE_Entity;
 
 
-/// <summary>
-/// User information entity class
-/// 用户信息实体类
-/// </summary> 
-[SugarTable("UserInfo002")]
-public class UserInfo002Entity
-{
-    /// <summary>
-    /// User ID (Primary Key)
-    /// 用户ID（主键）
-    /// </summary>
-    [SugarColumn(IsIdentity = true, ColumnName = "Id", IsPrimaryKey = true)]
-    public int UserId { get; set; }
-
-    /// <summary>
-    /// User name
-    /// 用户名
-    /// </summary>
-    [SugarColumn(Length = 50, ColumnName = "Name", IsNullable = false)]
-    public string UserName { get; set; }
-
-
-}
 
 
 public class UserInfo001Entity

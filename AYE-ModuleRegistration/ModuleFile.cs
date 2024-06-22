@@ -46,7 +46,12 @@ namespace AYE_ModuleRegistration
     /// </summary>
     public class ModuleFile : IModule
     {
-       
+        private readonly ILogger<ModuleFile> _logger;
+        public ModuleFile(ILogger<ModuleFile> logger)
+        {
+            _logger = logger;
+        }
+
         /// <summary>
         /// 此模块预加载之后，当主页面成功得到之后 才会加载子模块内部的注册
         /// </summary>
@@ -190,6 +195,7 @@ namespace AYE_ModuleRegistration
         public void ServiceRegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IGolalCacheManager, GolalCacheManager>();
+            containerRegistry.RegisterSingleton<IJobManager, JobManager>();
 
 
         }
@@ -207,15 +213,18 @@ namespace AYE_ModuleRegistration
             var dataBaseOptions = containerProvider.Resolve<DataBaseOptions>();
             if (dataBaseOptions.UseCodeFirst)
             {
+                _logger.LogDebug("CodeFirst 正在执行");
                 //建库：如果不存在创建数据库存在不会重复创建 createdb
                 containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).DbMaintenance.CreateDatabase();
                 containerProvider.Resolve<ISqlSugarClient>().DbMaintenance.CreateDatabase();
                 
-                Type[] types = typeof(UserInfo002Entity).Assembly.GetTypes()
+                Type[] types = typeof(DictionaryEntity).Assembly.GetTypes()
                                 .Where(it => it.FullName != null && it.FullName.Contains("AYE_Entity") && it.Name.Contains("Entity"))//命名空间过滤，当然也可以写其他条件过滤
                                 .ToArray();
                 containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).CodeFirst.SetStringDefaultLength(200).InitTables(types);//根据types创建表
                 containerProvider.Resolve<ISqlSugarClient>().CodeFirst.SetStringDefaultLength(200).InitTables(types);//默认的sqllite
+                _logger.LogDebug("CodeFirst 执行完成！！！！！！");
+
             }
 
         }
