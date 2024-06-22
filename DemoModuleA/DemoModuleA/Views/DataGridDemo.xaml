@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="DemoModuleA.Views.DataGridDemo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:DemoModuleA.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <hc:TransitioningContentControl>
+        <TabControl Style="{StaticResource TabControlInLine}">
+            <TabItem Header="hhy">
+                <DataGrid hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
+                          AutoGenerateColumns="False"
+                          HeadersVisibility="All"
+                          ItemsSource="{Binding DataList}"
+                          RowHeaderWidth="60">
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="80"
+                                            Binding="{Binding Index}"
+                                            CanUserResize="False"
+                                            Header="hhy1"
+                                            IsReadOnly="True" />
+                        <DataGridTemplateColumn Width="60" CanUserResize="False">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image MaxWidth="32"
+                                           MaxHeight="32"
+                                           Source="{Binding ImgPath}"
+                                           Stretch="Uniform" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="hhy2" />
+                        <DataGridCheckBoxColumn Width="100"
+                                                Binding="{Binding IsSelected}"
+                                                CanUserResize="False"
+                                                Header="hhy3" />
+                        <DataGridComboBoxColumn Width="100"
+                                                CanUserResize="False"
+                                                Header="hhy4"
+                                                ItemsSource="1"
+                                                SelectedValueBinding="{Binding Type}" />
+                        <DataGridTextColumn Binding="{Binding Remark}" Header="hhy5" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+        </TabControl>
+    </hc:TransitioningContentControl>
+</UserControl>
