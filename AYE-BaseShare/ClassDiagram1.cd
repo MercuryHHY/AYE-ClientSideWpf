@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AYE_BaseShare._1_CodeFirst">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="AYE_BaseShare._1_CodeFirst.UserInfo002" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>_1_CodeFirst.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>_1_CodeFirst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AYE_BaseShare.UserInfo001">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAyAAAAAAAAAAAAgAAQAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>_1_CodeFirst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

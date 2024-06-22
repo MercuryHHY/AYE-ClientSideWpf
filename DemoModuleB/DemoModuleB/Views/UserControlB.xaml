@@ -17,7 +17,11 @@
 
     <hc:TransitioningContentControl>
         <StackPanel Margin="32" VerticalAlignment="Center">
-            <Button Width="180" hc:IconElement.Geometry="{StaticResource ThumbsUpGeometry}">
+            <Button Width="180"
+                    hc:IconElement.Geometry="{StaticResource ThumbsUpGeometry}"
+                    Command="{Binding AsyncDBCommand}"
+                    CommandParameter="123"
+                    Content="运行异步命令">
                 <hc:FloatingBlock.ContentTemplate>
                     <DataTemplate>
                         <Path Width="16"
