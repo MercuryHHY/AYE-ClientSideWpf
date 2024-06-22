@@ -23,6 +23,8 @@ namespace DemoModuleA.Views
         public DataGridDemo()
         {
             InitializeComponent();
+
+            
         }
     }
 }

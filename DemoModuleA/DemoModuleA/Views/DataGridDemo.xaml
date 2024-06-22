@@ -44,6 +44,9 @@
                                                 Header="hhy3" />
 
                         <DataGridTextColumn Binding="{Binding Remark}" Header="hhy5" />
+                        <DataGridTextColumn Binding="{Binding DictType}" Header="hhy5" />
+                        <DataGridTextColumn Binding="{Binding DictLabel}" Header="hhy5" />
+                        <DataGridTextColumn Binding="{Binding DictValue}" Header="hhy5" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
