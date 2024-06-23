@@ -8,49 +8,59 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <hc:TransitioningContentControl>
-        <TabControl Style="{StaticResource TabControlInLine}">
-            <TabItem Header="字典表">
-                <DataGrid hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
-                          AutoGenerateColumns="False"
-                          HeadersVisibility="All"
-                          ItemsSource="{Binding DataList}"
-                          RowHeaderWidth="60">
-                    <DataGrid.RowHeaderTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
-                        </DataTemplate>
-                    </DataGrid.RowHeaderTemplate>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="80"
-                                            Binding="{Binding Index}"
-                                            CanUserResize="False"
-                                            Header="hhy1"
-                                            IsReadOnly="True" />
-                        <DataGridTemplateColumn Width="60" CanUserResize="False">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image MaxWidth="32"
-                                           MaxHeight="32"
-                                           Source="{Binding ImgPath}"
-                                           Stretch="Uniform" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding Name}" Header="hhy2" />
-                        <DataGridCheckBoxColumn Width="100"
-                                                Binding="{Binding IsSelected}"
+    <StackPanel>
+        <Button Width="180"
+                Margin="0,10,0,0"
+                hc:FloatingBlock.Content="Good"
+                Command="{Binding AsyncUpCommand}"
+                Content="更新" />
+        <hc:TransitioningContentControl>
+            <TabControl Style="{StaticResource TabControlInLine}">
+                <TabItem Header="字典表">
+                    <DataGrid hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="All"
+                              ItemsSource="{Binding DataList}"
+                              RowHeaderWidth="60">
+                        <DataGrid.RowHeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                            </DataTemplate>
+                        </DataGrid.RowHeaderTemplate>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="80"
+                                                Binding="{Binding Index}"
                                                 CanUserResize="False"
-                                                Header="hhy3" />
+                                                Header="Index"
+                                                IsReadOnly="True" />
+                            <DataGridTemplateColumn Width="60" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image MaxWidth="32"
+                                               MaxHeight="32"
+                                               Source="{Binding ImgPath}"
+                                               Stretch="Uniform" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+                            <DataGridCheckBoxColumn Width="100"
+                                                    Binding="{Binding IsSelected}"
+                                                    CanUserResize="False"
+                                                    Header="Selected" />
+                            <DataGridTextColumn Binding="{Binding Remark}" Header="Remark" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding DictType}" Header="Type" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding DictLabel}" Header="Label" IsReadOnly="True" />
+                            <DataGridTextColumn Binding="{Binding DictValue}" Header="Value" IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
 
-                        <DataGridTextColumn Binding="{Binding Remark}" Header="hhy5" />
-                        <DataGridTextColumn Binding="{Binding DictType}" Header="hhy5" />
-                        <DataGridTextColumn Binding="{Binding DictLabel}" Header="hhy5" />
-                        <DataGridTextColumn Binding="{Binding DictValue}" Header="hhy5" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
+            </TabControl>
 
-        </TabControl>
-    </hc:TransitioningContentControl>
+        </hc:TransitioningContentControl>
+
+    </StackPanel>
+
+
 </UserControl>
