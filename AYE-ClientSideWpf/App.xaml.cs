@@ -10,6 +10,12 @@ namespace AYE_ClientSideWpf
 {
     public partial class App : Application
     {
+
+        /// <summary>
+        /// 之前一直在思考 如果这个启动方法设置成 继承之后重写成 异步的方法 会不会有问题
+        /// 从ABP生成的WPF模版来看 是没有问题的
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
             ConsoleHelper.AllocConsole();//打开控制台
@@ -33,6 +39,19 @@ namespace AYE_ClientSideWpf
             var boot = new Bootstrapper(loggerFactory);       
             boot.Run();
         }
+
+
+        /// <summary>
+        /// 这个方法应该会程序最后执行
+        /// </summary>
+        /// <param name="e"></param>
+        protected override async void OnExit(ExitEventArgs e)
+        { 
+           await System.Threading.Tasks.Task.CompletedTask;    
+        }
+
+
+
 
         internal void UpdateTheme(ApplicationTheme theme)
         {
