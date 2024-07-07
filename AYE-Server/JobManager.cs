@@ -16,14 +16,16 @@ namespace AYE_Service
     public class JobManager: IJobManager
     {
         private readonly ITaskService taskService;
+        private readonly IGolalCacheManager _golalCacheManager;
 
-
-        public JobManager(ITaskService taskService)
+        public JobManager(ITaskService taskService, IGolalCacheManager golalCacheManager)
         {
             this.taskService = taskService;
+            _golalCacheManager = golalCacheManager;
 
             //测试 先将这函数放在这里，一般来说会放在异步命令的执行中，服务中只提供接口的实现即可，工给异步命令调用
             InitializeSchedulerAsyncTest();
+            
             //InitializeSchedulerAsync();
 
         }

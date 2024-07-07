@@ -1,4 +1,5 @@
 ﻿using AYE_Interface;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AYE_Service;
 
-#if false
+#if true
 
 public class FtpClientSideService : IFtpClientSideService
 {

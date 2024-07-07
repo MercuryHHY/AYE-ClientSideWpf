@@ -151,7 +151,7 @@ namespace AYE_ModuleRegistration
             #endregion
 
 #if false
-            #region 还没有想好同时支持多库如何处理
+            #region 旧版本的ORM注册
             {
                 //我想尽了一切可能，似乎没有没办法直接这么玩，可是如果分装一个工厂，又会违背我简化操作的初衷
                 // 那还不如就按下面所示 直接按 Key 注册出SqlSugarClient使用
@@ -205,9 +205,11 @@ namespace AYE_ModuleRegistration
 
         /// <summary>
         /// 模块化注册结束，最后的在这里进行一系列的数据初始化操作
+        /// 全局缓存数据的初始化 也在这里
+        /// 
         /// </summary>
         /// <param name="containerProvider"></param>
-        public void OnInitialized(IContainerProvider containerProvider)
+        public async void OnInitialized(IContainerProvider containerProvider)
         {
             //根据配置文件决定 是否开启Codefirst
             var dataBaseOptions = containerProvider.Resolve<DataBaseOptions>();
@@ -226,6 +228,14 @@ namespace AYE_ModuleRegistration
                 _logger.LogDebug("CodeFirst 执行完成！！！！！！");
 
             }
+
+            //缓存数据初始化
+            var golalCacheManager= containerProvider.Resolve<GolalCacheManager>();
+            await golalCacheManager.LoadAllAsync();
+
+
+
+
 
         }
         
