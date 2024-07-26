@@ -31,7 +31,7 @@ namespace AYE_ClientSideWpf.ViewModels
         }
         #endregion
 
-        private string userName="放开那妞 让我来";
+        private string userName="啊烨";
 
         public string UserName
         {
