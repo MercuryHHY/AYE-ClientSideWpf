@@ -18,12 +18,18 @@ namespace AYE_ClientSideWpf.ViewModels
 {
     public class MainWindowViewModel : BindableBase, IConfigureService
     {
+        #region 参考
+        /// <summary>
+        /// Prism.Mvvm框架中 提供了这种数据通知的函数使用，其本质其实与下面的一致
+        /// 这里没有删，只是提供参考
+        /// </summary>
         private string _title = "Prism Application";
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
+        #endregion
 
         private string userName="放开那妞 让我来";
 
@@ -34,7 +40,14 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
         public DelegateCommand LoginOutCommand { get; private set; }
+        public DelegateCommand<MenuBar> NavigateCommand { get; private set; }
+        public DelegateCommand GoBackCommand { get; private set; }
+        public DelegateCommand GoForwardCommand { get; private set; }
 
+
+        private readonly IContainerProvider containerProvider;
+        private readonly IRegionManager regionManager;
+        private IRegionNavigationJournal journal;
 
         //private readonly IConfigurationService _configurationService;
 
@@ -42,17 +55,25 @@ namespace AYE_ClientSideWpf.ViewModels
             IRegionManager regionManager)
         {
             MenuBars = new ObservableCollection<MenuBar>();
+
+            //注入用户窗口
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
+
+            //向后回退
             GoBackCommand = new DelegateCommand(() =>
             {
                 if (journal != null && journal.CanGoBack)
                     journal.GoBack();
             });
+
+            //向前回退
             GoForwardCommand = new DelegateCommand(() =>
             {
                 if (journal != null && journal.CanGoForward)
                     journal.GoForward();
             });
+
+            //登出
             LoginOutCommand = new DelegateCommand(() =>
             {
                 //注销当前用户
@@ -63,6 +84,8 @@ namespace AYE_ClientSideWpf.ViewModels
             //_configurationService = configurationService;
         }
 
+
+        //注入用户窗口的具体执行
         private void Navigate(MenuBar obj)
         {
             if (obj == null || string.IsNullOrWhiteSpace(obj.NameSpace))
@@ -75,15 +98,11 @@ namespace AYE_ClientSideWpf.ViewModels
             });
         }
 
-        public DelegateCommand<MenuBar> NavigateCommand { get; private set; }
-        public DelegateCommand GoBackCommand { get; private set; }
-        public DelegateCommand GoForwardCommand { get; private set; }
+       
 
+
+        #region 菜单数据初始化
         private ObservableCollection<MenuBar> menuBars;
-        private readonly IContainerProvider containerProvider;
-        private readonly IRegionManager regionManager;
-        private IRegionNavigationJournal journal;
-
         public ObservableCollection<MenuBar> MenuBars
         {
             get { return menuBars; }
@@ -91,7 +110,7 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
 
-        void CreateMenuBar()
+        private void CreateMenuBar()
         {
             MenuBars.Add(new MenuBar() { Icon = "Home", Title = "首页", NameSpace = "IndexView" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "ToDoView" });
@@ -102,6 +121,9 @@ namespace AYE_ClientSideWpf.ViewModels
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "字典表", NameSpace = "DataGridDemo" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "关于", NameSpace = "About" });
         }
+        #endregion
+
+
 
         /// <summary>
         /// 配置首页初始化参数
@@ -111,7 +133,7 @@ namespace AYE_ClientSideWpf.ViewModels
             await Task.Delay(5);
             CreateMenuBar();
 
-            //暂时注释
+            //暂时注释   主页面
             //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
         }
 
