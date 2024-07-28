@@ -27,6 +27,7 @@ namespace DemoModuleA
             containerRegistry.RegisterForNavigation<UserControlA, UserControlAViewModel>();
             containerRegistry.RegisterForNavigation<DataGridDemo, DataGridDemoViewModel>();
             containerRegistry.RegisterForNavigation<About, AboutViewModel>();
+            containerRegistry.RegisterForNavigation<IndexView>();
         }
 
         

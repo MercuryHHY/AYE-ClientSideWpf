@@ -113,9 +113,9 @@ namespace AYE_ClientSideWpf.ViewModels
         private void CreateMenuBar()
         {
             MenuBars.Add(new MenuBar() { Icon = "Home", Title = "首页", NameSpace = "IndexView" });
-            MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "ToDoView" });
-            MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
+            //MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "ToDoView" });
+            //MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
+            //MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块A", NameSpace = "UserControlA" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块B", NameSpace = "UserControlB" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "字典表", NameSpace = "DataGridDemo" });
@@ -134,7 +134,7 @@ namespace AYE_ClientSideWpf.ViewModels
             CreateMenuBar();
 
             //暂时注释   主页面
-            //regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("IndexView");
         }
 
 

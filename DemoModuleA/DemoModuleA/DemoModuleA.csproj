@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\user.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\user.jpg" />
   </ItemGroup>
 
 </Project>
