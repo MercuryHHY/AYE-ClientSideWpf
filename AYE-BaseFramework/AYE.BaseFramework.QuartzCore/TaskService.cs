@@ -17,11 +17,9 @@ namespace AYE.BaseFramework.QuartzCore;
 
 public class TaskService : ITaskService
 {
-    private readonly ISchedulerFactory _schedulerFactory;
-    ///private readonly IClock _clock;
+    private readonly ISchedulerFactory _schedulerFactory;//这里就可以不用直接用工厂生产调度器了。待优化
     public TaskService(ISchedulerFactory schedulerFactory)
     {
-        //_clock = clock;
         _schedulerFactory = schedulerFactory;
     }
 
@@ -110,10 +108,6 @@ public class TaskService : ITaskService
                 triggerBuilder =
                    TriggerBuilder.Create()
                    .WithCronSchedule(input.Cron);
-
-
-
-
                 break;
             case JobTypeEnum.Millisecond:
                 triggerBuilder =

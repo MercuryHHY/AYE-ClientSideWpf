@@ -71,15 +71,12 @@ namespace AYE_Service
             taskCreateInput.JobType = nameof(TestJob);
             taskCreateInput.Description = "A test job";
             await taskService.CreateAsync(taskCreateInput);
-
-            // 启动作业
             await taskService.StartAsync("TestJob");
             //await taskService.ResumeJobAsync("TestJob");
 
+            //创建一个同样的JOB，只改ID，先创建再启动
             taskCreateInput.JobId = "TestJob_2";
             await taskService.CreateAsync(taskCreateInput);
-
-            // 启动作业
             await taskService.StartAsync("TestJob_2");
 
 
@@ -99,10 +96,8 @@ namespace AYE_Service
             demoJob.JobType = nameof(DemoJob);
             demoJob.Description = "A demoJob job";
             await taskService.CreateAsync(demoJob);
-
-            // 启动作业
             await taskService.StartAsync("DemoJob");
-            await taskService.ResumeJobAsync("DemoJob");
+            //await taskService.ResumeJobAsync("DemoJob");//还原
 
 
 

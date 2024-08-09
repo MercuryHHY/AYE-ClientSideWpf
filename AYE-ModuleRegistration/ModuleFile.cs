@@ -179,14 +179,16 @@ namespace AYE_ModuleRegistration
 
 
             #region Quartz定时任务注册
-            //这里没有给参，如需配置在这里给参
-            containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory());
+            //这里给参数配置Quartz的生成调度中心的工厂，那么此时工厂生产的调度器默认线程池会是20
+            containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory(new System.Collections.Specialized.NameValueCollection
+            {
+                { "quartz.threadPool.threadCount", "20" }, // 设置线程池大小为20
+            }));
+
+            //如果每次使用调度器都要从 工厂去拿，对一个单机WPF程序而言，根本没必要，所以我决定直接将调度器注入IOC
+            containerRegistry.RegisterInstance<IScheduler>(containerRegistry.GetContainer().Resolve<ISchedulerFactory>().GetScheduler().Result);//我有点长，你需要忍耐
             containerRegistry.Register<ITaskService, TaskService>();
             #endregion
-
-
-
-
 
             ServiceRegisterTypes(containerRegistry);
         }
