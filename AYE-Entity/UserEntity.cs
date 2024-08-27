@@ -9,7 +9,9 @@ namespace AYE_Entity;
 
 
 
-
+/// <summary>
+/// 测试用例
+/// </summary>
 public class UserInfo001Entity
 {
     /// <summary>

@@ -124,7 +124,7 @@ namespace AYE_ModuleRegistration
                             }
                         }
                     }
-                }), DbType.MySql.ToString());
+                }), DbType.MySql.ToString());//注意，这里我多加了一个参数用作KEY
 
                 //注册仓储  （确定要用单例吗，最好是用瞬态）
                 //没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态,VM层可以直接注入仓储
@@ -150,34 +150,6 @@ namespace AYE_ModuleRegistration
             }
             #endregion
 
-#if false
-            #region 旧版本的ORM注册
-            {
-                //我想尽了一切可能，似乎没有没办法直接这么玩，可是如果分装一个工厂，又会违背我简化操作的初衷
-                // 那还不如就按下面所示 直接按 Key 注册出SqlSugarClient使用
-
-                // 注册 MySQL 的 SqlSugar 服务
-                containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                {
-                    ConnectionString = "server=127.0.0.1;Database=aye-hhy;Uid=root;Pwd=root;sslMode=None",
-                    DbType = DbType.MySql,
-                    IsAutoCloseConnection = true,
-                    InitKeyType = InitKeyType.Attribute
-                }), DbType.MySql.ToString());
-                //containerRegistry.Register(typeof(ISuperRepository<>), c => new SuperRepository<object>(c.Resolve<IContainerProvider>(), "MySql"));
-                //containerRegistry.Register(typeof(ISuperRepository<>), c =>
-                //{
-                //    var serviceType = c.GetType().GenericTypeArguments[0];
-                //    var genericType = typeof(SuperRepository<>).MakeGenericType(serviceType);
-                //    return Activator.CreateInstance(genericType, c.Resolve<IContainerProvider>(), "MySql");
-                //});
-                //containerRegistry.Register(typeof(ISuperRepository<>), typeof(SuperRepository<>));
-                //containerRegistry.RegisterInstance(typeof(ISuperRepository<>),new SuperRepository<>("MySql"),)
-            }
-            #endregion
-#endif
-
-
             #region Quartz定时任务注册
             //这里给参数配置Quartz的生成调度中心的工厂，那么此时工厂生产的调度器默认线程池会是20
             containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory(new System.Collections.Specialized.NameValueCollection
@@ -194,6 +166,10 @@ namespace AYE_ModuleRegistration
         }
 
 
+        /// <summary>
+        /// 业务的服务注册
+        /// </summary>
+        /// <param name="containerRegistry"></param>
         public void ServiceRegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IGolalCacheManager, GolalCacheManager>();
@@ -223,8 +199,10 @@ namespace AYE_ModuleRegistration
                 containerProvider.Resolve<ISqlSugarClient>().DbMaintenance.CreateDatabase();
                 
                 Type[] types = typeof(DictionaryEntity).Assembly.GetTypes()
-                                .Where(it => it.FullName != null && it.FullName.Contains("AYE_Entity") && it.Name.Contains("Entity"))//命名空间过滤，当然也可以写其他条件过滤
+                                .Where(it => it.FullName != null && it.FullName=="AYE_Entity" && it.Name.Contains("Entity"))//命名空间过滤，当然也可以写其他条件过滤
                                 .ToArray();
+
+                //两种数据库的Codefirst 执行
                 containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString()).CodeFirst.SetStringDefaultLength(200).InitTables(types);//根据types创建表
                 containerProvider.Resolve<ISqlSugarClient>().CodeFirst.SetStringDefaultLength(200).InitTables(types);//默认的sqllite
                 _logger.LogDebug("CodeFirst 执行完成！！！！！！");

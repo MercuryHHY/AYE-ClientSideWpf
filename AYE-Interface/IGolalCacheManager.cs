@@ -13,6 +13,8 @@ namespace AYE_Interface
         List<DictionaryEntity> DictionaryEntities { get; set; }
         FtpSetting GlobalFtpSetting { get; set; }
 
+
+
         Task LoadAllAsync();
 
 
