@@ -1,5 +1,5 @@
 ﻿using AYE.BaseFramework.SqlSusgarCore;
-using ETX.Entity.Log;
+using AYE_Entity.Log;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

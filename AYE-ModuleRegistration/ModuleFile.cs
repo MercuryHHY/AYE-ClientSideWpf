@@ -199,7 +199,7 @@ namespace AYE_ModuleRegistration
                 containerProvider.Resolve<ISqlSugarClient>().DbMaintenance.CreateDatabase();
                 
                 Type[] types = typeof(DictionaryEntity).Assembly.GetTypes()
-                                .Where(it => it.FullName != null && it.FullName=="AYE_Entity" && it.Name.Contains("Entity"))//命名空间过滤，当然也可以写其他条件过滤
+                                .Where(it => it.FullName != null && it.FullName.Contains("AYE_Entity") && it.Name.Contains("Entity"))//命名空间过滤，当然也可以写其他条件过滤
                                 .ToArray();
 
                 //两种数据库的Codefirst 执行

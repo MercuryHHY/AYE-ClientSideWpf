@@ -1,6 +1,7 @@
 ﻿using AYE.BaseFramework.SqlSusgarCore;
+using AYE_Entity.Log;
 using AYE_Interface;
-using ETX.Entity.Log;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

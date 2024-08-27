@@ -39,10 +39,6 @@ public class UserControlBViewModel
             // 模拟一个异步操作
             //await Task.Delay(20);
             await _DictionaryRepository.InsertAsync(new DictionaryEntity() { DictType = "myDictType", DictLabel = "myDictLabel", DictValue = "myDictValue", Remark = "myRemark" });
-            await _DictionaryRepository.InsertAsync(new DictionaryEntity() { DictType = "myDictType", DictLabel = "myDictLabel", DictValue = "myDictValue", Remark = "myRemark" });
-            await _DictionaryRepository.InsertAsync(new DictionaryEntity() { DictType = "myDictType", DictLabel = "myDictLabel", DictValue = "myDictValue", Remark = "myRemark" });
-            await _DictionaryRepository.InsertAsync(new DictionaryEntity() { DictType = "myDictType", DictLabel = "myDictLabel", DictValue = "myDictValue", Remark = "myRemark" });
-            await _DictionaryRepository.InsertAsync(new DictionaryEntity() { DictType = "myDictType", DictLabel = "myDictLabel", DictValue = "myDictValue", Remark = "myRemark" });
             Console.WriteLine($"异步操作完成。所得参数是{op}");
         }
         catch (Exception ex)
