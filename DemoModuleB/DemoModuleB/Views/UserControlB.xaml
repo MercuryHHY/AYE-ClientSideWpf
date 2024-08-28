@@ -16,7 +16,7 @@
     </UserControl.Resources>
 
     <hc:TransitioningContentControl>
-        <StackPanel Margin="32" VerticalAlignment="Center">
+        <StackPanel Margin="32" VerticalAlignment="Center" Background="Green">
             <Button Width="180"
                     hc:IconElement.Geometry="{StaticResource ThumbsUpGeometry}"
                     Command="{Binding AsyncDBCommand}"
@@ -53,6 +53,13 @@
                     </DataTemplate>
                 </hc:FloatingBlock.ContentTemplate>
             </Button>
+
+            <ToggleButton x:Name="TestToggleButton"
+                          Width="60"
+                          AutomationProperties.Name="HamburgerToggleButton"
+                          Background="White"
+                          IsChecked="False" />
+            <!--  Checked="MenuToggleButton_Checked"  -->
         </StackPanel>
     </hc:TransitioningContentControl>
 

@@ -43,6 +43,8 @@ namespace AYE_ClientSideWpf.ViewModels
         public DelegateCommand<MenuBar> NavigateCommand { get; private set; }
         public DelegateCommand GoBackCommand { get; private set; }
         public DelegateCommand GoForwardCommand { get; private set; }
+        
+        public DelegateCommand TestCommand { get; private set; }
 
 
         private readonly IContainerProvider containerProvider;
@@ -79,6 +81,16 @@ namespace AYE_ClientSideWpf.ViewModels
                 //注销当前用户
                 //App.LoginOut(containerProvider);
             });
+
+            //TestCommand
+            //TestCommand = new DelegateCommand(() =>
+            //{
+            //    //测试点击卡顿问题
+            //    Console.WriteLine("点击了");
+            //    //MenuToggleButton
+
+            //});
+
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
             //_configurationService = configurationService;

@@ -37,19 +37,20 @@ namespace AYE_ClientSideWpf.Views
                 if (dialogResult.Result != Prism.Services.Dialogs.ButtonResult.OK) return;
                 this.Close();
             };
+
             ColorZone.MouseMove += (s, e) =>
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                     this.DragMove();
             };
 
-            ColorZone.MouseDoubleClick += (s, e) =>
-            {
-                if (this.WindowState == WindowState.Normal)
-                    this.WindowState = WindowState.Maximized;
-                else
-                    this.WindowState = WindowState.Normal;
-            };
+            //ColorZone.MouseDoubleClick += (s, e) =>
+            //{
+            //    if (this.WindowState == WindowState.Normal)
+            //        this.WindowState = WindowState.Maximized;
+            //    else
+            //        this.WindowState = WindowState.Normal;
+            //};
 
             menuBar.SelectionChanged += (s, e) =>
             {
@@ -57,6 +58,19 @@ namespace AYE_ClientSideWpf.Views
                 //左边部分是否默认打开 设置为false  不打开  也就是收缩效果
                 drawerHost.IsLeftDrawerOpen = false;
             };
+
+            MenuToggleButton.MouseMove += (s, e) =>
+            {
+                //if (e.LeftButton == MouseButtonState.Released)
+                {
+                    // 强制获得焦点
+                    MenuToggleButton.Focus();
+                    //MenuToggleButton.IsChecked = !MenuToggleButton.IsChecked;
+                }
+
+            };
+
+
 
             this.dialogHostService = dialogHostService;
 
@@ -67,9 +81,9 @@ namespace AYE_ClientSideWpf.Views
 
         }
 
-       
-    
-    
-    
+        private void MenuToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
