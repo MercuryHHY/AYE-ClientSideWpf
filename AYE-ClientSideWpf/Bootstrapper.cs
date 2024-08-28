@@ -52,6 +52,7 @@ namespace AYE_ClientSideWpf
 
             //测试
             containerRegistry.RegisterForNavigation<WindowTest1, WindowTest1ViewModel>();
+            containerRegistry.RegisterForNavigation<WindowTest2, WindowTest2ViewModel>();
 
 
         }
@@ -82,7 +83,8 @@ namespace AYE_ClientSideWpf
             //return Container.Resolve<MainWindow>();
 
             //测试
-            return Container.Resolve<WindowTest1>();
+            //return Container.Resolve<WindowTest1>();
+            return Container.Resolve<WindowTest2>();
         }
 
     }
