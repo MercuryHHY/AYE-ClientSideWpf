@@ -1,5 +1,4 @@
 ﻿using AYE_ClientSideWpf.Extensions;
-using HandyControl.Controls;
 using HandyControl.Themes;
 using HandyControl.Tools;
 using MyToDo.Common;
@@ -16,7 +15,7 @@ namespace AYE_ClientSideWpf.Views
     /// 所以VS时不时会显示找不到定义，但是运行起来是没有问题的
     /// VS重新打开此项目就好了
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : Window
     {
         private readonly IDialogHostService dialogHostService;
         public MainWindow()
@@ -38,11 +37,13 @@ namespace AYE_ClientSideWpf.Views
                 this.Close();
             };
 
-            //ColorZone.MouseMove += (s, e) =>
-            //{
-            //    if (e.LeftButton == MouseButtonState.Pressed)
-            //        this.DragMove();
-            //};
+
+            ///通过在 ColorZone 控件上按住鼠标左键并移动鼠标来拖动整个窗口
+            ColorZone.MouseMove += (s, e) =>
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                    this.DragMove();
+            };
 
             //ColorZone.MouseDoubleClick += (s, e) =>
             //{
@@ -59,19 +60,6 @@ namespace AYE_ClientSideWpf.Views
                 drawerHost.IsLeftDrawerOpen = false;
             };
 
-            //MenuToggleButton.MouseMove += (s, e) =>
-            //{
-            //    //if (e.LeftButton == MouseButtonState.Released)
-            //    {
-            //        // 强制获得焦点
-            //        MenuToggleButton.Focus();
-            //        //MenuToggleButton.IsChecked = !MenuToggleButton.IsChecked;
-            //    }
-
-            //};
-
-
-
             this.dialogHostService = dialogHostService;
 
 
@@ -81,9 +69,6 @@ namespace AYE_ClientSideWpf.Views
 
         }
 
-        private void MenuToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }

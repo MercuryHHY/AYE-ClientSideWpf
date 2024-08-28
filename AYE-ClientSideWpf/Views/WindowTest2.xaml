@@ -29,7 +29,7 @@
 
     <materialDesign:DialogHost x:Name="DialogHost" DialogTheme="Inherit" Identifier="Root">
         <materialDesign:DrawerHost x:Name="drawerHost" IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-
+            
             <!--  左边隐藏区  -->
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="220">
@@ -60,8 +60,7 @@
 
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
-
-
+            
             <!--  主界面的设计  -->
             <Grid>
                 <Grid.RowDefinitions>

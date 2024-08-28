@@ -80,11 +80,11 @@ namespace AYE_ClientSideWpf
         protected override DependencyObject CreateShell()
         {
             // 通过容器去 拿到这个 启动类
-            //return Container.Resolve<MainWindow>();
+            return Container.Resolve<MainWindow>();
 
             //测试
             //return Container.Resolve<WindowTest1>();
-            return Container.Resolve<WindowTest2>();
+            //return Container.Resolve<WindowTest2>();
         }
 
     }
