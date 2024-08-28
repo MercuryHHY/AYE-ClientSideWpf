@@ -50,6 +50,9 @@ namespace AYE_ClientSideWpf
 
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 
+            //测试
+            containerRegistry.RegisterForNavigation<WindowTest1, WindowTest1ViewModel>();
+
 
         }
 
@@ -76,7 +79,10 @@ namespace AYE_ClientSideWpf
         protected override DependencyObject CreateShell()
         {
             // 通过容器去 拿到这个 启动类
-            return Container.Resolve<MainWindow>();
+            //return Container.Resolve<MainWindow>();
+
+            //测试
+            return Container.Resolve<WindowTest1>();
         }
 
     }

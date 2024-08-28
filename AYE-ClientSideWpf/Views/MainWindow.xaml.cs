@@ -38,11 +38,11 @@ namespace AYE_ClientSideWpf.Views
                 this.Close();
             };
 
-            ColorZone.MouseMove += (s, e) =>
-            {
-                if (e.LeftButton == MouseButtonState.Pressed)
-                    this.DragMove();
-            };
+            //ColorZone.MouseMove += (s, e) =>
+            //{
+            //    if (e.LeftButton == MouseButtonState.Pressed)
+            //        this.DragMove();
+            //};
 
             //ColorZone.MouseDoubleClick += (s, e) =>
             //{
@@ -59,16 +59,16 @@ namespace AYE_ClientSideWpf.Views
                 drawerHost.IsLeftDrawerOpen = false;
             };
 
-            MenuToggleButton.MouseMove += (s, e) =>
-            {
-                //if (e.LeftButton == MouseButtonState.Released)
-                {
-                    // 强制获得焦点
-                    MenuToggleButton.Focus();
-                    //MenuToggleButton.IsChecked = !MenuToggleButton.IsChecked;
-                }
+            //MenuToggleButton.MouseMove += (s, e) =>
+            //{
+            //    //if (e.LeftButton == MouseButtonState.Released)
+            //    {
+            //        // 强制获得焦点
+            //        MenuToggleButton.Focus();
+            //        //MenuToggleButton.IsChecked = !MenuToggleButton.IsChecked;
+            //    }
 
-            };
+            //};
 
 
 
