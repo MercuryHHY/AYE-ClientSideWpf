@@ -54,7 +54,6 @@ namespace AYE_ClientSideWpf
             containerRegistry.RegisterForNavigation<WindowTest1, WindowTest1ViewModel>();
             containerRegistry.RegisterForNavigation<WindowTest2, WindowTest2ViewModel>();
 
-
         }
 
 
