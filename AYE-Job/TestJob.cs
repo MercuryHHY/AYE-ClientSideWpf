@@ -41,7 +41,7 @@ namespace AYE_Job
         {
 
             await Task.Delay(10);
-            System.Diagnostics.Debug.WriteLine("条件不满足，任务未被调度");
+            System.Diagnostics.Debug.WriteLine("条件不满足，任务不在执行");
             return true;
         }
 

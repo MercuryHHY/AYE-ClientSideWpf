@@ -210,8 +210,7 @@ namespace AYE_ModuleRegistration
             }
 
             //缓存数据初始化
-            var golalCacheManager= containerProvider.Resolve<GolalCacheManager>();
-            await golalCacheManager.LoadAllAsync();
+            await containerProvider.Resolve<GolalCacheManager>().LoadAllAsync();
 
 
 
