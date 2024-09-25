@@ -4,7 +4,6 @@ using MyToDo.Common;
 using Prism.Commands;
 using Prism.Ioc;
 using Prism.Mvvm;
-using Prism.Regions;
 using System.Collections.ObjectModel;
 
 using SqlSugar;
@@ -13,6 +12,7 @@ using System.Linq.Expressions;
 using AYE.BaseFramework.SqlSusgarCore;
 using AYE_BaseFramework.ConfigurationCore;
 using System.Threading.Tasks;
+using Prism.Regions;
 
 namespace AYE_ClientSideWpf.ViewModels
 {
