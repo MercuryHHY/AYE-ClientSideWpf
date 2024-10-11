@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Service", "AYE-Server\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-Job", "AYE-Job\AYE-Job.csproj", "{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-BaseShare", "AYE-BaseShare\AYE-BaseShare.csproj", "{D5E5C28A-3F70-466C-9ED6-644D9C37088B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoModuleA", "DemoModuleA", "{5617BE72-D22C-48C1-AE8E-15158AEF6A1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE-ModuleRegistration", "AYE-ModuleRegistration\AYE-ModuleRegistration.csproj", "{1C447106-BF46-4F13-81B1-25CC467B9A8A}"
@@ -45,15 +43,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.Modules.ModbusRtu", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.Modules.ModbusTcp", "Modules\Modbus\AYE.Modules.ModbusTcp\AYE.Modules.ModbusTcp.csproj", "{840FD773-3389-48D4-8B63-8D6C55F80436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE.BaseFramework.MqttClientCore", "AYE-BaseFramework\AYE.BaseFramework.MqttClientCore\AYE.BaseFramework.MqttClientCore.csproj", "{0A4B27CA-F6B6-4326-BC35-BA850E5F7420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.MqttClientCore", "AYE-BaseFramework\AYE.BaseFramework.MqttClientCore\AYE.BaseFramework.MqttClientCore.csproj", "{0A4B27CA-F6B6-4326-BC35-BA850E5F7420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE.BaseFramework.MqttServerCore", "AYE-BaseFramework\AYE.BaseFramework.MqttServerCore\AYE.BaseFramework.MqttServerCore.csproj", "{34873F94-7B0D-4CD0-BA95-8A9AF319FF32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.MqttServerCore", "AYE-BaseFramework\AYE.BaseFramework.MqttServerCore\AYE.BaseFramework.MqttServerCore.csproj", "{34873F94-7B0D-4CD0-BA95-8A9AF319FF32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE.BaseFramework.ModbusRtuCore", "AYE-BaseFramework\AYE.BaseFramework.ModbusRtuCore\AYE.BaseFramework.ModbusRtuCore.csproj", "{6852FAF1-01B8-4009-B4F1-8A884AF1EB25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.ModbusRtuCore", "AYE-BaseFramework\AYE.BaseFramework.ModbusRtuCore\AYE.BaseFramework.ModbusRtuCore.csproj", "{6852FAF1-01B8-4009-B4F1-8A884AF1EB25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE.BaseFramework.ModbusTcpCore", "AYE-BaseFramework\AYE.BaseFramework.ModbusTcpCore\AYE.BaseFramework.ModbusTcpCore.csproj", "{9E915ABA-6656-4A6D-B9D0-047C40592481}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.ModbusTcpCore", "AYE-BaseFramework\AYE.BaseFramework.ModbusTcpCore\AYE.BaseFramework.ModbusTcpCore.csproj", "{9E915ABA-6656-4A6D-B9D0-047C40592481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE.BaseFramework.Manager", "AYE-BaseFramework\AYE.BaseFramework.Manager\AYE.BaseFramework.Manager.csproj", "{8FFD8351-03E1-4917-98D6-10B03331A430}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.Manager", "AYE-BaseFramework\AYE.BaseFramework.Manager\AYE.BaseFramework.Manager.csproj", "{8FFD8351-03E1-4917-98D6-10B03331A430}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,10 +83,6 @@ Global
 		{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3C53CB4-5C81-4201-8CF4-51C2BA1A4F3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5E5C28A-3F70-466C-9ED6-644D9C37088B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C447106-BF46-4F13-81B1-25CC467B9A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -150,7 +144,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D5E5C28A-3F70-466C-9ED6-644D9C37088B} = {D6A698BF-06A6-4F9F-9617-236F1D12E214}
 		{5617BE72-D22C-48C1-AE8E-15158AEF6A1B} = {353CD44F-EEFB-4C2E-A5EA-826F466EF049}
 		{5CCE13D1-9348-4D9B-85ED-36C07002E28B} = {353CD44F-EEFB-4C2E-A5EA-826F466EF049}
 		{76FC1D03-F364-457B-B7EB-A6216841F6B6} = {5617BE72-D22C-48C1-AE8E-15158AEF6A1B}
