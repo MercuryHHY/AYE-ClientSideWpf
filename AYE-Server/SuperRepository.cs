@@ -13,6 +13,9 @@ namespace AYE_Service;
 
 
 /// <summary>
+/// 超级仓储模式
+/// 适用于同时连接多种DB类型的场景
+/// 
 /// 我的初衷是在依赖注入时 给它参数以完成构造（简单工厂的思想）
 /// 可是发现如此注册，在使用时无法区分各种DB实例对应的SuperRepository
 /// 所以最简单的方式就是其他类直接在构造函数中显示的指定DB类型， new一个 SuperRepository

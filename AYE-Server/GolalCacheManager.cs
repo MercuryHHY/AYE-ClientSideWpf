@@ -25,18 +25,23 @@ public class GolalCacheManager : IGolalCacheManager
     //private readonly ISuperRepository<DictionaryEntity> _DictionaryRepository;//仓储测试
     //private readonly ISqlSugarClient _MySqlDb;
 
-
     private readonly IContainerProvider _containerProvider;
     private readonly ILogger<GolalCacheManager> _logger;
     private readonly IRepository<DictionaryEntity> _DictionaryRepository;
+
 
     public GolalCacheManager(IContainerProvider containerProvider, ILogger<GolalCacheManager> logger, IRepository<DictionaryEntity> dictionaryRepository)
     {
         _containerProvider = containerProvider;
         //_MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
         //_DictionaryRepository = new SuperRepository<DictionaryEntity>(containerProvider, DbType.MySql.ToString());
+        //_DictionaryRepository = containerProvider.Resolve<ISuperRepository<DictionaryEntity>>(DbType.MySql.ToString(),(typeof(SuperRepository<>)));
+
         _logger = logger;
         _DictionaryRepository = dictionaryRepository;
+        
+
+
     }
 
 

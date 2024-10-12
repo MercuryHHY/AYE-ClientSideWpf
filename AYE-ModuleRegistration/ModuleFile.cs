@@ -169,6 +169,9 @@ namespace AYE_ModuleRegistration
                                 }
                             }
                         }));
+
+                        //注意：使用时 任然需要手动显示给参
+                        containerRegistry.Register(typeof(ISuperRepository<>), typeof(SuperRepository<>));
                     }
                     else
                     {
@@ -176,7 +179,7 @@ namespace AYE_ModuleRegistration
                         containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
                         {
                             ConnectionString = item.ConnectionString,
-                            DbType = DbType.MySql,
+                            DbType = dbTypeEnum,
                             IsAutoCloseConnection = true,
                             InitKeyType = InitKeyType.Attribute,
                             ConfigureExternalServices = new ConfigureExternalServices
@@ -194,6 +197,9 @@ namespace AYE_ModuleRegistration
                                 }
                             }
                         }), dbTypeEnum.ToString());//注意，这里我多加了一个参数用作KEY
+
+                        //注意：使用时 任然需要手动显示给参
+                        containerRegistry.Register(typeof(ISuperRepository<>), typeof(SuperRepository<>), dbTypeEnum.ToString());
                     }
 
                 });

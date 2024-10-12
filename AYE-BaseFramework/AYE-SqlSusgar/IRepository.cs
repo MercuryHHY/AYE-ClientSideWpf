@@ -32,7 +32,8 @@ public interface IRepository<T> : ISimpleClient<T> where T : class, new()
 
 
 /// <summary>
-/// 仓储模式
+/// 单一仓储模式
+/// 只会使用默认的DB类型实例
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class Repository<T> : SimpleClient<T>, IRepository<T> where T : class, new()
