@@ -13,9 +13,15 @@ namespace AYE_Service;
 
 
 /// <summary>
-/// 我的初衷是在依赖注入时 给它参数以完成构造，
-/// 可是  我发现不管怎么写，始终都会注册失败
-/// 除非 封装工厂，或者直接用！！！！！！
+/// 我的初衷是在依赖注入时 给它参数以完成构造（简单工厂的思想）
+/// 可是发现如此注册，在使用时无法区分各种DB实例对应的SuperRepository
+/// 所以最简单的方式就是其他类直接在构造函数中显示的指定DB类型， new一个 SuperRepository
+/// 
+/// 用DB实例封装一个超级仓储(根据构造参数，生产出不同的DB类型)，
+/// 或者直接用DB实例！！！！！！（参考 GolalCacheManager 中的 _MySqlDb使用）
+/// 
+/// 
+/// 思考：如果用类似注册DB实例的方式注册不同DB的 SuperRepository，如此是否可行（理论上应该是可以的）
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class SuperRepository<T> : SimpleClient<T>, ISuperRepository<T> where T : class, new()

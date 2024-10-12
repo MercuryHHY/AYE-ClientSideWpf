@@ -21,16 +21,22 @@ namespace AYE_Service;
 /// </summary>
 public class GolalCacheManager : IGolalCacheManager
 {
-    private readonly ISuperRepository<DictionaryEntity> _DictionaryRepository;//仓储测试
-    private readonly ISqlSugarClient _MySqlDb;
+    //应对多种类型DB同时使用的场景，提供以下两种方式
+    //private readonly ISuperRepository<DictionaryEntity> _DictionaryRepository;//仓储测试
+    //private readonly ISqlSugarClient _MySqlDb;
+
+
     private readonly IContainerProvider _containerProvider;
     private readonly ILogger<GolalCacheManager> _logger;
-    public GolalCacheManager(IContainerProvider containerProvider, ILogger<GolalCacheManager> logger)
+    private readonly IRepository<DictionaryEntity> _DictionaryRepository;
+
+    public GolalCacheManager(IContainerProvider containerProvider, ILogger<GolalCacheManager> logger, IRepository<DictionaryEntity> dictionaryRepository)
     {
         _containerProvider = containerProvider;
-        _MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
-        _DictionaryRepository = new SuperRepository<DictionaryEntity>(containerProvider, DbType.MySql.ToString());
+        //_MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
+        //_DictionaryRepository = new SuperRepository<DictionaryEntity>(containerProvider, DbType.MySql.ToString());
         _logger = logger;
+        _DictionaryRepository = dictionaryRepository;
     }
 
 
