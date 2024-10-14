@@ -24,7 +24,8 @@ namespace AYE_Service;
 /// 或者直接用DB实例！！！！！！（参考 GolalCacheManager 中的 _MySqlDb使用）
 /// 
 /// 
-/// 思考：如果用类似注册DB实例的方式注册不同DB的 SuperRepository，如此是否可行（理论上应该是可以的）
+/// 思考：如果用类似注册DB实例的方式注册不同DB的 SuperRepository，如此是否可行
+/// 实测不行，因为注册时无法显示指定泛型，所以在注入时也无法获取
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class SuperRepository<T> : SimpleClient<T>, ISuperRepository<T> where T : class, new()

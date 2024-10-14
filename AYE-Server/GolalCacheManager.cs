@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace AYE_Service;
 
 /// <summary>
-/// 全局缓存管理者
+/// 全局缓存管理者 
 /// </summary>
 public class GolalCacheManager : IGolalCacheManager
 {
@@ -35,7 +35,9 @@ public class GolalCacheManager : IGolalCacheManager
         _containerProvider = containerProvider;
         //_MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
         //_DictionaryRepository = new SuperRepository<DictionaryEntity>(containerProvider, DbType.MySql.ToString());
-        //_DictionaryRepository = containerProvider.Resolve<ISuperRepository<DictionaryEntity>>(DbType.MySql.ToString(),(typeof(SuperRepository<>)));
+
+        //以下写法很麻烦，我的评价是不如直接像上面那样new 最简单省事，有些特定场景，无法使用ioc
+        //_DictionaryRepository = containerProvider.Resolve<ISuperRepository<DictionaryEntity>>(DbType.MySql.ToString(),(typeof(SuperRepository<>),));
 
         _logger = logger;
         _DictionaryRepository = dictionaryRepository;
