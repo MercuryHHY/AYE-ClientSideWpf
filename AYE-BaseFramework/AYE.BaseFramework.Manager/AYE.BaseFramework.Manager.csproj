@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AYE-BaseFramework.ConfigurationCore\AYE-BaseFramework.ConfigurationCore.csproj" />
     <ProjectReference Include="..\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
+    <ProjectReference Include="..\AYE.BaseFramework.GolalUiCore\AYE.BaseFramework.GolalUiCore.csproj" />
     <ProjectReference Include="..\AYE.BaseFramework.ModbusRtuCore\AYE.BaseFramework.ModbusRtuCore.csproj" />
     <ProjectReference Include="..\AYE.BaseFramework.ModbusTcpCore\AYE.BaseFramework.ModbusTcpCore.csproj" />
     <ProjectReference Include="..\AYE.BaseFramework.MqttClientCore\AYE.BaseFramework.MqttClientCore.csproj" />
