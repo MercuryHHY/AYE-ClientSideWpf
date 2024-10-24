@@ -18,7 +18,7 @@ namespace AYE_Commom.Helper
         /// <summary>
         /// Frees the console.
         /// </summary>
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll")] 
         public static extern Boolean FreeConsole();
     }
 }
