@@ -11,99 +11,11 @@ namespace AYE.BaseFramework.MqttClientCore;
 
 public class Mqtt5ClientService
 {
-    private IMqttClient _mqttClient;
-    private MqttClientOptions _mqttOptions;
-    private Queue<MqttApplicationMessage> _unacknowledgedMessages = new Queue<MqttApplicationMessage>();
-
-    public event Action OnConnected;
-    public event Action OnDisconnected;
-    public event Action<string, string> OnMessageReceived; // (topic, payload)
-
+    private readonly IMqttClient _mqttClient;
+    private readonly MqttClientOptions _mqttOptions;
+    private readonly Queue<MqttApplicationMessage> _unacknowledgedMessages = new Queue<MqttApplicationMessage>();
+    private readonly ILogger<Mqtt5ClientService> _logger;
     public Mqtt5ClientService(string brokerAddress, int brokerPort, string clientId, string username = null, string password = null, bool useTls = false, bool cleanSession = true)
-    {
-        InitializeMqttClient();
-        BuildMqttOptions(brokerAddress, brokerPort, clientId, username, password, useTls, cleanSession);
-    }
-
-    // 初始化 MQTT 客户端
-    private void InitializeMqttClient()
-    {
-        var factory = new MqttFactory();
-        _mqttClient = factory.CreateMqttClient();
-
-        // 连接事件处理
-        _mqttClient.UseConnectedHandler(async e =>
-        {
-            Console.WriteLine("Connected to the MQTT broker.");
-            OnConnected?.Invoke();
-        });
-
-        // 断线处理
-        _mqttClient.UseDisconnectedHandler(async e =>
-        {
-            Console.WriteLine($"Disconnected from MQTT broker. Reason: {e.Reason}");
-            OnDisconnected?.Invoke();
-
-            // 自动重连机制
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            try
-            {
-                await _mqttClient.ConnectAsync(_mqttOptions, CancellationToken.None);
-                Console.WriteLine("Reconnected successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Reconnection failed: {ex.Message}");
-            }
-        });
-
-        // 接收消息处理
-        _mqttClient.UseApplicationMessageReceivedHandler(e =>
-        {
-            var topic = e.ApplicationMessage.Topic;
-            var payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-            Console.WriteLine($"Received message: Topic = {topic}, Payload = {payload}");
-
-            // 触发消息接收事件
-            OnMessageReceived?.Invoke(topic, payload);
-        });
-
-
-        _mqttClient.UseConnectedHandler(e => {
-            Log.Information("Connected to MQTT broker.");
-            OnConnected?.Invoke();
-        });
-
-        _mqttClient.UseDisconnectedHandler(async e => {
-            Log.Warning("Disconnected from MQTT broker.");
-            OnDisconnected?.Invoke();
-
-            // 自动重连日志
-            try
-            {
-                await Task.Delay(TimeSpan.FromSeconds(5));
-                await _mqttClient.ConnectAsync(_mqttOptions, CancellationToken.None);
-                Log.Information("Reconnected successfully.");
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"Reconnection failed: {ex.Message}");
-            }
-        });
-
-        _mqttClient.UseApplicationMessageReceivedHandler(e => {
-            var topic = e.ApplicationMessage.Topic;
-            var payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-            Log.Information($"Received message: Topic = {topic}, Payload = {payload}");
-
-            OnMessageReceived?.Invoke(topic, payload);
-        });
-
-
-    }
-
-    // 构建 MQTT 客户端选项
-    private void BuildMqttOptions(string brokerAddress, int brokerPort, string clientId, string username, string password, bool useTls, bool cleanSession)
     {
         var builder = new MqttClientOptionsBuilder()
             .WithClientId(clientId)
@@ -121,57 +33,106 @@ public class Mqtt5ClientService
         }
 
         _mqttOptions = builder.Build();
+        var factory = new MqttFactory();
+        _mqttClient = factory.CreateMqttClient();
+
+        _mqttClient.ConnectedAsync += MqttClient_ConnectedAsync;
+        _mqttClient.DisconnectedAsync += MqttClient_DisconnectedAsync;
+        _mqttClient.ApplicationMessageReceivedAsync += MqttClient_ApplicationMessageReceivedAsync;
     }
 
-    // 连接到 MQTT Broker
+
+    /// <summary>
+    /// 连接成功 之后
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    private Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs e)
+    {
+        LogInfo("Connected successfully.");
+        // Execute additional operations after successful connection if needed.
+        return Task.CompletedTask;
+    }
+
+
+    /// <summary>
+    /// 断开连接之后
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    private async Task MqttClient_DisconnectedAsync(MqttClientDisconnectedEventArgs e)
+    {
+        LogInfo("Disconnected from the broker.");
+
+        if (e.ClientWasConnected)
+        {
+            await HandleDisconnectionAsync();
+        }
+    }
+
+
+    /// <summary>
+    /// 对接收消息的处理
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    private Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
+    {
+        var topic = e.ApplicationMessage.Topic;
+        var payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+        LogInfo($"Message received: Topic = {topic}, Payload = {payload}");
+
+        // Process received message if needed
+        return Task.CompletedTask;
+    }
+
+
+    /// <summary>
+    /// 连接服务器
+    /// </summary>
+    /// <returns></returns>
     public async Task ConnectAsync()
     {
         try
         {
             await _mqttClient.ConnectAsync(_mqttOptions, CancellationToken.None);
-            Console.WriteLine("MQTT client connected.");
+            LogInfo("MQTT client connected.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Connection failed: {ex.Message}");
+            LogError($"Connection failed: {ex.Message}");
         }
     }
 
-    // 发布消息
-    public async Task PublishAsync(string topic, string payload, MqttQualityOfServiceLevel qos = MqttQualityOfServiceLevel.AtLeastOnce, bool retainFlag = false, Dictionary<string, string> userProperties = null)
+
+
+
+    public async Task PublishAsync(string topic, string payload,
+        MqttQualityOfServiceLevel qos = MqttQualityOfServiceLevel.AtLeastOnce, 
+        bool retainFlag = false, 
+        Dictionary<string, string> userProperties = null)
     {
-        if (!_mqttClient.IsConnected)
+        var message = BuildMessage(topic, payload, qos, retainFlag, userProperties);
+
+        if (_mqttClient.IsConnected)
         {
-            Console.WriteLine("Client is not connected. Publishing failed.");
-            return;
+            await TryPublishAsync(message);
         }
-
-        var messageBuilder = new MqttApplicationMessageBuilder()
-            .WithTopic(topic)
-            .WithPayload(payload)
-            .WithQualityOfServiceLevel(qos)
-            .WithRetainFlag(retainFlag);
-
-        // MQTT 5.0 用户自定义属性
-        if (userProperties != null)
+        else
         {
-            foreach (var prop in userProperties)
-            {
-                messageBuilder.WithUserProperty(prop.Key, prop.Value);
-            }
+            LogInfo("Client is not connected. Adding message to queue.");
+            _unacknowledgedMessages.Enqueue(message);
         }
-
-        var message = messageBuilder.Build();
-        await _mqttClient.PublishAsync(message, CancellationToken.None);
-        Console.WriteLine($"Message published to topic {topic}: {payload}");
     }
 
-    // 订阅主题
-    public async Task SubscribeAsync(string topic, MqttQualityOfServiceLevel qos = MqttQualityOfServiceLevel.AtLeastOnce)
+
+
+    public async Task SubscribeAsync(string topic,
+        MqttQualityOfServiceLevel qos = MqttQualityOfServiceLevel.AtLeastOnce)
     {
         if (!_mqttClient.IsConnected)
         {
-            Console.WriteLine("Client is not connected. Subscription failed.");
+            LogInfo("Client is not connected. Subscription failed.");
             return;
         }
 
@@ -180,80 +141,37 @@ public class Mqtt5ClientService
             .WithQualityOfServiceLevel(qos)
             .Build());
 
-        Console.WriteLine($"Subscribed to topic: {topic}");
+        LogInfo($"Subscribed to topic: {topic}");
     }
 
-    // 取消订阅主题
     public async Task UnsubscribeAsync(string topic)
     {
         if (!_mqttClient.IsConnected)
         {
-            Console.WriteLine("Client is not connected. Unsubscription failed.");
+            LogInfo("Client is not connected. Unsubscription failed.");
             return;
         }
 
         await _mqttClient.UnsubscribeAsync(topic);
-        Console.WriteLine($"Unsubscribed from topic: {topic}");
+        LogInfo($"Unsubscribed from topic: {topic}");
     }
 
-    // 断开连接
     public async Task DisconnectAsync()
     {
         if (_mqttClient.IsConnected)
         {
             await _mqttClient.DisconnectAsync();
-            Console.WriteLine("MQTT client disconnected.");
+            LogInfo("MQTT client disconnected.");
         }
     }
 
-    /// <summary>
-    /// 共享订阅允许多个客户端共同处理来自同一主题的消息。通常用于负载均衡，格式为 $share/{GroupName}/{Topic}：
-    /// </summary>
-    /// <param name="group"></param>
-    /// <param name="topic"></param>
-    /// <param name="qos"></param>
-    /// <returns></returns>
     public async Task SubscribeToSharedTopicAsync(string group, string topic, MqttQualityOfServiceLevel qos = MqttQualityOfServiceLevel.AtLeastOnce)
     {
         var sharedTopic = $"$share/{group}/{topic}";
         await SubscribeAsync(sharedTopic, qos);
     }
 
-
-    // 在断线处理程序中持久化保存
-    public async Task PublishAsync(...)
-    {
-        if (!_mqttClient.IsConnected)
-        {
-            Log.Warning("Client is not connected. Adding message to queue.");
-            _unacknowledgedMessages.Enqueue(messageBuilder.Build());
-            return;
-        }
-
-        var message = messageBuilder.Build();
-        await _mqttClient.PublishAsync(message, CancellationToken.None);
-        Log.Information($"Message published to topic {topic}: {payload}");
-    }
-
-    // 在重连后重新发布未确认的消息
-    private async Task ResendMessagesAsync()
-    {
-        while (_unacknowledgedMessages.Count > 0)
-        {
-            var message = _unacknowledgedMessages.Dequeue();
-            await _mqttClient.PublishAsync(message, CancellationToken.None);
-            Log.Information($"Resending stored message to topic {message.Topic}");
-        }
-    }
-
-
-    /// <summary>
-    /// 处理复杂的断线重连逻辑
-    /// 断线后，根据不同的断开原因调整重连策略，可以考虑采取指数退避等策略进行重连：
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    private async Task HandleDisconnectionAsync(MqttClientDisconnectedEventArgs e)
+    private async Task HandleDisconnectionAsync()
     {
         var retryInterval = TimeSpan.FromSeconds(5);
 
@@ -261,18 +179,94 @@ public class Mqtt5ClientService
         {
             try
             {
+                LogInfo("Attempting to reconnect...");
                 await Task.Delay(retryInterval);
-                retryInterval = TimeSpan.FromSeconds(Math.Min(retryInterval.TotalSeconds * 2, 60));  // 指数退避
                 await _mqttClient.ConnectAsync(_mqttOptions, CancellationToken.None);
-                Log.Information("Reconnected successfully after disconnection.");
+                LogInfo("Reconnected successfully.");
+                await ResendMessagesAsync(); // 可以在重连成功后重新发送未确认的消息
                 break;
             }
             catch (Exception ex)
             {
-                Log.Error($"Reconnection attempt failed: {ex.Message}. Retrying in {retryInterval.Seconds} seconds...");
+                LogError($"Reconnection attempt failed: {ex.Message}. Retrying in {retryInterval.TotalSeconds} seconds...");
+                retryInterval = TimeSpan.FromSeconds(Math.Min(retryInterval.TotalSeconds * 2, 60)); // 指数退避
             }
         }
     }
 
 
+    /// <summary>
+    /// 消息 重发
+    /// </summary>
+    /// <returns></returns>
+    private async Task ResendMessagesAsync()
+    {
+        while (_unacknowledgedMessages.Count > 0)
+        {
+            var message = _unacknowledgedMessages.Dequeue();
+            await TryPublishAsync(message);
+        }
+    }
+
+    private async Task TryPublishAsync(MqttApplicationMessage message)
+    {
+        try
+        {
+            if (_mqttClient.IsConnected)
+            {
+                await _mqttClient.PublishAsync(message, CancellationToken.None);
+                LogInfo($"Message published to topic {message.Topic}");
+            }
+            else
+            {
+                LogInfo("Client is not connected, re-queueing message.");
+                _unacknowledgedMessages.Enqueue(message);
+            }
+        }
+        catch (Exception ex)
+        {
+            LogError($"Failed to resend message: {ex.Message}");
+            _unacknowledgedMessages.Enqueue(message);
+        }
+    }
+
+    /// <summary>
+    /// Message构建
+    /// </summary>
+    /// <param name="topic"></param>
+    /// <param name="payload"></param>
+    /// <param name="qos"></param>
+    /// <param name="retainFlag"></param>
+    /// <param name="userProperties"></param>
+    /// <returns></returns>
+    private MqttApplicationMessage BuildMessage(string topic, string payload, MqttQualityOfServiceLevel qos, bool retainFlag, Dictionary<string, string> userProperties)
+    {
+        var messageBuilder = new MqttApplicationMessageBuilder()
+            .WithTopic(topic)
+            .WithPayload(payload)
+            .WithQualityOfServiceLevel(qos)
+            .WithRetainFlag(retainFlag);
+
+        if (userProperties != null)
+        {
+            foreach (var prop in userProperties)
+            {
+                messageBuilder.WithUserProperty(prop.Key, prop.Value);
+            }
+        }
+
+        return messageBuilder.Build();
+    }
+
+    private void LogInfo(string message)
+    {
+        // Replace this with a proper logging system
+        Console.WriteLine(message);
+    }
+
+    private void LogError(string message)
+    {
+        // Replace this with a proper logging system
+        Console.Error.WriteLine(message);
+    }
 }
