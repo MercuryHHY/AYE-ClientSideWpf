@@ -14,7 +14,7 @@ public class Mqtt5ClientService
     private readonly IMqttClient _mqttClient;
     private readonly MqttClientOptions _mqttOptions;
     private readonly Queue<MqttApplicationMessage> _unacknowledgedMessages = new Queue<MqttApplicationMessage>();
-    private readonly ILogger<Mqtt5ClientService> _logger;
+    //private readonly ILogger<Mqtt5ClientService> _logger;
     public Mqtt5ClientService(string brokerAddress, int brokerPort, string clientId, string username = null, string password = null, bool useTls = false, bool cleanSession = true)
     {
         var builder = new MqttClientOptionsBuilder()

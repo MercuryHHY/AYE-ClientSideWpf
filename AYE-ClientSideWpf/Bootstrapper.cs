@@ -16,6 +16,7 @@ using Volo.Abp.Timing;
 using Microsoft.Extensions.Logging;
 using DryIoc;
 using DemoModuleB;
+using AYE.BaseFramework.Manager;
 
 namespace AYE_ClientSideWpf
 {
@@ -26,12 +27,12 @@ namespace AYE_ClientSideWpf
     /// </summary>
     public class Bootstrapper : PrismBootstrapper
     {
-        private readonly ILoggerFactory _loggerFactory;
+        //private readonly ILoggerFactory _loggerFactory;
 
-        public Bootstrapper(ILoggerFactory loggerFactory)
-        {
-            _loggerFactory = loggerFactory;
-        }
+        //public Bootstrapper(ILoggerFactory loggerFactory)
+        //{
+        //    _loggerFactory = loggerFactory;
+        //}
 
 
 
@@ -41,13 +42,15 @@ namespace AYE_ClientSideWpf
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+
+#if false
             // 注册ILoggerFactory和ILogger
             containerRegistry.RegisterInstance(_loggerFactory);
             // 方法1 ：正常注册
             containerRegistry.Register(typeof(ILogger<>), typeof(Logger<>));
             // 方法2：使用DryIoc的扩展方法注册开放泛型类型ILogger<T>
             //containerRegistry.GetContainer().Register(typeof(ILogger<>), typeof(Logger<>));
-
+#endif
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 
             //测试
@@ -64,10 +67,17 @@ namespace AYE_ClientSideWpf
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             // 这里是添加其他 类库的模块注册类中 注册行为
-            // 特别注意 建议是 ModuleFile 最先添加，因为最先添加的最先注册
+            // 最先添加的最先注册
+
+            //底层框架
+            moduleCatalog.AddModule<BaseFrameworkManagerModule>();
+            //上层PO后端服务
             moduleCatalog.AddModule<ModuleFile>();
+
+            //各个子模块
             moduleCatalog.AddModule<ModuleAProfile>();
             moduleCatalog.AddModule<ModuleBProfile>();
+
             base.ConfigureModuleCatalog(moduleCatalog);
         }
 

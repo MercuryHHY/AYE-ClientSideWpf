@@ -25,12 +25,12 @@ using System.Reflection;
 using AYE_Entity;
 using Prism.DryIoc;
 using System.Xml.Linq;
-using AYE_Commom.ConfigOptionModel;
 using System.Configuration;
 using StackExchange.Redis;
 using AYE.BaseFramework.RedisCore;
 using System.Security.Cryptography;
 using AYE.BaseFramework.QuartzCore.Enums;
+using AYE.BaseFramework.Manager.ConfigOptionModel;
 
 
 namespace AYE_ModuleRegistration
@@ -58,6 +58,8 @@ namespace AYE_ModuleRegistration
         /// <param name="containerRegistry"></param>
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+
+#if false
             // 注册配置服务
             containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();
 
@@ -167,6 +169,9 @@ namespace AYE_ModuleRegistration
             containerRegistry.RegisterInstance<IScheduler>(containerRegistry.GetContainer().Resolve<ISchedulerFactory>().GetScheduler().Result);//我有点长，你需要忍耐
             containerRegistry.Register<ITaskService, TaskService>();
             #endregion
+#endif
+
+
 
             ServiceRegisterTypes(containerRegistry);
         }
@@ -195,6 +200,7 @@ namespace AYE_ModuleRegistration
         /// <param name="containerProvider"></param>
         public async void OnInitialized(IContainerProvider containerProvider)
         {
+#if false
             //根据配置文件决定 是否开启Codefirst
             var dataBaseOptions = containerProvider.Resolve<DataBaseOptions>();
             if (dataBaseOptions.UseCodeFirst)
@@ -222,7 +228,7 @@ namespace AYE_ModuleRegistration
                 _logger.LogDebug("CodeFirst 执行完成！！！！！！");
 
             }
-
+#endif
             //缓存数据初始化
             await containerProvider.Resolve<GolalCacheManager>().LoadAllAsync();
 

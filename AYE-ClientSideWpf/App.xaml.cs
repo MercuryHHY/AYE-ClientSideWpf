@@ -21,6 +21,7 @@ namespace AYE_ClientSideWpf
             ConsoleHelper.AllocConsole();//打开控制台
             base.OnStartup(e);
 
+#if false
             // 配置日志工厂
             var loggerFactory = LoggerFactory.Create(builder =>
             {
@@ -32,11 +33,11 @@ namespace AYE_ClientSideWpf
             // 创建日志记录器
             var logger = loggerFactory.CreateLogger<App>();
             logger.LogInformation("Application started.");
-
+#endif
 
             // 启动Bootstrapper
-            //var boot = new Bootstrapper();
-            var boot = new Bootstrapper(loggerFactory);       
+            var boot = new Bootstrapper();
+            //var boot = new Bootstrapper(loggerFactory);       
             boot.Run();
         }
 

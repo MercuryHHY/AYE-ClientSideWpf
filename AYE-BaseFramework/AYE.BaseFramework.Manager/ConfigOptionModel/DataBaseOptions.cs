@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Data;
 
-namespace AYE_Commom.ConfigOptionModel;
+namespace AYE.BaseFramework.Manager.ConfigOptionModel;
 
 #if false
 public class DataBaseOptions
