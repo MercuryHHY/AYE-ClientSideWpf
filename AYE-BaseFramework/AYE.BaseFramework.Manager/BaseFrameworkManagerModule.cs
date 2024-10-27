@@ -26,8 +26,6 @@ namespace AYE.BaseFramework.Manager;
 public class BaseFrameworkManagerModule : IModule
 {
 
-    
-
 
     /// <summary>
     /// 此模块预加载之后，当主页面成功得到之后 才会加载各个部分内部的注册
@@ -35,117 +33,14 @@ public class BaseFrameworkManagerModule : IModule
     /// <param name="containerRegistry"></param>
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        #region 日志的注册必须放在最开始的地方
+        #region 日志以及配置系统的注册必须放在最开始的地方
         containerRegistry.RegisterLogging();
+        containerRegistry.RegisterConfiguration();
         #endregion
 
-        containerRegistry.RegisterConfiguration();
 
         containerRegistry.RegisterDatabase();
-#if false
-        // 读取连接字符串
-        var configuration = containerRegistry.GetContainer().Resolve<IConfiguration>();
-
-        #region 数据库注册
-        {
-
-            var dataBaseOptions = new DataBaseOptions();
-            configuration.GetSection("DataBaseOptions").Bind(dataBaseOptions);
-            containerRegistry.RegisterInstance(dataBaseOptions);
-
-            var appSettings = new AppSettings();
-            configuration.GetSection("AppSettings").Bind(appSettings);
-            containerRegistry.RegisterInstance(appSettings);
-
-            BatchProcessing(dataBaseOptions, (dbTypeEnum, item) =>
-            {
-                if (dbTypeEnum == DbType.Sqlite)
-                {
-                    // 注册 默认的 SqlSugar 服务
-                    containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                    {
-                        ConnectionString = item.ConnectionString,
-                        DbType = dbTypeEnum,
-                        IsAutoCloseConnection = true,
-                        InitKeyType = InitKeyType.Attribute,
-                        ConfigureExternalServices = new ConfigureExternalServices
-                        {
-                            //注意:  这儿AOP设置不能少
-                            EntityService = (c, p) =>
-                            {
-                                /***高版C#写法***/
-                                //支持string?和string  
-                                if (p.IsPrimarykey == false && new NullabilityInfoContext()
-                                 .Create(c).WriteState is NullabilityState.Nullable)
-                                {
-                                    p.IsNullable = true;
-                                }
-                            }
-                        }
-                    }));
-
-                }
-                else
-                {
-                    // 注册 MySQL 的 SqlSugar 服务
-                    containerRegistry.RegisterInstance<ISqlSugarClient>(new SqlSugarClient(new ConnectionConfig()
-                    {
-                        ConnectionString = item.ConnectionString,
-                        DbType = dbTypeEnum,
-                        IsAutoCloseConnection = true,
-                        InitKeyType = InitKeyType.Attribute,
-                        ConfigureExternalServices = new ConfigureExternalServices
-                        {
-                            //注意:  这儿AOP设置不能少
-                            EntityService = (c, p) =>
-                            {
-                                /***高版C#写法***/
-                                //支持string?和string  
-                                if (p.IsPrimarykey == false && new NullabilityInfoContext()
-                                 .Create(c).WriteState is NullabilityState.Nullable)
-                                {
-                                    p.IsNullable = true;
-                                }
-                            }
-                        }
-                    }), dbTypeEnum.ToString());//注意，这里我多加了一个参数用作KEY
-
-                }
-
-            });
-
-            //注册仓储  （确定要用单例吗，最好是用瞬态）
-            //没关系 VM层在注册的时候也是瞬态的，所以这里可以用瞬态,VM层可以直接注入仓储
-            containerRegistry.Register(typeof(IRepository<>), typeof(Repository<>));
-        }
-        #endregion
-
-
-#endif
-
-
         containerRegistry.RegisterRedis();
-
-#if false
-        #region Redis注册
-        {
-            var configuration = containerRegistry.GetContainer().Resolve<IConfiguration>();
-            // 读取和绑定配置
-            var redisOptions = new RedisOptions();
-            configuration.GetSection("RedisOptions").Bind(redisOptions);
-            containerRegistry.RegisterInstance(redisOptions);
-
-            // 配置Redis连接
-            var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Configuration);
-            containerRegistry.RegisterInstance(redisConnection);
-
-            // 注册Redis服务
-            containerRegistry.Register<IRedisService, RedisService>();
-
-        }
-        #endregion
-#endif
-
         containerRegistry.RegisterQuartzSchedulerAsync();
 
         //自定义 扩展方法，用于注册MQTT客户端

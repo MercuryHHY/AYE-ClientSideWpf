@@ -275,15 +275,11 @@ public class Mqtt5ClientService: IMqtt5ClientService
 
     private void LogInfo(string message)
     {
-        // Replace this with a proper logging system
-        //Console.WriteLine(message);
         _logger.LogDebug(message);
     }
 
     private void LogError(string message)
     {
-        // Replace this with a proper logging system
-        //Console.Error.WriteLine(message);
         _logger.LogError(message);
     }
 }
