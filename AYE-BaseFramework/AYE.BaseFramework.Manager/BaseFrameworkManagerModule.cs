@@ -36,7 +36,7 @@ public class BaseFrameworkManagerModule : IModule
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
 
-
+        #region 日志的注册必须放在最开始的地方
         // 配置日志工厂
         var loggerFactory = LoggerFactory.Create(builder =>
         {
@@ -48,7 +48,7 @@ public class BaseFrameworkManagerModule : IModule
         containerRegistry.RegisterInstance(loggerFactory);
         // 方法1 ：正常注册
         containerRegistry.Register(typeof(ILogger<>), typeof(Logger<>));
-
+        #endregion
 
         // 注册配置服务
         containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();

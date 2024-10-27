@@ -6,16 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MQTTnet.Protocol;
+using Microsoft.Extensions.Logging;
 
 namespace AYE.BaseFramework.MqttClientCore;
 
-public class Mqtt5ClientService
+public class Mqtt5ClientService: IMqtt5ClientService
 {
     private readonly IMqttClient _mqttClient;
     private readonly MqttClientOptions _mqttOptions;
     private readonly Queue<MqttApplicationMessage> _unacknowledgedMessages = new Queue<MqttApplicationMessage>();
-    //private readonly ILogger<Mqtt5ClientService> _logger;
-    public Mqtt5ClientService(string brokerAddress, int brokerPort, string clientId, string username = null, string password = null, bool useTls = false, bool cleanSession = true)
+    private readonly ILogger<Mqtt5ClientService> _logger;
+    public Mqtt5ClientService(string brokerAddress, 
+        int brokerPort,
+        string clientId, 
+        string username = null,
+        string password = null, 
+        bool useTls = false,
+        bool cleanSession = true)
     {
         var builder = new MqttClientOptionsBuilder()
             .WithClientId(clientId)
@@ -257,6 +264,17 @@ public class Mqtt5ClientService
 
         return messageBuilder.Build();
     }
+
+    public bool IsConnected()
+    {
+        if (!_mqttClient.IsConnected)
+        {
+            LogInfo("Client is not connected. Operation failed.");
+            return false;
+        }
+        return true;
+    }
+
 
     private void LogInfo(string message)
     {
