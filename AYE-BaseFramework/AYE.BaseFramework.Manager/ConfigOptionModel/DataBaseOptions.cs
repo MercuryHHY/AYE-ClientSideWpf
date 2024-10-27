@@ -7,20 +7,6 @@ using Volo.Abp.Data;
 
 namespace AYE.BaseFramework.Manager.ConfigOptionModel;
 
-#if false
-public class DataBaseOptions
-{
-    public bool UseCodeFirst { get; set; }
-    public string DbType1 { get; set; }
-    public ConnectionStrings ConnectionStringsDbType1 { get; set; }
-    public string DbType2 { get; set; }
-    public ConnectionStrings ConnectionStringsDbType2 { get; set; }
-}
-public class ConnectionStrings
-{
-    public string DBConnection { get; set; }
-}
-#endif
 
 public class DataBaseOptions
 {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AYE-BaseFramework.ConfigurationCore\AYE-BaseFramework.ConfigurationCore.csproj" />
     <ProjectReference Include="..\AYE-SqlSusgar\AYE.BaseFramework.SqlSusgarCore.csproj" />
     <ProjectReference Include="..\AYE.BaseFramework.GolalUiCore\AYE.BaseFramework.GolalUiCore.csproj" />
     <ProjectReference Include="..\AYE.BaseFramework.ModbusRtuCore\AYE.BaseFramework.ModbusRtuCore.csproj" />

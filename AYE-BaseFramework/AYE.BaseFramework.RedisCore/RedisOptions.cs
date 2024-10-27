@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 namespace AYE.BaseFramework.RedisCore;
 public class RedisOptions
 {
+    public bool IsEnable {  get; set; }
     public string Configuration { get; set; }
 }

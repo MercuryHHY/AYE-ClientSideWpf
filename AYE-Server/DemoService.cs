@@ -1,4 +1,5 @@
-﻿using AYE_Entity;
+﻿using AYE.BaseFramework.MqttClientCore;
+using AYE_Entity;
 using AYE_Interface;
 using Prism.Ioc;
 using SqlSugar;
@@ -15,12 +16,12 @@ public class DemoService
     private readonly ISuperRepository<UserInfo001Entity> _Userrepository;//仓储测试
     private readonly ISqlSugarClient _MySqlDb;
     private readonly IContainerProvider _containerProvider;
+    
     public DemoService(IContainerProvider containerProvider)
     {
         _containerProvider = containerProvider;
         _MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
         _Userrepository = new SuperRepository<UserInfo001Entity>(containerProvider, DbType.MySql.ToString());
-
     }
 
     public void DemoTest()

@@ -1,6 +1,5 @@
 ﻿using AYE.BaseFramework.QuartzCore;
 using AYE.BaseFramework.SqlSusgarCore;
-using AYE_BaseFramework.ConfigurationCore;
 using Microsoft.Extensions.Logging;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -20,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using AYE.BaseFramework.RedisCore;
 using AYE.BaseFramework.Manager.ConfigOptionModel;
 using System.Collections;
+using AYE.BaseFramework.Manager.Extensions;
 
 namespace AYE.BaseFramework.Manager;
 
@@ -35,36 +35,26 @@ public class BaseFrameworkManagerModule : IModule
     /// <param name="containerRegistry"></param>
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-
         #region 日志的注册必须放在最开始的地方
-        // 配置日志工厂
-        var loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder.ClearProviders();
-            builder.SetMinimumLevel(LogLevel.Trace);
-            builder.AddNLog("NLog.config");
-        });
-        // 注册ILoggerFactory和ILogger
-        containerRegistry.RegisterInstance(loggerFactory);
-        // 方法1 ：正常注册
-        containerRegistry.Register(typeof(ILogger<>), typeof(Logger<>));
+        containerRegistry.RegisterLogging();
         #endregion
 
-        // 注册配置服务
-        containerRegistry.RegisterSingleton<IConfigurationService, ConfigurationService>();
+        containerRegistry.RegisterConfiguration();
 
+        containerRegistry.RegisterDatabase();
+#if false
         // 读取连接字符串
-        var configurationService = containerRegistry.GetContainer().Resolve<IConfigurationService>();
+        var configuration = containerRegistry.GetContainer().Resolve<IConfiguration>();
 
         #region 数据库注册
         {
 
             var dataBaseOptions = new DataBaseOptions();
-            configurationService.Configuration.GetSection("DataBaseOptions").Bind(dataBaseOptions);
+            configuration.GetSection("DataBaseOptions").Bind(dataBaseOptions);
             containerRegistry.RegisterInstance(dataBaseOptions);
 
             var appSettings = new AppSettings();
-            configurationService.Configuration.GetSection("AppSettings").Bind(appSettings);
+            configuration.GetSection("AppSettings").Bind(appSettings);
             containerRegistry.RegisterInstance(appSettings);
 
             BatchProcessing(dataBaseOptions, (dbTypeEnum, item) =>
@@ -130,38 +120,45 @@ public class BaseFrameworkManagerModule : IModule
         }
         #endregion
 
+
+#endif
+
+
+        containerRegistry.RegisterRedis();
+
+#if false
         #region Redis注册
         {
+            var configuration = containerRegistry.GetContainer().Resolve<IConfiguration>();
             // 读取和绑定配置
             var redisOptions = new RedisOptions();
-            configurationService.Configuration.GetSection("RedisOptions").Bind(redisOptions);
+            configuration.GetSection("RedisOptions").Bind(redisOptions);
             containerRegistry.RegisterInstance(redisOptions);
 
             // 配置Redis连接
-            //var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Configuration);
-            //containerRegistry.RegisterInstance(redisConnection);
+            var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Configuration);
+            containerRegistry.RegisterInstance(redisConnection);
 
             // 注册Redis服务
-            //containerRegistry.Register<IRedisService, RedisService>();
-            //或者把DB注册出来用
+            containerRegistry.Register<IRedisService, RedisService>();
 
         }
         #endregion
+#endif
 
-        #region Quartz定时任务注册
-        //这里给参数配置Quartz的生成调度中心的工厂，那么此时工厂生产的调度器默认线程池会是20
-        containerRegistry.RegisterInstance<ISchedulerFactory>(new StdSchedulerFactory(new System.Collections.Specialized.NameValueCollection
-            {
-                { "quartz.threadPool.threadCount", "20" }, // 设置线程池大小为20
-            }));
+        containerRegistry.RegisterQuartzSchedulerAsync();
 
-        //如果每次使用调度器都要从 工厂去拿，对一个单机WPF程序而言，根本没必要，所以我决定直接将调度器注入IOC
-        containerRegistry.RegisterInstance<IScheduler>(containerRegistry.GetContainer().Resolve<ISchedulerFactory>().GetScheduler().Result);//我有点长，你需要忍耐
-        containerRegistry.Register<ITaskService, TaskService>();
-        #endregion
-
-
-
+        //自定义 扩展方法，用于注册MQTT客户端
+        containerRegistry.RegisterMqtt5ClientService(options =>
+        {
+            options.BrokerAddress = "your-broker-address";
+            options.BrokerPort = 1883;
+            options.ClientId = "your-client-id";
+            options.Username = "your-username";
+            options.Password = "your-password";
+            options.UseTls = false;
+            options.CleanSession = true;
+        });
 
 
 

@@ -16,30 +16,28 @@ public class Mqtt5ClientService: IMqtt5ClientService
     private readonly MqttClientOptions _mqttOptions;
     private readonly Queue<MqttApplicationMessage> _unacknowledgedMessages = new Queue<MqttApplicationMessage>();
     private readonly ILogger<Mqtt5ClientService> _logger;
-    public Mqtt5ClientService(string brokerAddress, 
-        int brokerPort,
-        string clientId, 
-        string username = null,
-        string password = null, 
-        bool useTls = false,
-        bool cleanSession = true)
-    {
-        var builder = new MqttClientOptionsBuilder()
-            .WithClientId(clientId)
-            .WithTcpServer(brokerAddress, brokerPort)
-            .WithCleanSession(cleanSession);
 
-        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+    public Mqtt5ClientService(MqttClientBuilderSettings settings, ILogger<Mqtt5ClientService> logger)
+    {
+        _logger = logger;
+
+        var builder = new MqttClientOptionsBuilder()
+            .WithClientId(settings.ClientId)
+            .WithTcpServer(settings.BrokerAddress, settings.BrokerPort)
+            .WithCleanSession(settings.CleanSession);
+
+        if (!string.IsNullOrEmpty(settings.Username) && !string.IsNullOrEmpty(settings.Password))
         {
-            builder.WithCredentials(username, password);
+            builder.WithCredentials(settings.Username, settings.Password);
         }
 
-        if (useTls)
+        if (settings.UseTls)
         {
             builder.WithTls();
         }
 
         _mqttOptions = builder.Build();
+
         var factory = new MqttFactory();
         _mqttClient = factory.CreateMqttClient();
 
@@ -47,7 +45,6 @@ public class Mqtt5ClientService: IMqtt5ClientService
         _mqttClient.DisconnectedAsync += MqttClient_DisconnectedAsync;
         _mqttClient.ApplicationMessageReceivedAsync += MqttClient_ApplicationMessageReceivedAsync;
     }
-
 
     /// <summary>
     /// 连接成功 之后
@@ -279,12 +276,14 @@ public class Mqtt5ClientService: IMqtt5ClientService
     private void LogInfo(string message)
     {
         // Replace this with a proper logging system
-        Console.WriteLine(message);
+        //Console.WriteLine(message);
+        _logger.LogDebug(message);
     }
 
     private void LogError(string message)
     {
         // Replace this with a proper logging system
-        Console.Error.WriteLine(message);
+        //Console.Error.WriteLine(message);
+        _logger.LogError(message);
     }
 }

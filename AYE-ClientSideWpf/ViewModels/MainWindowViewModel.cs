@@ -10,7 +10,6 @@ using SqlSugar;
 using System;
 using System.Linq.Expressions;
 using AYE.BaseFramework.SqlSusgarCore;
-using AYE_BaseFramework.ConfigurationCore;
 using System.Threading.Tasks;
 using Prism.Regions;
 

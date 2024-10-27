@@ -1,4 +1,5 @@
-﻿using AYE.BaseFramework.SqlSusgarCore;
+﻿using AYE.BaseFramework.MqttClientCore;
+using AYE.BaseFramework.SqlSusgarCore;
 using AYE_Commom.Helper;
 using AYE_Commom.Models;
 using AYE_Entity;
@@ -28,9 +29,9 @@ public class GolalCacheManager : IGolalCacheManager
     private readonly IContainerProvider _containerProvider;
     private readonly ILogger<GolalCacheManager> _logger;
     private readonly IRepository<DictionaryEntity> _DictionaryRepository;
+    private readonly IMqtt5ClientService _mqtt5ClientService;
 
-
-    public GolalCacheManager(IContainerProvider containerProvider, ILogger<GolalCacheManager> logger, IRepository<DictionaryEntity> dictionaryRepository)
+    public GolalCacheManager(IContainerProvider containerProvider, ILogger<GolalCacheManager> logger, IRepository<DictionaryEntity> dictionaryRepository, IMqtt5ClientService mqtt5ClientService)
     {
         _containerProvider = containerProvider;
         //_MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
@@ -41,9 +42,7 @@ public class GolalCacheManager : IGolalCacheManager
 
         _logger = logger;
         _DictionaryRepository = dictionaryRepository;
-        
-
-
+        _mqtt5ClientService = mqtt5ClientService;
     }
 
 
