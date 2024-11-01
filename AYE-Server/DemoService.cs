@@ -13,7 +13,7 @@ namespace AYE_Service;
 
 public class DemoService
 {
-    private readonly ISuperRepository<UserInfo001Entity> _Userrepository;//仓储测试
+    private readonly ISuperRepository<DictionaryEntity> _Userrepository;//仓储测试
     private readonly ISqlSugarClient _MySqlDb;
     private readonly IContainerProvider _containerProvider;
     
@@ -21,7 +21,7 @@ public class DemoService
     {
         _containerProvider = containerProvider;
         _MySqlDb = containerProvider.Resolve<ISqlSugarClient>(DbType.MySql.ToString());
-        _Userrepository = new SuperRepository<UserInfo001Entity>(containerProvider, DbType.MySql.ToString());
+        _Userrepository = new SuperRepository<DictionaryEntity>(containerProvider, DbType.MySql.ToString());
     }
 
     public void DemoTest()

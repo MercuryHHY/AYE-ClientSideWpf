@@ -22,10 +22,10 @@ namespace DemoModuleA.ViewModels
     public class UserControlAViewModel
     {
         private ITaskService _taskService;
-        private readonly IRepository<UserInfo001Entity> _Userrepository;
+        private readonly IRepository<DictionaryEntity> _Userrepository;
         private readonly ILogger<UserControlAViewModel> _logger;
         private readonly IJobManager _jobManager;
-        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<UserInfo001Entity> userrepository, ILogger<UserControlAViewModel> logger, IJobManager jobManager)
+        public UserControlAViewModel(ITaskService taskService, IContainerProvider containerProvider, IRepository<DictionaryEntity> userrepository, ILogger<UserControlAViewModel> logger, IJobManager jobManager)
         {
             _taskService = taskService;
             _jobManager = jobManager;

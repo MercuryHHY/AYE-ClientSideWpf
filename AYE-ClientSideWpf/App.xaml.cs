@@ -23,10 +23,9 @@ namespace AYE_ClientSideWpf
         protected override void OnStartup(StartupEventArgs e)
         {
             const string mutexName = "AYE_ClientSideWpfMutex";
-            bool isNewInstance;
 
             // 创建互斥体对象并判断是否当前为新实例
-            _mutex = new Mutex(true, mutexName, out isNewInstance);
+            _mutex = new Mutex(true, mutexName, out bool isNewInstance);
 
             if (!isNewInstance)
             {

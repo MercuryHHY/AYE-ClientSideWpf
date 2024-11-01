@@ -42,6 +42,12 @@ namespace AYE_ClientSideWpf
         /// <param name="containerRegistry"></param>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            /// 理论上，IContainerRegistry拥有注册服务的函数
+            /// 那么在 主界面MainWindow以及MainWindowViewModel 注册之前
+            /// 或者说在生成 MainWindow以及MainWindowViewModel 之前，将需要的服务提前注册
+            /// 那么是不是说，就可以在 MainWindowViewModel 注入时使用
+            /// I think it's ok
+
 
             containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 

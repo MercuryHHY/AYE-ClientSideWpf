@@ -104,6 +104,10 @@ namespace AYE_ClientSideWpf.ViewModels
 
 
         #region 菜单数据初始化
+
+        /// <summary>
+        /// 后续的优化中，考虑将此菜单权限的初始化直接在 全局缓存中提取
+        /// </summary>
         private ObservableCollection<MenuBar> menuBars;
         public ObservableCollection<MenuBar> MenuBars
         {
@@ -115,12 +119,9 @@ namespace AYE_ClientSideWpf.ViewModels
         private void CreateMenuBar()
         {
             MenuBars.Add(new MenuBar() { Icon = "Home", Title = "首页", NameSpace = "IndexView" });
-            //MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "待办事项", NameSpace = "ToDoView" });
-            //MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "备忘录", NameSpace = "MemoView" });
-            //MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "设置", NameSpace = "SettingsView" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块A", NameSpace = "UserControlA" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "模块B", NameSpace = "UserControlB" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "字典表", NameSpace = "DataGridDemo" });
+            MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "模块A", NameSpace = "UserControlA" });
+            MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "模块B", NameSpace = "UserControlB" });
+            MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "字典表", NameSpace = "DataGridDemo" });
             MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "关于", NameSpace = "About" });
         }
         #endregion
