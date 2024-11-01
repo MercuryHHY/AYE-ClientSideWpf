@@ -20,6 +20,8 @@ public class MqttBrokerService: IMqttBrokerService
     {
         _logger = logger;
 
+
+#if false
         var optionsBuilder = new MqttServerOptionsBuilder()
        .WithDefaultEndpointPort(1883) // 默认端口，用于非加密连接
 
@@ -54,6 +56,9 @@ public class MqttBrokerService: IMqttBrokerService
         _mqttServer.ClientConnectedAsync += OnClientConnectedAsync;
         _mqttServer.ClientDisconnectedAsync += OnClientDisconnectedAsync;
         _mqttServer.InterceptingPublishAsync += OnInterceptingPublishAsync;
+#endif
+
+
     }
 
 

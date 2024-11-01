@@ -26,7 +26,6 @@ namespace AYE_ClientSideWpf
 
             // 创建互斥体对象并判断是否当前为新实例
             _mutex = new Mutex(true, mutexName, out bool isNewInstance);
-
             if (!isNewInstance)
             {
                 // 如果不是新实例，说明已有一个实例在运行
