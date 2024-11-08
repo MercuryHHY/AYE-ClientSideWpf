@@ -33,13 +33,13 @@ public class BaseFrameworkManagerModule : IModule
     /// <param name="containerRegistry"></param>
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        #region 日志以及配置系统的注册必须放在最开始的地方
-        containerRegistry.RegisterLogging();
-        containerRegistry.RegisterConfiguration();
-        #endregion
+        //#region 日志以及配置系统的注册必须放在最开始的地方
+        //containerRegistry.RegisterLogging();
+        //containerRegistry.RegisterConfiguration();
+        //#endregion
 
 
-        containerRegistry.RegisterDatabase();
+        //containerRegistry.RegisterDatabase();
         containerRegistry.RegisterRedis();
         containerRegistry.RegisterQuartzSchedulerAsync();
 

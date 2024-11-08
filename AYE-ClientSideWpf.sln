@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.IICCore",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYE.BaseFramework.SpiCore", "AYE-BaseFramework\AYE.BaseFramework.SpiCore\AYE.BaseFramework.SpiCore.csproj", "{43134866-12E8-4CA0-9293-FAD3A830F073}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYE-ClientWebAPI", "AYE-ClientWebAPI\AYE-ClientWebAPI.csproj", "{537722B4-C982-4036-9DAB-B12838D91B36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +159,10 @@ Global
 		{43134866-12E8-4CA0-9293-FAD3A830F073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43134866-12E8-4CA0-9293-FAD3A830F073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43134866-12E8-4CA0-9293-FAD3A830F073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537722B4-C982-4036-9DAB-B12838D91B36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537722B4-C982-4036-9DAB-B12838D91B36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537722B4-C982-4036-9DAB-B12838D91B36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537722B4-C982-4036-9DAB-B12838D91B36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

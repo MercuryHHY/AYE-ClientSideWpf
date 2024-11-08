@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using DryIoc;
 using DemoModuleB;
 using AYE.BaseFramework.Manager;
+using AYE.BaseFramework.Manager.Extensions;
+
 
 namespace AYE_ClientSideWpf;
 
@@ -44,8 +46,14 @@ public class Bootstrapper : PrismBootstrapper
     {
         /// 兜兜转转还是 需要将DB的注册放在 主注册界面之前
         /// 否则 主页面的权限管控以及登录的校验 都无法处理
+        #region 日志以及配置系统的注册必须放在最开始的地方,外加DB的注册
+        containerRegistry.RegisterLogging();
+        containerRegistry.RegisterConfiguration();
+        containerRegistry.RegisterDatabase();
+        #endregion
 
-
+        containerRegistry.Register<ILoginService, LoginService>();
+        containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
         containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
 
         //测试

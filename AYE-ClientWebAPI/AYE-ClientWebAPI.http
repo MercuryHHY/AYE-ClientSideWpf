@@ -1,0 +1,6 @@
+@AYE_ClientWebAPI_HostAddress = http://localhost:5229
+
+GET {{AYE_ClientWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
