@@ -63,9 +63,9 @@ namespace AYE_ClientSideWpf.Views
             this.dialogHostService = dialogHostService;
 
             ///App.Current.MainWindow.DataContext可以拿到 数据上下文（也就是对应的VM层）
-            var service = App.Current.MainWindow.DataContext as IConfigureService;
-            if (service != null)
-                service.Configure();
+            //var service = App.Current.MainWindow.DataContext as IConfigureService;
+            //if (service != null)
+            //    service.Configure();
 
         }
 

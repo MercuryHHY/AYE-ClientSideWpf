@@ -18,6 +18,9 @@ using DryIoc;
 using DemoModuleB;
 using AYE.BaseFramework.Manager;
 using AYE.BaseFramework.Manager.Extensions;
+using Prism.Services.Dialogs;
+using MyToDo.Common;
+using System;
 
 
 namespace AYE_ClientSideWpf;
@@ -105,8 +108,27 @@ public class Bootstrapper : PrismBootstrapper
     /// 可以将 登录界面的加载激活放在这里，或者数据初始化操作也可以放这里
     /// </summary>
     protected override void OnInitialized()
-    { 
-        
+    {
+        //需要在这里将 登录界面显示
+        var dialog = Container.Resolve<IDialogService>();
+        dialog.ShowDialog("LoginView", callback =>
+        {
+            if (callback.Result != ButtonResult.OK)
+            {
+                Environment.Exit(0);
+                return;
+            }
+
+            //在MainWindow 与  MainWindowViewModel 加载之后，
+            //在这里强制性 拿到MainWindow的DataContext（也就是prism指定的MainWindowViewModel）
+            //去执行service.Configure();
+            // 如此方可确保 在登录成功之后才会显示 主页面
+            var service = App.Current.MainWindow.DataContext as IConfigureService;
+            if (service != null)
+                service.Configure();
+            base.OnInitialized();
+        });
+
         base.OnInitialized();
     }
 

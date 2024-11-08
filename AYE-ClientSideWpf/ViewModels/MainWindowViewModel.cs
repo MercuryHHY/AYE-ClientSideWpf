@@ -76,7 +76,7 @@ namespace AYE_ClientSideWpf.ViewModels
             LoginOutCommand = new DelegateCommand(() =>
             {
                 //注销当前用户
-                //App.LoginOut(containerProvider);
+                App.LoginOut(containerProvider);
             });
 
           

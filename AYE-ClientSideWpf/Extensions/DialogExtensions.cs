@@ -29,7 +29,7 @@ namespace AYE_ClientSideWpf.Extensions
         }
 
         /// <summary>
-        /// 推送等待消息
+        /// 推送等待消息  发布
         /// </summary>
         /// <param name="aggregator"></param>
         /// <param name="model"></param>
@@ -39,7 +39,7 @@ namespace AYE_ClientSideWpf.Extensions
         }
 
         /// <summary>
-        /// 注册等待消息
+        /// 注册等待消息  订阅
         /// </summary>
         /// <param name="aggregator"></param>
         /// <param name="action"></param>
@@ -49,13 +49,14 @@ namespace AYE_ClientSideWpf.Extensions
         }
 
         /// <summary>
-        /// 注册提示消息 
+        /// 注册提示消息：  订阅
         /// </summary>
         /// <param name="aggregator"></param>
         /// <param name="action"></param>
         public static void ResgiterMessage(this IEventAggregator aggregator,
             Action<MessageModel> action, string filterName = "Main")
         {
+            //订阅处理
             aggregator.GetEvent<MessageEvent>().Subscribe(action, 
                 ThreadOption.PublisherThread, true, (m) =>
               {
@@ -64,12 +65,13 @@ namespace AYE_ClientSideWpf.Extensions
         }
 
         /// <summary>
-        /// 发送提示消息
+        /// 发送提示消息：发布
         /// </summary>
         /// <param name="aggregator"></param>
         /// <param name="message"></param>
         public static void SendMessage(this IEventAggregator aggregator, string message, string filterName = "Main")
         {
+            // 发布
             aggregator.GetEvent<MessageEvent>().Publish(new MessageModel()
             {
                 Filter = filterName,

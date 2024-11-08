@@ -30,22 +30,40 @@ public class LoginViewModel : BindableBase, IDialogAware
         this.loginService = loginService;
     }
 
-    public string Title { get; set; } = "ToDo";
+    public string Title { get; set; } = "AYE";
 
     public event Action<IDialogResult> RequestClose;
 
+
+    /// <summary>
+    /// 这里的返回值决定 Dialog 是否能被关闭
+    /// </summary>
+    /// <returns></returns>
     public bool CanCloseDialog()
     {
         return true;
     }
 
+
+    /// <summary>
+    /// 在 Dialog 关闭时，最后的自定义动作放在这里
+    /// </summary>
     public void OnDialogClosed()
     {
+        //登出
         LoginOut();
     }
 
+
+    /// <summary>
+    /// 在 Dialog 打开时与其通信，传递参数
+    /// </summary>
+    /// <param name="parameters"></param>
     public void OnDialogOpened(IDialogParameters parameters)
     {
+        ///拿到弹框激活者（MainWindowViewModel） 给的参数
+        Title = parameters.GetValue<string>("Title");
+
     }
 
     #region Login
@@ -94,6 +112,10 @@ public class LoginViewModel : BindableBase, IDialogAware
         set { userDto = value; RaisePropertyChanged(); }
     }
 
+
+    /// <summary>
+    /// 用户登录
+    /// </summary>
     async void Login()
     {
         if (string.IsNullOrWhiteSpace(UserName) ||
@@ -115,12 +137,18 @@ public class LoginViewModel : BindableBase, IDialogAware
         else
         {
             //登录失败提示...
+            // 这里只是发布，至于谁去处理，怎么处理，这里不管
             aggregator.SendMessage(loginResult.Message, "Login");
         }
     }
 
+
+    /// <summary>
+    /// 用户注册
+    /// </summary>
     private async void Resgiter()
     {
+        //注册时，数据必须齐全
         if (string.IsNullOrWhiteSpace(UserDto.Account) ||
             string.IsNullOrWhiteSpace(UserDto.UserName) ||
             string.IsNullOrWhiteSpace(UserDto.PassWord) ||
@@ -130,12 +158,16 @@ public class LoginViewModel : BindableBase, IDialogAware
             return;
         }
 
+
+        // 注册时，两次密码不一致
         if (UserDto.PassWord != UserDto.NewPassWord)
         {
             aggregator.SendMessage("密码不一致,请重新输入！", "Login");
             return;
         }
 
+
+        // 数据注册
         var resgiterResult = await loginService.Resgiter(new UserDto()
         {
             Account = UserDto.Account,
@@ -143,6 +175,7 @@ public class LoginViewModel : BindableBase, IDialogAware
             PassWord = UserDto.PassWord
         });
 
+        //根据校验结果，执行不同的发布
         if (resgiterResult.Status)
         {
             aggregator.SendMessage("注册成功", "Login");
@@ -153,6 +186,10 @@ public class LoginViewModel : BindableBase, IDialogAware
             aggregator.SendMessage(resgiterResult.Message, "Login");
     }
 
+
+    /// <summary>
+    /// 登出，返回给激活者 一个ButtonResult.No
+    /// </summary>
     void LoginOut()
     {
         RequestClose?.Invoke(new DialogResult(ButtonResult.No));

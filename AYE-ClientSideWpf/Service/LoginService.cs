@@ -16,13 +16,21 @@ public class LoginService : ILoginService
 
    
 
-    Task<(string Message, bool Status, object Result)> ILoginService.Login(UserDto user)
+    async Task<(string Message, bool Status, object Result)> ILoginService.Login(UserDto user)
     {
-        throw new NotImplementedException();
+        string Message = "OK";
+        bool Status=true;
+        object Result = "ok";
+        await Task.Delay(10);
+        return (Message, Status, Result);
     }
 
-    Task<(string Message, bool Status, object Result)> ILoginService.Resgiter(UserDto user)
+    async Task<(string Message, bool Status, object Result)> ILoginService.Resgiter(UserDto user)
     {
-        throw new NotImplementedException();
+        string Message = "OK";
+        bool Status = true;
+        object Result = "ok";
+        await Task.Delay(10);
+        return (Message, Status, Result);
     }
 }
