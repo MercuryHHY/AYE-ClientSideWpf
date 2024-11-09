@@ -10,7 +10,7 @@ namespace AYE_ClientSideWpf;
 
 public interface ILoginService
 {
-    Task<(string Message, bool Status, object Result)> Login(UserDto user);
+    Task<LoginResponse> Login(UserDto user);
 
-    Task<(string Message, bool Status, object Result)> Resgiter(UserDto user);
+    Task<LoginResponse> Resgiter(UserDto user);
 }

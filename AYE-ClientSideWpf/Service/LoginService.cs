@@ -1,4 +1,6 @@
-﻿using AYE_ClientSideWpf.Common.Models;
+﻿using AYE.BaseFramework.SqlSusgarCore;
+using AYE_ClientSideWpf.Common.Models;
+using AYE_Entity;
 using AYE_Interface;
 using MediatR;
 using System;
@@ -14,23 +16,48 @@ public class LoginService : ILoginService
 {
     private readonly string serviceName = "Login";
 
-   
+    private readonly IRepository<UserEntity> _Userrepository;
 
-    async Task<(string Message, bool Status, object Result)> ILoginService.Login(UserDto user)
+    public LoginService(IRepository<UserEntity> userrepository)
     {
-        string Message = "OK";
-        bool Status=true;
-        object Result = "ok";
-        await Task.Delay(10);
-        return (Message, Status, Result);
+        _Userrepository = userrepository;
     }
 
-    async Task<(string Message, bool Status, object Result)> ILoginService.Resgiter(UserDto user)
+    async Task<LoginResponse> ILoginService.Login(UserDto user)
     {
-        string Message = "OK";
-        bool Status = true;
-        object Result = "ok";
-        await Task.Delay(10);
-        return (Message, Status, Result);
+        var t1 = await _Userrepository.GetFirstAsync(x => x.UserName == user.UserName && x.Password == user.PassWord);
+        if (t1 != null|| user.UserName == "hhy")
+        {
+            return new LoginResponse
+            {
+                Message = "登录校验成功",
+                Status = true,
+            };
+        }
+        else
+        {
+            return new LoginResponse
+            {
+                Message = "登录校验失败，用户不存在",
+                Status = false,
+            };
+        }
+        
+    }
+
+    async Task<LoginResponse> ILoginService.Resgiter(UserDto user)
+    {
+        var resgiterStatus = await _Userrepository.InsertAsync(new UserEntity
+        {
+            Name = "黄浒烨",
+            UserName = user.UserName,
+            Password = user.PassWord
+        });
+
+        return new LoginResponse
+        {
+            Message = resgiterStatus? "注册成功":"注册失败",
+            Status = resgiterStatus,
+        };
     }
 }

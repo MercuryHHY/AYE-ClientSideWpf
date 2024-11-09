@@ -118,6 +118,8 @@ namespace AYE_ClientSideWpf.ViewModels
 
         private void CreateMenuBar()
         {
+            //这些界面的数据 可以放在DB中 进行权限管控
+            // 同时要设定一些种子数据，用于防呆
             MenuBars.Add(new MenuBar() { Icon = "Home", Title = "首页", NameSpace = "IndexView" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "模块A", NameSpace = "UserControlA" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "模块B", NameSpace = "UserControlB" });

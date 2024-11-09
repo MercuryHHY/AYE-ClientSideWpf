@@ -126,7 +126,7 @@ public class LoginViewModel : BindableBase, IDialogAware
 
         var loginResult = await loginService.Login(new UserDto()
         {
-            Account = UserName,
+            UserName = UserName,
             PassWord = PassWord
         });
 
