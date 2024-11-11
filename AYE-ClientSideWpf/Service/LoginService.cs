@@ -14,6 +14,7 @@ namespace AYE_ClientSideWpf;
 
 public class LoginService : ILoginService
 {
+
     private readonly string serviceName = "Login";
 
     private readonly IRepository<UserEntity> _Userrepository;
