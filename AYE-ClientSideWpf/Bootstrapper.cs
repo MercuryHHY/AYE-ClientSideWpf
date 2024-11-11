@@ -20,6 +20,8 @@ using DemoModuleB;
 namespace AYE_ClientSideWpf
 {
     /// <summary>
+    /// 
+    /// 
     /// 原本类似 痕迹 的操作 一样  直接去操作APP启动项文件就可以聊聊
     /// 但是这个包也提供了如下这种操作，个人也偏向项目模版自带的这种
     /// 很久很久以前，在嵌入式开发中有一种启动项设置 她也叫boot
