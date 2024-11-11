@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace MyToDo.Common.Converters
+namespace AYE_ClientSideWpf.Common.Converters
 {
     public class IntToVisibilityConveter : IValueConverter
     {

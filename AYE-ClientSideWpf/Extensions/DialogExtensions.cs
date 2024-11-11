@@ -1,5 +1,5 @@
-﻿using MyToDo.Common;
-using MyToDo.Common.Events;
+﻿using AYE_ClientSideWpf.Common;
+using AYE_ClientSideWpf.Common.Events;
 using Prism.Events;
 using Prism.Services.Dialogs;
 using System;

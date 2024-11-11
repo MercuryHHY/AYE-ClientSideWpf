@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyToDo.Common
+namespace AYE_ClientSideWpf.Common
 {
     public interface IDialogHostAware 
     {

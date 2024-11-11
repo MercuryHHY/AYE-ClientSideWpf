@@ -1,6 +1,6 @@
 ﻿using AYE_ClientSideWpf.Extensions;
-using MyToDo.Common;
-using MyToDo.Common.Models;
+using AYE_ClientSideWpf.Common;
+using AYE_ClientSideWpf.Common.Models;
 using Prism.Commands;
 using Prism.Ioc;
 using Prism.Mvvm;

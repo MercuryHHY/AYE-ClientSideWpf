@@ -19,7 +19,7 @@ using DemoModuleB;
 using AYE.BaseFramework.Manager;
 using AYE.BaseFramework.Manager.Extensions;
 using Prism.Services.Dialogs;
-using MyToDo.Common;
+using AYE_ClientSideWpf.Common;
 using System;
 
 

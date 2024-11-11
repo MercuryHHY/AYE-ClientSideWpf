@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MyToDo.Common
+namespace AYE_ClientSideWpf.Common
 {
     /// <summary>
     /// 对话主机服务(自定义)

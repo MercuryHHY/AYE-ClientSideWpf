@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyToDo.Common.Events
+namespace AYE_ClientSideWpf.Common.Events
 {
     public class MessageModel
     {
