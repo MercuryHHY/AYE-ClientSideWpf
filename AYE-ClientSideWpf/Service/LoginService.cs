@@ -19,6 +19,7 @@ public class LoginService : ILoginService
 
     private readonly IRepository<UserEntity> _Userrepository;
 
+
     public LoginService(IRepository<UserEntity> userrepository)
     {
         _Userrepository = userrepository;
