@@ -5,6 +5,7 @@
             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:hc="https://handyorg.github.io/handycontrol"
             xmlns:pass="clr-namespace:AYE_ClientSideWpf.Extensions"
             xmlns:prism="http://prismlibrary.com/"
             Width="600"
@@ -19,7 +20,7 @@
             <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
         </Style>
     </prism:Dialog.WindowStyle>
-    <Grid Background="WhiteSmoke">
+    <Grid Background="WhiteSmoke">    
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition />
@@ -42,11 +43,15 @@
                             Text="欢迎使用AYE框架" />
 
                     <TextBox Margin="0,10"
-                          md:HintAssist.Hint="请输入账号"
+                          hc:InfoElement.Necessary="True"
+                          hc:InfoElement.Placeholder="请输入用户名"
                           DockPanel.Dock="Top"
-                          Text="{Binding UserName}"/>
+                          Text="{Binding UserName}"
+                          Style="{StaticResource TextBoxExtend}"/>
+                    
                     <PasswordBox Margin="0,10"
-                              md:HintAssist.Hint="请输入密码"
+                              hc:InfoElement.Placeholder="请输入密码" 
+                              Style="{DynamicResource PasswordBoxExtend}"
                               pass:PassWordExtensions.PassWord="{Binding PassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               DockPanel.Dock="Top">
                         <i:Interaction.Behaviors>
@@ -55,6 +60,9 @@
                     </PasswordBox>
 
                     <Button Command="{Binding ExecuteCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedButton" 
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                          CommandParameter="Login"
                          Content="登录系统"
                          DockPanel.Dock="Top" />
