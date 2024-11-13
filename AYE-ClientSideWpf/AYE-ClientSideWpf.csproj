@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AYE-ModuleRegistration\AYE-ModuleRegistration.csproj" />
+    <ProjectReference Include="..\BackManageModule\BackManageModudle\BackManageModudle.csproj" />
     <ProjectReference Include="..\DemoModuleA\DemoModuleA\DemoModuleA.csproj" />
     <ProjectReference Include="..\DemoModuleB\DemoModuleB\DemoModuleB.csproj" />
   </ItemGroup>

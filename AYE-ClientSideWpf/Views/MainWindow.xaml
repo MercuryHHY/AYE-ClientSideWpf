@@ -96,7 +96,8 @@
                             <StackPanel>
 
                                 <Button Command="{Binding AppCenterCommand}" Content="个人中心" />
-
+                                <Button Command="{Binding BackManageCommand}" Content="后台管理" />
+                                <Button Command="{Binding InstructionsCommand}" Content="使用说明" />
                                 <Button Command="{Binding LoginOutCommand}" Content="登出" />
                             </StackPanel>
                         </materialDesign:PopupBox>
@@ -151,7 +152,7 @@
                                        VerticalAlignment="Center"
                                        AutomationProperties.Name="Material Design In XAML Toolkit"
                                        FontSize="22"
-                                       Text="阿烨的Demo运行程序" />
+                                       Text="阿烨-AYE运行框架" />
 
                         </StackPanel>
                     </DockPanel>

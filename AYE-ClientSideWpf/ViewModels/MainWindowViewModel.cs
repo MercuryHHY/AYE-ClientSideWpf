@@ -12,6 +12,8 @@ using System.Linq.Expressions;
 using AYE.BaseFramework.SqlSusgarCore;
 using System.Threading.Tasks;
 using Prism.Regions;
+using NetTaste;
+using DemoModuleA.Views;
 
 namespace AYE_ClientSideWpf.ViewModels
 {
@@ -39,6 +41,8 @@ namespace AYE_ClientSideWpf.ViewModels
         }
 
         public DelegateCommand LoginOutCommand { get; private set; }
+        public DelegateCommand BackManageCommand { get; private set; }
+        public DelegateCommand AppCenterCommand { get; private set; }
         public DelegateCommand<MenuBar> NavigateCommand { get; private set; }
         public DelegateCommand GoBackCommand { get; private set; }
         public DelegateCommand GoForwardCommand { get; private set; }
@@ -79,7 +83,9 @@ namespace AYE_ClientSideWpf.ViewModels
                 App.LoginOut(containerProvider);
             });
 
-          
+            BackManageCommand = new DelegateCommand(ServerManage);
+            AppCenterCommand = new DelegateCommand(AboutGet);
+
 
             this.containerProvider = containerProvider;
             this.regionManager = regionManager;
@@ -100,7 +106,31 @@ namespace AYE_ClientSideWpf.ViewModels
             });
         }
 
-       
+        //单独做一个 后台管理界面的注入
+        // 这个功能需要随时可以隐藏
+        private void ServerManage()
+        {
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("BackManage", back =>
+            {
+                //记录导航日志
+                journal = back.Context.NavigationService.Journal;
+            });
+
+        }
+
+
+        //个人中心 页面展示
+        private void AboutGet()
+        {
+            //用 About 界面测试一下
+            regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("About", back =>
+            {
+                //记录导航日志
+                journal = back.Context.NavigationService.Journal;
+            });
+
+        }
+
 
 
         #region 菜单数据初始化
@@ -124,7 +154,7 @@ namespace AYE_ClientSideWpf.ViewModels
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "模块A", NameSpace = "UserControlA" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookOutline", Title = "模块B", NameSpace = "UserControlB" });
             MenuBars.Add(new MenuBar() { Icon = "NotebookPlus", Title = "字典表", NameSpace = "DataGridDemo" });
-            MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "关于", NameSpace = "About" });
+            //MenuBars.Add(new MenuBar() { Icon = "Cog", Title = "关于", NameSpace = "About" });
         }
         #endregion
 
