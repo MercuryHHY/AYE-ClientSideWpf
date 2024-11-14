@@ -2,7 +2,9 @@
 using AYE_ClientSideWpf.Extensions;
 using AYE_Interface;
 using AYE_Service;
+using HandyControl.Controls;
 using Microsoft.Extensions.Logging;
+using NPOI.Util.Collections;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -133,6 +135,7 @@ public class LoginViewModel : BindableBase, IDialogAware
         if (loginResult.Status)
         {
             RequestClose?.Invoke(new DialogResult(ButtonResult.OK));
+            Growl.Success("登录成功");
         }
         else
         {

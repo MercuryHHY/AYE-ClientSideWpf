@@ -89,16 +89,21 @@
                             Text="注册账号" />
 
                     <TextBox Margin="0,5"
-                          md:HintAssist.Hint="请输入用户名"
+                          hc:InfoElement.Necessary="True"
+                          hc:InfoElement.Placeholder="请输入用户名"
                           DockPanel.Dock="Top"
-                          Text="{Binding UserDto.Account}" />
+                          Text="{Binding UserDto.Account}"
+                          Style="{StaticResource TextBoxExtend}"/>
                     <TextBox Margin="0,5"
-                          md:HintAssist.Hint="请输入账号"
+                          hc:InfoElement.Necessary="True"
+                          hc:InfoElement.Placeholder="请输入账户名"
                           DockPanel.Dock="Top"
-                          Text="{Binding UserDto.UserName}" />
+                          Text="{Binding UserDto.UserName}"
+                          Style="{StaticResource TextBoxExtend}"/>
 
                     <PasswordBox Margin="0,5"
-                              md:HintAssist.Hint="请输入密码"
+                              hc:InfoElement.Placeholder="请输入密码" 
+                              Style="{DynamicResource PasswordBoxExtend}"
                               pass:PassWordExtensions.PassWord="{Binding UserDto.PassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               DockPanel.Dock="Top">
                         <i:Interaction.Behaviors>
@@ -107,7 +112,8 @@
                     </PasswordBox>
 
                     <PasswordBox Margin="0,5"
-                              md:HintAssist.Hint="请再次输入密码"
+                              hc:InfoElement.Placeholder="请再次输入密码" 
+                              Style="{DynamicResource PasswordBoxExtend}"
                               pass:PassWordExtensions.PassWord="{Binding UserDto.NewPassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               DockPanel.Dock="Top">
                         <i:Interaction.Behaviors>
